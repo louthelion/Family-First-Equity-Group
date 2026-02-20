@@ -2,534 +2,184 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Family First Equity Group</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Family First Equity Group — Real Estate Investor</title>
+  <meta name="description" content="Family First Equity Group is a real estate investment company focused on acquisitions, dispositions, and property operations." />
+
   <style>
     :root{
-      --bg:#070708;
-      --panel:#0f0f12;
-      --panel2:#121217;
-      --text:#f2f2f2;
-      --muted:#b8bcc6;
-
-      --red:#c10f1a;
-      --gold:#caa24a;
-      --green:#128a3b;
-      --blackbtn:#1a1a1f;
-
-      --ring: rgba(255,255,255,.08);
-      --shadow: 0 18px 55px rgba(0,0,0,.55);
-      --radius: 24px;
+      --black:#070707;
+      --panel:#0c0c0c;
+      --red:#c1121f;
+      --green:#00b050;
+      --gold:#d4af37;
+      --gold2:#b88e22;
+      --white:#ffffff;
     }
-
     *{box-sizing:border-box}
-    body{
+    body{ margin:0; font-family: Arial, Helvetica, sans-serif; background: var(--black); color: var(--green); }
+    .wrap{ max-width: 640px; margin:0 auto; padding: 22px 14px 40px; }
+    .panel{
+      background: radial-gradient(120% 120% at 10% 10%, #1a1a1a 0%, var(--panel) 55%, #030303 100%);
+      border-radius: 26px;
+      padding: 18px 16px 18px;
+      border: 2px solid rgba(212,175,55,.55);
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position:relative; overflow:hidden;
+    }
+    .panel:before{
+      content:""; position:absolute; inset:10px; border-radius: 18px;
+      border: 1px solid rgba(212,175,55,.22); pointer-events:none;
+    }
+    .head{ display:flex; align-items:center; gap:12px; margin-bottom: 10px; padding: 6px 4px 2px; }
+    .logo{
+      width:54px;height:54px;border-radius:16px;
+      background: linear-gradient(180deg, rgba(193,18,31,.25), rgba(0,0,0,.65));
+      border: 1px solid rgba(212,175,55,.55);
+      display:flex;align-items:center;justify-content:center;
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing:.6px;
+      user-select:none;
+    }
+    .titleblock h1{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 30% 10%, rgba(202,162,74,.18), transparent 55%),
-                  radial-gradient(900px 700px at 80% 40%, rgba(18,138,59,.15), transparent 55%),
-                  radial-gradient(900px 700px at 20% 80%, rgba(193,15,26,.18), transparent 60%),
-                  var(--bg);
-      color:var(--text);
-      padding:22px 14px 40px;
-    }
-
-    .wrap{max-width: 980px; margin:0 auto;}
-    .shell{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--ring);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-
-    .top{
-      padding: 22px 18px 14px;
-      display:flex;
-      gap:14px;
-      align-items:center;
-    }
-
-    .mark{
-      width:52px;height:52px;
-      border-radius: 16px;
-      background: radial-gradient(30px 30px at 30% 30%, rgba(255,255,255,.22), rgba(255,255,255,.06)),
-                  linear-gradient(135deg, rgba(193,15,26,.55), rgba(202,162,74,.55), rgba(18,138,59,.45));
-      border:1px solid rgba(255,255,255,.12);
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      letter-spacing:.5px;
-    }
-
-    .title h1{
-      margin:0;
-      font-size: 26px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-    .title .sub{
-      margin-top:4px;
-      color:var(--muted);
-      font-size: 13.5px;
-    }
-
-    .content{
-      padding: 0 18px 18px;
-      display:grid;
-      gap:14px;
-    }
-
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      padding: 16px 16px 14px;
-    }
-
-    .card h2{
-      margin:0 0 10px;
-      font-size: 18px;
+      font-size: 22px;
+      line-height:1.1;
+      color: var(--red);
+      font-weight: 900;
       letter-spacing:.8px;
       text-transform: uppercase;
     }
-
-    .card p{margin:0; color:var(--muted); line-height:1.6; font-size:14.5px}
-
-    .notice{
-      margin-top:12px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.28);
-      color:#d6d8df;
-      font-size: 13.5px;
-      line-height:1.5;
+    .titleblock p{
+      margin:6px 0 0;
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      line-height: 1.35;
     }
-    .notice b{color:#fff}
 
-    .actions{
-      display:grid;
-      gap:12px;
+    .section{
       margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(212,175,55,.22);
+      background: rgba(0,0,0,.35);
+    }
+    .section h2{
+      margin:0 0 8px;
+      font-size: 15px;
+      letter-spacing:.4px;
+      text-transform: uppercase;
+      color: var(--green);
+      font-weight: 900;
+    }
+    .section p{
+      margin:0;
+      color: rgba(255,255,255,.84);
+      font-size: 13.5px;
+      line-height: 1.65;
     }
 
     .btn{
+      display:block;
       width:100%;
-      padding: 16px 14px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:#fff;
+      text-decoration:none;
+      border-radius: 18px;
+      padding: 14px 14px;
+      margin-top: 10px;
+      border: 1px solid rgba(0,0,0,.35);
       font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor:pointer;
-      box-shadow: 0 12px 30px rgba(0,0,0,.35);
-    }
-    .btn:active{transform: translateY(1px)}
-    .btn.red{background: linear-gradient(180deg, rgba(193,15,26,.95), rgba(120,8,12,.95));}
-    .btn.gold{background: linear-gradient(180deg, rgba(202,162,74,.95), rgba(140,105,32,.95)); color:#181818;}
-    .btn.green{background: linear-gradient(180deg, rgba(18,138,59,.95), rgba(9,86,36,.95));}
-    .btn.dark{background: linear-gradient(180deg, rgba(26,26,31,.95), rgba(12,12,14,.95));}
+      letter-spacing: .3px;
+      text-align:center;
 
-    .sectionTitle{
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      background: linear-gradient(180deg, #f0cf6e, var(--gold2));
+      color: #000;
+      box-shadow: 0 8px 18px rgba(0,0,0,.35);
+      transition: transform .08s ease, filter .15s ease, background .15s ease, color .15s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
     }
+    .btn:hover,.btn:focus,.btn:active{
+      background: linear-gradient(180deg, #e11f2e, var(--red));
+      color: var(--green);
+      filter: brightness(1.02);
+    }
+    .btn:active{ transform: translateY(1px); }
 
-    .pillrow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom: 12px;
+    .sub{
+      display:block;
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(0,0,0,.78);
     }
-    .pill{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:#fff;
-      font-size: 12.5px;
-      letter-spacing:1px;
-      text-transform: uppercase;
-    }
-
-    label{display:block; font-size:12.5px; color:#d7d9e2; margin: 12px 0 6px}
-    input, select, textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.28);
-      color:#fff;
-      outline:none;
-    }
-    textarea{min-height: 105px; resize: vertical}
-
-    .grid2{display:grid; grid-template-columns: 1fr; gap:12px}
-    @media (min-width:760px){
-      .grid2{grid-template-columns: 1fr 1fr}
-      .title h1{font-size: 30px}
-    }
-
-    .rowActions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 14px;
-    }
-    .btn.secondary{
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      letter-spacing:1.5px;
-      font-weight:800;
+    .btn:hover .sub,.btn:active .sub,.btn:focus .sub{
+      color: rgba(0,176,80,.95);
     }
 
     .footer{
-      padding: 16px 18px 20px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      color: var(--muted);
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(212,175,55,.22);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      line-height: 1.6;
       text-align:center;
-      font-size: 13.5px;
-      line-height:1.6;
     }
-    .footer a{color:#fff; text-decoration: underline}
-    .bigThanks{
-      text-align:center;
-      padding: 22px 10px 16px;
-    }
-    .bigThanks h2{
-      margin:0;
-      font-size: 38px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-    .bigThanks p{
-      margin: 10px auto 0;
-      max-width: 720px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 15px;
-    }
-
-    .hidden{display:none !important;}
+    .footer strong{ color:#fff; }
+    .fine{ margin-top: 10px; font-size: 12px; color: rgba(255,255,255,.60); line-height:1.5; }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="shell">
+    <div class="panel">
 
-      <!-- HEADER -->
-      <div class="top">
-        <div class="mark">FF</div>
-        <div class="title">
+      <div class="head">
+        <div class="logo">FF</div>
+        <div class="titleblock">
           <h1>Family First Equity Group</h1>
-          <div class="sub">Real Estate Investor Intake • Apartments • Land • Commercial • Houses (opportunity-based)</div>
+          <p>Real Estate Investor • Acquisitions • Dispositions • Property Operations</p>
         </div>
       </div>
 
-      <div class="content">
+      <div class="section">
+        <h2>About Family First</h2>
+        <p>
+          Family First Equity Group is a real estate investment company. We focus on acquiring and operating real assets —
+          with priority on smaller multi-family and apartments, plus land and select residential opportunities when the deal fits.
+          Use the options below to submit your request so our team can review and respond by email.
+        </p>
+      </div>
 
-        <!-- LANDING -->
-        <div id="screen-home" class="card">
-          <h2>Before You Submit</h2>
-          <p>
-            Family First Equity Group is a real estate investment company. We evaluate opportunities to
-            acquire and reposition real estate—especially <b>smaller apartments / multi-family</b>, plus
-            land and commercial opportunities. Homes are considered when the deal is strong.
-          </p>
+      <div class="section">
+        <h2>Start Here</h2>
 
-          <div class="notice">
-            <b>Notice:</b> Family First Equity Group is <b>not</b> a real estate brokerage or agency and is <b>not</b> acting as your agent.
-            This intake is for evaluation and internal review only. We do not provide legal advice.
-          </div>
+        <a class="btn" href="./buy.html">
+          BUY
+          <span class="sub">Acquire real estate with our team</span>
+        </a>
 
-          <div class="actions">
-            <button class="btn green" onclick="openForm('BUY_HOUSE')">Buy a House</button>
-            <button class="btn red" onclick="openForm('SELL_HOUSE')">Sell a House</button>
-            <button class="btn gold" onclick="openForm('INVEST_DEAL')">Buy / Invest (Apartments • Land • Commercial)</button>
-            <button class="btn dark" onclick="openForm('PROPERTY_MANAGEMENT')">Property Management</button>
-          </div>
-        </div>
+        <a class="btn" href="./sell.html">
+          SELL
+          <span class="sub">Disposition / sell an asset</span>
+        </a>
 
-        <!-- FORM SCREEN -->
-        <div id="screen-form" class="card hidden">
-          <div class="pillrow">
-            <span class="pill" id="pillService">SERVICE</span>
-            <span class="pill">Evaluation Intake</span>
-          </div>
-
-          <h2 class="sectionTitle" id="formTitle">Intake Form</h2>
-          <p id="formDesc" style="margin-top:-6px;">
-            Please complete the form with as much detail as possible so we can review quickly.
-          </p>
-
-          <!-- NETLIFY FORM (single form, dynamic) -->
-          <form name="FFEQG-Intake" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return handleSubmit(event)">
-            <input type="hidden" name="form-name" value="FFEQG-Intake" />
-            <p class="hidden">
-              <label>Don’t fill this out: <input name="bot-field" /></label>
-            </p>
-
-            <input type="hidden" name="service_type" id="service_type" value=""/>
-
-            <div class="grid2">
-              <div>
-                <label>Full Name (Required)</label>
-                <input name="full_name" required placeholder="Your full name" />
-              </div>
-              <div>
-                <label>Email (Required)</label>
-                <input name="email" type="email" required placeholder="you@email.com" />
-              </div>
-            </div>
-
-            <div class="grid2">
-              <div>
-                <label>Phone (Required)</label>
-                <input name="phone" required placeholder="(###) ###-####" />
-              </div>
-              <div>
-                <label>State</label>
-                <input name="state" placeholder="State" />
-              </div>
-            </div>
-
-            <div id="dealFields">
-              <div class="grid2">
-                <div>
-                  <label>Property Type</label>
-                  <select name="property_type">
-                    <option value="">Select</option>
-                    <option>House</option>
-                    <option>Condo</option>
-                    <option>Townhome</option>
-                    <option>Duplex</option>
-                    <option>Triplex</option>
-                    <option>Quadplex</option>
-                    <option>Multi-Family (5–50 units)</option>
-                    <option>Land</option>
-                    <option>Commercial</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label>Address / Area (City, State)</label>
-                  <input name="property_location" placeholder="123 Main St, City, State (or area)" />
-                </div>
-              </div>
-
-              <div class="grid2">
-                <div>
-                  <label>Approx. Price / Budget (or Asking)</label>
-                  <select name="price_range">
-                    <option value="">Select</option>
-                    <option>Under $100,000</option>
-                    <option>$100,000 – $250,000</option>
-                    <option>$250,000 – $500,000</option>
-                    <option>$500,000 – $1,000,000</option>
-                    <option>$1,000,000 – $3,000,000</option>
-                    <option>$3,000,000+</option>
-                    <option>Not sure</option>
-                  </select>
-                </div>
-                <div>
-                  <label>Timeline</label>
-                  <select name="timeline">
-                    <option value="">Select</option>
-                    <option>ASAP (0–30 days)</option>
-                    <option>1–3 months</option>
-                    <option>3–6 months</option>
-                    <option>6+ months</option>
-                    <option>Not sure</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="grid2">
-                <div>
-                  <label>Financing Plan</label>
-                  <select name="financing_plan">
-                    <option value="">Select</option>
-                    <option>Cash</option>
-                    <option>Bank / Mortgage</option>
-                    <option>Hard Money</option>
-                    <option>Seller Financing</option>
-                    <option>Not sure</option>
-                  </select>
-                </div>
-                <div>
-                  <label>Credit Situation</label>
-                  <select name="credit_situation">
-                    <option value="">Select</option>
-                    <option>Excellent</option>
-                    <option>Good</option>
-                    <option>Fair</option>
-                    <option>Poor</option>
-                    <option>Prefer not to say</option>
-                  </select>
-                </div>
-              </div>
-
-              <label>Tell us the details (Required)</label>
-              <textarea name="deal_details" required placeholder="Describe the opportunity: unit count, rents, condition, repairs needed, land size, zoning, business use, why you want to buy/sell, etc."></textarea>
-            </div>
-
-            <div id="mgmtFields" class="hidden">
-              <div class="grid2">
-                <div>
-                  <label>Units to Manage</label>
-                  <select name="mgmt_units">
-                    <option value="">Select</option>
-                    <option>1</option>
-                    <option>2–4</option>
-                    <option>5–20</option>
-                    <option>21–50</option>
-                    <option>50+</option>
-                  </select>
-                </div>
-                <div>
-                  <label>Property Location (City, State)</label>
-                  <input name="mgmt_location" placeholder="City, State" />
-                </div>
-              </div>
-
-              <div class="grid2">
-                <div>
-                  <label>Maintenance Status</label>
-                  <select name="mgmt_maintenance">
-                    <option value="">Select</option>
-                    <option>No current issues</option>
-                    <option>Minor repairs needed</option>
-                    <option>Major repairs needed</option>
-                    <option>Not sure</option>
-                  </select>
-                </div>
-                <div>
-                  <label>Occupancy</label>
-                  <select name="mgmt_occupancy">
-                    <option value="">Select</option>
-                    <option>Fully occupied</option>
-                    <option>Partially occupied</option>
-                    <option>Vacant</option>
-                    <option>Not sure</option>
-                  </select>
-                </div>
-              </div>
-
-              <label>Management Notes (Required)</label>
-              <textarea name="mgmt_notes" placeholder="Tell us what you need: maintenance coordination, rent collection, tenant issues, inspections, contractors, etc." required></textarea>
-            </div>
-
-            <div class="rowActions">
-              <button class="btn secondary" type="button" onclick="goHome()">Back</button>
-              <button class="btn green" type="submit">Submit Intake</button>
-            </div>
-
-            <div class="notice" style="margin-top:14px;">
-              <b>Reminder:</b> We do not provide legal advice. This intake is for evaluation and internal review only.
-            </div>
-          </form>
-        </div>
-
-        <!-- THANK YOU -->
-        <div id="screen-thanks" class="card hidden">
-          <div class="bigThanks">
-            <h2>THANK YOU</h2>
-            <p>
-              We received your submission. Our team will review it and contact you by email as soon as possible.
-              If we need more information, we will reach out.
-            </p>
-          </div>
-          <div class="rowActions" style="justify-content:center;">
-            <button class="btn gold" type="button" onclick="goHome()">Back to Home</button>
-          </div>
-        </div>
-
+        <a class="btn" href="./manage.html">
+          PROPERTY MANAGEMENT
+          <span class="sub">Operations support (investor or personal)</span>
+        </a>
       </div>
 
       <div class="footer">
-        Phone (Main): <a href="tel:18008279016">(800) 827-9016</a><br/>
-        Email: <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a><br/>
-        © Family First Equity Group. All rights reserved.
+        <div><strong>Central Line:</strong> (800) 827-9016</div>
+        <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
+        <div class="fine">© Family First Equity Group. All rights reserved.</div>
       </div>
+
     </div>
   </div>
-
-  <script>
-    function show(id){
-      document.getElementById('screen-home').classList.add('hidden');
-      document.getElementById('screen-form').classList.add('hidden');
-      document.getElementById('screen-thanks').classList.add('hidden');
-      document.getElementById(id).classList.remove('hidden');
-      window.scrollTo({top:0, behavior:'instant'});
-    }
-
-    function goHome(){
-      show('screen-home');
-    }
-
-    function openForm(service){
-      // set hidden value
-      document.getElementById('service_type').value = service;
-
-      // labels
-      const pill = document.getElementById('pillService');
-      const title = document.getElementById('formTitle');
-      const desc = document.getElementById('formDesc');
-
-      const dealFields = document.getElementById('dealFields');
-      const mgmtFields = document.getElementById('mgmtFields');
-
-      // default
-      dealFields.classList.remove('hidden');
-      mgmtFields.classList.add('hidden');
-
-      if(service === 'BUY_HOUSE'){
-        pill.textContent = 'BUY A HOUSE';
-        title.textContent = 'Buy a House Intake';
-        desc.textContent = 'Tell us what you want to buy and your financing readiness.';
-      } else if(service === 'SELL_HOUSE'){
-        pill.textContent = 'SELL A HOUSE';
-        title.textContent = 'Sell a House Intake';
-        desc.textContent = 'Tell us what you’re selling and your timeline.';
-      } else if(service === 'INVEST_DEAL'){
-        pill.textContent = 'INVEST / DEAL';
-        title.textContent = 'Investment Deal Intake';
-        desc.textContent = 'Apartments, land, commercial — provide details so we can evaluate.';
-      } else if(service === 'PROPERTY_MANAGEMENT'){
-        pill.textContent = 'PROPERTY MGMT';
-        title.textContent = 'Property Management Intake';
-        desc.textContent = 'Tell us what you need managed and the current status.';
-        dealFields.classList.add('hidden');
-        mgmtFields.classList.remove('hidden');
-      }
-
-      show('screen-form');
-    }
-
-    async function handleSubmit(e){
-      e.preventDefault();
-      const form = e.target;
-
-      try{
-        const data = new FormData(form);
-        const res = await fetch("/", { method:"POST", body:data });
-        if(res.ok){
-          form.reset();
-          show('screen-thanks');
-        } else {
-          alert("Something went wrong submitting the form. Please try again.");
-        }
-      }catch(err){
-        alert("Network error. Please try again.");
-      }
-      return false;
-    }
-  </script>
 </body>
 </html>
