@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Family First Equity Group — Buy Intake</title>
+<style>
+  :root{--bg:#000;--red:#c1121f;--green:#00b050;--gold:#d4af37;--yellow:#f0cf6e;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--green);}
+  .wrap{max-width:820px;margin:0 auto;padding:20px 14px 40px;}
+  .panel{background:radial-gradient(120% 120% at 10% 10%, #1a0f12 0%, #000 55%, #050505 100%);
+    border:2px solid rgba(212,175,55,.45);border-radius:22px;padding:18px 16px;box-shadow:0 14px 44px rgba(0,0,0,.45);
+    position:relative;overflow:hidden;}
+  .panel:before{content:"";position:absolute;inset:10px;border-radius:16px;border:1px solid rgba(212,175,55,.22);pointer-events:none;}
+  h1{margin:0;color:var(--red);text-align:center;text-transform:uppercase;letter-spacing:.6px;font-weight:900;}
+  .sub{margin:8px 0 0;text-align:center;font-weight:700;opacity:.95;}
+  .section{margin-top:14px;padding:14px;border-radius:16px;border:1px solid rgba(212,175,55,.22);background:rgba(0,0,0,.38);}
+  .section h2{margin:0 0 8px;color:var(--red);text-transform:uppercase;font-size:15px;letter-spacing:.4px;font-weight:900;}
+  label{display:block;margin-top:12px;color:var(--red);font-weight:900;font-size:12.5px;letter-spacing:.2px;}
+  input,select,textarea{width:100%;margin-top:6px;padding:12px;border-radius:12px;border:1px solid rgba(212,175,55,.28);
+    background:#111;color:var(--green);outline:none;}
+  textarea{min-height:96px;resize:vertical;}
+  .btn{width:100%;margin-top:14px;padding:14px;border-radius:14px;border:none;
+    background:linear-gradient(180deg,#ffe58f,var(--yellow));color:#000;font-weight:900;letter-spacing:.3px;cursor:pointer;
+    box-shadow:0 10px 18px rgba(0,0,0,.25);}
+  .btn:hover,.btn:active,.btn:focus{background:linear-gradient(180deg,#ff3b3b,var(--red));color:var(--green);}
+  .hidden{display:none!important;}
+  .footer{margin-top:14px;padding:12px 14px;border-radius:16px;border:1px solid rgba(212,175,55,.22);
+    background:rgba(0,0,0,.38);text-align:center;font-size:13px;line-height:1.6;}
+  .footer strong{color:var(--gold);}
+  .notice{margin-top:12px;padding:12px 14px;border-radius:16px;border:1px solid rgba(212,175,55,.22);
+    background:rgba(0,0,0,.38);font-size:13px;line-height:1.55;}
+  .notice strong{color:var(--red);}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="panel">
+  <h1>Family First Equity Group</h1>
+  <div class="sub">BUY INTAKE • Tell us what you want us to acquire</div>
+
+  <div class="section" id="preMessage">
+    <h2>Before You Submit</h2>
+    <p>Provide details on asset type, location, budget, and timeline. We review opportunities internally.</p>
+  </div>
+
+  <div class="section" id="formSection">
+    <h2>Buy Intake Form</h2>
+    <form id="buyForm" name="FamilyFirst-Buy" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="FamilyFirst-Buy" />
+      <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+
+      <label>Applicant Type (Required)
+        <select name="applicant_type" required>
+          <option value="" selected disabled>Select one</option>
+          <option>Investor</option>
+          <option>Personal</option>
+        </select>
+      </label>
+
+      <label>Full Name (Required)<input name="full_name" required /></label>
+      <label>Email (Required)<input name="email" type="email" required /></label>
+      <label>Phone (Required)<input name="phone" type="tel" required /></label>
+
+      <label>Target Asset Type (Required)
+        <select name="target_asset" required>
+          <option value="" selected disabled>Select</option>
+          <option>Small Apartment (2–10)</option>
+          <option>Apartment (10–50)</option>
+          <option>C-Class Apartment</option>
+          <option>Land</option>
+          <option>Commercial Plaza</option>
+          <option>Mixed-Use</option>
+          <option>Single Family (Selective)</option>
+          <option>Other</option>
+        </select>
+      </label>
+
+      <label>Target Market / Location (Required)<input name="target_location" required placeholder="City/County/State" /></label>
+
+      <label>Budget Range (Required)
+        <select name="budget_range" required>
+          <option value="" selected disabled>Select</option>
+          <option>Under $250k</option>
+          <option>$250k – $500k</option>
+          <option>$500k – $1M</option>
+          <option>$1M – $3M</option>
+          <option>$3M+</option>
+        </select>
+      </label>
+
+      <label>Investment Criteria / Notes (Required)
+        <textarea name="criteria_notes" required placeholder="Units, occupancy, condition, deal type, etc."></textarea>
+      </label>
+
+      <label>Timeline (Required)
+        <select name="timeline" required>
+          <option value="" selected disabled>Select</option>
+          <option>ASAP (0–30 days)</option>
+          <option>30–60 days</option>
+          <option>60–90 days</option>
+          <option>Flexible</option>
+        </select>
+      </label>
+
+      <label>How did you hear about us? (Optional)<input name="referral" /></label>
+
+      <label style="margin-top:14px;font-weight:800;color:rgba(0,176,80,.95);">
+        <input type="checkbox" name="consent" required style="width:auto;margin-right:8px;" />
+        I confirm the information provided is accurate and I agree to be contacted by email.
+      </label>
+
+      <button class="btn" type="submit">SUBMIT</button>
+    </form>
+  </div>
+
+  <div class="section hidden" id="thanksSection">
+    <h2 style="text-align:center;font-size:22px;letter-spacing:.8px;">THANK YOU</h2>
+    <p style="text-align:center;">We received your submission. Our team will review it and contact you by email as soon as possible.</p>
+
+    <div class="notice">
+      <strong>NOTICE:</strong> Family First Equity Group is not a real estate brokerage, agency, or licensed realtor.
+      We operate solely as a private investment entity and do not provide legal, tax, or financial advice.
+    </div>
+
+    <div class="footer">
+      <div><strong>Main (800):</strong> (800) 827-9016</div>
+      <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
+    </div>
+  </div>
+
+  <div class="footer" id="footerDefault">
+    <div><strong>Main (800):</strong> (800) 827-9016</div>
+    <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
+    <div style="margin-top:10px;font-size:12px;opacity:.85;">© Family First Equity Group</div>
+  </div>
+
+</div></div>
+
+<script>
+(function(){
+  const form = document.getElementById("buyForm");
+  const formSection = document.getElementById("formSection");
+  const thanksSection = document.getElementById("thanksSection");
+  const preMessage = document.getElementById("preMessage");
+  const footerDefault = document.getElementById("footerDefault");
+
+  function encode(data){
+    const params = new URLSearchParams();
+    for (const pair of data.entries()) params.append(pair[0], pair[1]);
+    return params.toString();
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    fetch("/", {
+      method:"POST",
+      headers:{ "Content-Type":"application/x-www-form-urlencoded" },
+      body: encode(formData)
+    })
+    .then(() => {
+      formSection.classList.add("hidden");
+      preMessage.classList.add("hidden");
+      footerDefault.classList.add("hidden");
+      thanksSection.classList.remove("hidden");
+    })
+    .catch(() => alert("Submission failed. Please try again."));
+  });
+})();
+</script>
+</body>
+</html>
