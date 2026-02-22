@@ -1,174 +1,525 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Family First Equity Group — Buy Intake</title>
-<style>
-  :root{--bg:#000;--red:#c1121f;--green:#00b050;--gold:#d4af37;--yellow:#f0cf6e;}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--green);}
-  .wrap{max-width:820px;margin:0 auto;padding:20px 14px 40px;}
-  .panel{background:radial-gradient(120% 120% at 10% 10%, #1a0f12 0%, #000 55%, #050505 100%);
-    border:2px solid rgba(212,175,55,.45);border-radius:22px;padding:18px 16px;box-shadow:0 14px 44px rgba(0,0,0,.45);
-    position:relative;overflow:hidden;}
-  .panel:before{content:"";position:absolute;inset:10px;border-radius:16px;border:1px solid rgba(212,175,55,.22);pointer-events:none;}
-  h1{margin:0;color:var(--red);text-align:center;text-transform:uppercase;letter-spacing:.6px;font-weight:900;}
-  .sub{margin:8px 0 0;text-align:center;font-weight:700;opacity:.95;}
-  .section{margin-top:14px;padding:14px;border-radius:16px;border:1px solid rgba(212,175,55,.22);background:rgba(0,0,0,.38);}
-  .section h2{margin:0 0 8px;color:var(--red);text-transform:uppercase;font-size:15px;letter-spacing:.4px;font-weight:900;}
-  label{display:block;margin-top:12px;color:var(--red);font-weight:900;font-size:12.5px;letter-spacing:.2px;}
-  input,select,textarea{width:100%;margin-top:6px;padding:12px;border-radius:12px;border:1px solid rgba(212,175,55,.28);
-    background:#111;color:var(--green);outline:none;}
-  textarea{min-height:96px;resize:vertical;}
-  .btn{width:100%;margin-top:14px;padding:14px;border-radius:14px;border:none;
-    background:linear-gradient(180deg,#ffe58f,var(--yellow));color:#000;font-weight:900;letter-spacing:.3px;cursor:pointer;
-    box-shadow:0 10px 18px rgba(0,0,0,.25);}
-  .btn:hover,.btn:active,.btn:focus{background:linear-gradient(180deg,#ff3b3b,var(--red));color:var(--green);}
-  .hidden{display:none!important;}
-  .footer{margin-top:14px;padding:12px 14px;border-radius:16px;border:1px solid rgba(212,175,55,.22);
-    background:rgba(0,0,0,.38);text-align:center;font-size:13px;line-height:1.6;}
-  .footer strong{color:var(--gold);}
-  .notice{margin-top:12px;padding:12px 14px;border-radius:16px;border:1px solid rgba(212,175,55,.22);
-    background:rgba(0,0,0,.38);font-size:13px;line-height:1.55;}
-  .notice strong{color:var(--red);}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Family First Equity Group — Buy (Acquire)</title>
+  <meta name="description" content="Buy intake form for Family First Equity Group." />
+
+  <style>
+    :root{
+      --bg:#070707;
+      --panel:#0b0b0b;
+      --red:#d10b0b;
+      --green:#00b050;
+      --gold:#d4af37;
+      --gold2:#b88e22;
+      --text:#eaeaea;
+      --line: rgba(212,175,55,.22);
+    }
+    *{box-sizing:border-box}
+    body{ margin:0; font-family: Arial, Helvetica, sans-serif; background:var(--bg); color:var(--text); }
+    .wrap{ max-width: 860px; margin:0 auto; padding: 22px 14px 46px; }
+    .panel{
+      background: radial-gradient(120% 120% at 10% 10%, #131313 0%, var(--panel) 55%, #050505 100%);
+      border: 2px solid rgba(212,175,55,.55);
+      box-shadow: 0 14px 42px rgba(0,0,0,.45);
+      border-radius: 26px;
+      padding: 18px 18px 18px;
+      position: relative; overflow:hidden;
+    }
+    .panel:before{ content:""; position:absolute; inset:10px; border-radius:18px; border:1px solid rgba(212,175,55,.18); pointer-events:none; }
+    .head{ display:flex; align-items:center; gap:12px; margin-bottom:12px; padding:6px 4px 2px; }
+    .logo{
+      width:56px;height:56px;border-radius:16px;
+      border:1px solid rgba(212,175,55,.55);
+      background: linear-gradient(180deg, rgba(209,11,11,.18), rgba(0,0,0,.7));
+      display:flex;align-items:center;justify-content:center;
+      color: var(--gold); font-weight: 900; letter-spacing:.8px;
+    }
+    h1{ margin:0; font-size: 20px; letter-spacing:.6px; text-transform: uppercase; color: var(--red); font-weight: 900; line-height: 1.1; }
+    .subtitle{ margin:6px 0 0; color: rgba(255,255,255,.80); font-size: 13px; line-height: 1.35; }
+
+    .section{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.35);
+      position: relative;
+      z-index: 1;
+    }
+    .section h2{
+      margin:0 0 8px;
+      font-size: 14.5px;
+      letter-spacing:.45px;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 900;
+    }
+    .section p{
+      margin:0;
+      color: rgba(0,176,80,.92);
+      font-size: 13.5px;
+      line-height: 1.58;
+    }
+
+    .choiceRow{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+    }
+    .choiceBtn{
+      flex: 1 1 200px;
+      border-radius: 16px;
+      padding: 12px 12px;
+      border: 1px solid rgba(0,0,0,.25);
+      font-weight: 900;
+      letter-spacing:.35px;
+      background: linear-gradient(180deg, #e7c25a, var(--gold2));
+      color:#000;
+      cursor:pointer;
+      transition: background .15s ease, color .15s ease, filter .15s ease, transform .08s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .choiceBtn:hover,.choiceBtn:active,.choiceBtn:focus{
+      background: linear-gradient(180deg, #ff3b3b, var(--red));
+      color: var(--green);
+      filter: brightness(1.03);
+    }
+    .choiceBtn.active{
+      background: linear-gradient(180deg, #ff3b3b, var(--red));
+      color: var(--green);
+    }
+    .choiceBtn:active{ transform: translateY(1px); }
+
+    label{
+      display:block;
+      margin-top:12px;
+      color: rgba(255,255,255,.90);
+      font-weight:800;
+      font-size: 12.5px;
+      letter-spacing:.2px;
+    }
+    input, select, textarea{
+      width:100%;
+      margin-top:6px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(212,175,55,.20);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      outline:none;
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+    input::placeholder, textarea::placeholder{ color: rgba(255,255,255,.55); }
+
+    .btn{
+      display:block;
+      width:100%;
+      border-radius: 18px;
+      padding: 14px 14px;
+      margin-top: 14px;
+      border: 1px solid rgba(0,0,0,.25);
+      font-weight: 900;
+      letter-spacing: .35px;
+      text-align:center;
+      background: linear-gradient(180deg, #e7c25a, var(--gold2));
+      color: #000;
+      box-shadow: 0 9px 18px rgba(0,0,0,.30);
+      transition: transform .08s ease, filter .15s ease, background .15s ease, color .15s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      cursor:pointer;
+    }
+    .btn:hover,.btn:focus,.btn:active{
+      background: linear-gradient(180deg, #ff3b3b, var(--red));
+      color: var(--green);
+      filter: brightness(1.03);
+    }
+    .btn:active{ transform: translateY(1px); }
+
+    .hidden{ display:none !important; }
+    .status{ margin-top:10px; color: rgba(255,255,255,.85); font-size: 13px; line-height: 1.5; }
+
+    .footer{
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      line-height: 1.6;
+      text-align:center;
+    }
+    .footer strong{ color:#fff; }
+    .fine{ margin-top: 10px; font-size: 12px; color: rgba(255,255,255,.60); }
+    .notice{ margin-top:10px; color: rgba(0,176,80,.90); font-size: 13px; line-height: 1.55; }
+  </style>
 </head>
+
 <body>
-<div class="wrap"><div class="panel">
-  <h1>Family First Equity Group</h1>
-  <div class="sub">BUY INTAKE • Tell us what you want us to acquire</div>
+  <div class="wrap">
+    <div class="panel">
 
-  <div class="section" id="preMessage">
-    <h2>Before You Submit</h2>
-    <p>Provide details on asset type, location, budget, and timeline. We review opportunities internally.</p>
-  </div>
+      <div class="head">
+        <div class="logo">FF</div>
+        <div>
+          <h1>BUY — Acquisition Intake</h1>
+          <div class="subtitle">Commercial-first • Multi-family • Plazas • Land • Select residential</div>
+        </div>
+      </div>
 
-  <div class="section" id="formSection">
-    <h2>Buy Intake Form</h2>
-    <form id="buyForm" name="FamilyFirst-Buy" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="FamilyFirst-Buy" />
-      <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+      <!-- Intro -->
+      <div class="section" id="introSection">
+        <h2>Before you submit</h2>
+        <p>
+          Use this intake if you want Family First Equity Group to review an acquisition opportunity
+          (commercial, multi-family, business center, plaza, land, or select residential).
+          We collect detailed information so our review is fast and structured.
+        </p>
 
-      <label>Applicant Type (Required)
-        <select name="applicant_type" required>
-          <option value="" selected disabled>Select one</option>
-          <option>Investor</option>
-          <option>Personal</option>
-        </select>
-      </label>
+        <div class="notice">
+          <strong style="color:#fff;">Notice:</strong> We are not a real estate brokerage and do not provide legal advice.
+          Submission does not guarantee acquisition. All submissions are reviewed for investment consideration only.
+        </div>
 
-      <label>Full Name (Required)<input name="full_name" required /></label>
-      <label>Email (Required)<input name="email" type="email" required /></label>
-      <label>Phone (Required)<input name="phone" type="tel" required /></label>
+        <div class="choiceRow">
+          <button class="choiceBtn active" type="button" id="chooseInvestor">INVESTOR</button>
+          <button class="choiceBtn" type="button" id="choosePersonal">PERSONAL</button>
+        </div>
+      </div>
 
-      <label>Target Asset Type (Required)
-        <select name="target_asset" required>
-          <option value="" selected disabled>Select</option>
-          <option>Small Apartment (2–10)</option>
-          <option>Apartment (10–50)</option>
-          <option>C-Class Apartment</option>
-          <option>Land</option>
-          <option>Commercial Plaza</option>
-          <option>Mixed-Use</option>
-          <option>Single Family (Selective)</option>
-          <option>Other</option>
-        </select>
-      </label>
+      <!-- FORM WRAP -->
+      <div class="section" id="formSection">
+        <h2>Application Form</h2>
 
-      <label>Target Market / Location (Required)<input name="target_location" required placeholder="City/County/State" /></label>
+        <!-- INVESTOR FORM -->
+        <form id="buyInvestorForm"
+              name="FFEG-Buy-Investor"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              class="">
+          <input type="hidden" name="form-name" value="FFEG-Buy-Investor" />
+          <p class="hidden">
+            <label>Don’t fill this out: <input name="bot-field" /></label>
+          </p>
 
-      <label>Budget Range (Required)
-        <select name="budget_range" required>
-          <option value="" selected disabled>Select</option>
-          <option>Under $250k</option>
-          <option>$250k – $500k</option>
-          <option>$500k – $1M</option>
-          <option>$1M – $3M</option>
-          <option>$3M+</option>
-        </select>
-      </label>
+          <input type="hidden" name="client_type" value="Investor" />
+          <input type="hidden" name="request_type" value="Buy / Acquire" />
 
-      <label>Investment Criteria / Notes (Required)
-        <textarea name="criteria_notes" required placeholder="Units, occupancy, condition, deal type, etc."></textarea>
-      </label>
+          <label>Full Name (Required)
+            <input name="full_name" type="text" placeholder="Your full name" required />
+          </label>
 
-      <label>Timeline (Required)
-        <select name="timeline" required>
-          <option value="" selected disabled>Select</option>
-          <option>ASAP (0–30 days)</option>
-          <option>30–60 days</option>
-          <option>60–90 days</option>
-          <option>Flexible</option>
-        </select>
-      </label>
+          <label>Email (Required)
+            <input name="email" type="email" placeholder="name@domain.com" required />
+          </label>
 
-      <label>How did you hear about us? (Optional)<input name="referral" /></label>
+          <label>Phone (Required)
+            <input name="phone" type="tel" placeholder="(000) 000-0000" required />
+          </label>
 
-      <label style="margin-top:14px;font-weight:800;color:rgba(0,176,80,.95);">
-        <input type="checkbox" name="consent" required style="width:auto;margin-right:8px;" />
-        I confirm the information provided is accurate and I agree to be contacted by email.
-      </label>
+          <label>Entity / Organization Name (Required)
+            <input name="entity_name" type="text" placeholder="LLC / Fund / Company / Group" required />
+          </label>
 
-      <button class="btn" type="submit">SUBMIT</button>
-    </form>
-  </div>
+          <label>Your Role (Required)
+            <input name="role" type="text" placeholder="Owner / Partner / Acquisition Lead" required />
+          </label>
 
-  <div class="section hidden" id="thanksSection">
-    <h2 style="text-align:center;font-size:22px;letter-spacing:.8px;">THANK YOU</h2>
-    <p style="text-align:center;">We received your submission. Our team will review it and contact you by email as soon as possible.</p>
+          <label>Asset Type (Required)
+            <select name="asset_type" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Listed Commercial</option>
+              <option>Multi-Family</option>
+              <option>Plaza / Business Center</option>
+              <option>Mixed Use</option>
+              <option>Land</option>
+              <option>Residential (Select)</option>
+              <option>Other</option>
+            </select>
+          </label>
 
-    <div class="notice">
-      <strong>NOTICE:</strong> Family First Equity Group is not a real estate brokerage, agency, or licensed realtor.
-      We operate solely as a private investment entity and do not provide legal, tax, or financial advice.
+          <label>Target Location(s) (Required)
+            <input name="target_locations" type="text" placeholder="City/State or multiple markets" required />
+          </label>
+
+          <label>Budget Range (Required)
+            <select name="budget_range" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Under $250k</option>
+              <option>$250k – $500k</option>
+              <option>$500k – $1M</option>
+              <option>$1M – $3M</option>
+              <option>$3M – $10M</option>
+              <option>$10M+</option>
+            </select>
+          </label>
+
+          <label>Preferred Acquisition Structure (Required)
+            <select name="structure" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Cash Purchase</option>
+              <option>Conventional Financing</option>
+              <option>Seller Financing</option>
+              <option>Subject-To / Creative</option>
+              <option>Joint Venture / Partnership</option>
+              <option>Open to Options</option>
+            </select>
+          </label>
+
+          <label>Funding Readiness (Required)
+            <select name="funding_readiness" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Proof of Funds Ready</option>
+              <option>Funding in Progress</option>
+              <option>Need Funding Assistance</option>
+            </select>
+          </label>
+
+          <label>Target Timeline (Required)
+            <select name="timeline" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Immediately</option>
+              <option>0–30 Days</option>
+              <option>30–90 Days</option>
+              <option>3–6 Months</option>
+              <option>6+ Months</option>
+            </select>
+          </label>
+
+          <label>Investment Strategy (Required)
+            <select name="strategy" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Value-Add / Rehab</option>
+              <option>Stabilized Cash Flow</option>
+              <option>Development Land</option>
+              <option>Buy & Hold</option>
+              <option>Fix & Flip</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Minimum Cap Rate / Return Target (Optional)
+            <input name="return_target" type="text" placeholder="Example: 7% cap / 15% IRR / etc." />
+          </label>
+
+          <label>Property Requirements (Required)
+            <textarea name="requirements" placeholder="Units, square footage, tenant type, occupancy, condition, zoning, etc." required></textarea>
+          </label>
+
+          <label>Anything That Disqualifies a Deal? (Optional)
+            <textarea name="disqualifiers" placeholder="Example: heavy code violations, environmental issues, etc."></textarea>
+          </label>
+
+          <label>Notes / Additional Details (Optional)
+            <textarea name="notes" placeholder="Anything else you want us to know."></textarea>
+          </label>
+
+          <label style="margin-top:14px; font-weight:700; color: rgba(255,255,255,.82);">
+            <input type="checkbox" name="consent" required style="width:auto; margin-right:8px;" />
+            I confirm the information is accurate and I agree to be contacted by email.
+          </label>
+
+          <button class="btn" type="submit">SUBMIT (INVESTOR)</button>
+          <div class="status" id="statusInvestor"></div>
+        </form>
+
+        <!-- PERSONAL FORM -->
+        <form id="buyPersonalForm"
+              name="FFEG-Buy-Personal"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              class="hidden">
+          <input type="hidden" name="form-name" value="FFEG-Buy-Personal" />
+          <p class="hidden">
+            <label>Don’t fill this out: <input name="bot-field" /></label>
+          </p>
+
+          <input type="hidden" name="client_type" value="Personal" />
+          <input type="hidden" name="request_type" value="Buy / Acquire" />
+
+          <label>Full Name (Required)
+            <input name="full_name" type="text" placeholder="Your full name" required />
+          </label>
+
+          <label>Email (Required)
+            <input name="email" type="email" placeholder="name@domain.com" required />
+          </label>
+
+          <label>Phone (Required)
+            <input name="phone" type="tel" placeholder="(000) 000-0000" required />
+          </label>
+
+          <label>What are you looking to acquire? (Required)
+            <select name="asset_type" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Residential</option>
+              <option>Small Multi-Family</option>
+              <option>Commercial</option>
+              <option>Land</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Preferred Area / Market (Required)
+            <input name="market" type="text" placeholder="City, State" required />
+          </label>
+
+          <label>Budget Range (Required)
+            <select name="budget_range" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Under $200k</option>
+              <option>$200k – $400k</option>
+              <option>$400k – $750k</option>
+              <option>$750k – $1.5M</option>
+              <option>$1.5M+</option>
+            </select>
+          </label>
+
+          <label>How will you purchase? (Required)
+            <select name="purchase_method" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Cash</option>
+              <option>Financing</option>
+              <option>Need Financing</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Purchase Timeline (Required)
+            <select name="timeline" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Immediately</option>
+              <option>0–30 Days</option>
+              <option>30–90 Days</option>
+              <option>3–6 Months</option>
+              <option>6+ Months</option>
+            </select>
+          </label>
+
+          <label>Condition Preference (Required)
+            <select name="condition_preference" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Move-in Ready</option>
+              <option>Minor Repairs</option>
+              <option>Major Repairs / Value-Add</option>
+              <option>Open</option>
+            </select>
+          </label>
+
+          <label>Must-Have Requirements (Required)
+            <textarea name="requirements" placeholder="Beds/baths, units, location rules, condition, zoning, etc." required></textarea>
+          </label>
+
+          <label>Notes / Details (Optional)
+            <textarea name="notes" placeholder="Anything else you want us to know."></textarea>
+          </label>
+
+          <label style="margin-top:14px; font-weight:700; color: rgba(255,255,255,.82);">
+            <input type="checkbox" name="consent" required style="width:auto; margin-right:8px;" />
+            I confirm the information is accurate and I agree to be contacted by email.
+          </label>
+
+          <button class="btn" type="submit">SUBMIT (PERSONAL)</button>
+          <div class="status" id="statusPersonal"></div>
+        </form>
+      </div>
+
+      <!-- THANK YOU -->
+      <div class="section hidden" id="thanksSection">
+        <h2 style="font-size:18px;">THANK YOU</h2>
+        <p style="font-size:14px;">
+          We received your submission. Our team will review it and contact you by email as soon as possible.
+        </p>
+
+        <div class="notice" style="margin-top:12px;">
+          <strong style="color:#fff;">Notice:</strong> Family First Equity Group is not an attorney and does not provide legal advice.
+          Submission does not guarantee acquisition. All submissions are reviewed for investment consideration only.
+        </div>
+
+        <div class="footer" style="margin-top:14px;">
+          <div><strong>TitanCore Main (800):</strong> (800) 827-9016</div>
+          <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
+          <div class="fine">© Family First Equity Group. All rights reserved.</div>
+        </div>
+      </div>
+
+      <div class="footer" id="bottomFooter">
+        <div><strong>TitanCore Main (800):</strong> (800) 827-9016</div>
+        <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
+        <div class="fine">© Family First Equity Group. All rights reserved.</div>
+      </div>
+
     </div>
-
-    <div class="footer">
-      <div><strong>Main (800):</strong> (800) 827-9016</div>
-      <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
-    </div>
   </div>
 
-  <div class="footer" id="footerDefault">
-    <div><strong>Main (800):</strong> (800) 827-9016</div>
-    <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
-    <div style="margin-top:10px;font-size:12px;opacity:.85;">© Family First Equity Group</div>
-  </div>
+  <script>
+    // Toggle Investor vs Personal forms
+    (function(){
+      const btnInvestor = document.getElementById("chooseInvestor");
+      const btnPersonal = document.getElementById("choosePersonal");
+      const investorForm = document.getElementById("buyInvestorForm");
+      const personalForm = document.getElementById("buyPersonalForm");
 
-</div></div>
+      btnInvestor.addEventListener("click", () => {
+        btnInvestor.classList.add("active");
+        btnPersonal.classList.remove("active");
+        investorForm.classList.remove("hidden");
+        personalForm.classList.add("hidden");
+      });
 
-<script>
-(function(){
-  const form = document.getElementById("buyForm");
-  const formSection = document.getElementById("formSection");
-  const thanksSection = document.getElementById("thanksSection");
-  const preMessage = document.getElementById("preMessage");
-  const footerDefault = document.getElementById("footerDefault");
+      btnPersonal.addEventListener("click", () => {
+        btnPersonal.classList.add("active");
+        btnInvestor.classList.remove("active");
+        personalForm.classList.remove("hidden");
+        investorForm.classList.add("hidden");
+      });
+    })();
 
-  function encode(data){
-    const params = new URLSearchParams();
-    for (const pair of data.entries()) params.append(pair[0], pair[1]);
-    return params.toString();
-  }
+    // Netlify AJAX submit (no redirect) + show simple THANK YOU only
+    function encode(formData){
+      const params = new URLSearchParams();
+      for (const pair of formData.entries()) params.append(pair[0], pair[1]);
+      return params.toString();
+    }
 
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-    const formData = new FormData(form);
+    function wireForm(formId, statusId){
+      const form = document.getElementById(formId);
+      const status = document.getElementById(statusId);
+      const introSection = document.getElementById("introSection");
+      const formSection = document.getElementById("formSection");
+      const thanksSection = document.getElementById("thanksSection");
+      const bottomFooter = document.getElementById("bottomFooter");
 
-    fetch("/", {
-      method:"POST",
-      headers:{ "Content-Type":"application/x-www-form-urlencoded" },
-      body: encode(formData)
-    })
-    .then(() => {
-      formSection.classList.add("hidden");
-      preMessage.classList.add("hidden");
-      footerDefault.classList.add("hidden");
-      thanksSection.classList.remove("hidden");
-    })
-    .catch(() => alert("Submission failed. Please try again."));
-  });
-})();
-</script>
+      form.addEventListener("submit", function(e){
+        e.preventDefault();
+        status.textContent = "Submitting…";
+
+        const formData = new FormData(form);
+
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encode(formData)
+        })
+        .then(() => {
+          introSection.classList.add("hidden");
+          formSection.classList.add("hidden");
+          bottomFooter.classList.add("hidden");
+          thanksSection.classList.remove("hidden");
+        })
+        .catch(() => {
+          status.textContent = "Submission failed. Please try again.";
+        });
+      });
+    }
+
+    wireForm("buyInvestorForm", "statusInvestor");
+    wireForm("buyPersonalForm", "statusPersonal");
+  </script>
 </body>
 </html>
