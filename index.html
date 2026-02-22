@@ -3,42 +3,39 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Family First Equity Group — Real Estate Investor</title>
-  <meta name="description" content="Family First Equity Group is a private real estate investment group focused on acquisitions of small apartments, multi-family assets, land, and select commercial opportunities." />
+  <title>Family First Equity Group — Real Estate Investment</title>
+  <meta name="description" content="Family First Equity Group is a real estate investment firm focused on commercial assets and value-driven acquisitions." />
 
   <style>
     :root{
-      --bg:#000;
-      --panel:#070707;
-      --red:#c1121f;
+      --bg:#070707;
+      --panel:#0b0b0b;
+      --red:#d10b0b;
       --green:#00b050;
       --gold:#d4af37;
-      --yellow:#f0cf6e;
-      --textGreen:#00b050;
-      --textDark:#000;
-      --border:rgba(212,175,55,.45);
+      --gold2:#b88e22;
+      --text:#eaeaea;
+      --muted: rgba(255,255,255,.72);
+      --line: rgba(212,175,55,.22);
     }
-
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: Arial, Helvetica, sans-serif;
       background: var(--bg);
-      color: var(--textGreen);
+      color: var(--text);
     }
-
     .wrap{
-      max-width: 700px;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 20px 14px 40px;
+      padding: 22px 14px 46px;
     }
-
     .panel{
-      background: radial-gradient(120% 120% at 10% 10%, #1a0f12 0%, #000 55%, #050505 100%);
-      border: 2px solid var(--border);
-      border-radius: 22px;
-      padding: 18px 16px;
-      box-shadow: 0 14px 44px rgba(0,0,0,.45);
+      background: radial-gradient(120% 120% at 10% 10%, #131313 0%, var(--panel) 55%, #050505 100%);
+      border: 2px solid rgba(212,175,55,.55);
+      box-shadow: 0 14px 42px rgba(0,0,0,.45);
+      border-radius: 26px;
+      padding: 18px 18px 18px;
       position: relative;
       overflow:hidden;
     }
@@ -46,141 +43,124 @@
       content:"";
       position:absolute;
       inset:10px;
-      border-radius: 16px;
-      border:1px solid rgba(212,175,55,.22);
+      border-radius: 18px;
+      border: 1px solid rgba(212,175,55,.18);
       pointer-events:none;
     }
-
     .head{
       display:flex;
       align-items:center;
       gap:12px;
-      padding: 6px 4px 10px;
+      padding: 6px 4px 2px;
+      margin-bottom: 12px;
     }
-
     .logo{
-      width:54px;height:54px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(193,18,31,.35), rgba(0,0,0,.85));
-      border: 1px solid rgba(212,175,55,.65);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:900;
+      width:56px;height:56px;border-radius:16px;
+      border:1px solid rgba(212,175,55,.55);
+      background: linear-gradient(180deg, rgba(209,11,11,.18), rgba(0,0,0,.7));
+      display:flex;align-items:center;justify-content:center;
       color: var(--gold);
-      letter-spacing:.5px;
+      font-weight: 900;
+      letter-spacing:.8px;
     }
-
     h1{
       margin:0;
-      color: var(--red);
       font-size: 22px;
-      letter-spacing: .6px;
+      letter-spacing:.6px;
       text-transform: uppercase;
+      color: var(--red);
       font-weight: 900;
       line-height: 1.1;
     }
-    .sub{
+    .subtitle{
       margin:6px 0 0;
-      color: rgba(0,176,80,.95);
+      color: rgba(255,255,255,.80);
       font-size: 13px;
       line-height: 1.35;
-      font-weight: 700;
     }
 
     .section{
       margin-top: 14px;
       padding: 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(212,175,55,.22);
-      background: rgba(0,0,0,.38);
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.35);
     }
-
     .section h2{
       margin:0 0 8px;
-      color: var(--red);
-      font-size: 15px;
-      letter-spacing:.4px;
+      font-size: 14.5px;
+      letter-spacing:.45px;
       text-transform: uppercase;
+      color: var(--red);
       font-weight: 900;
     }
-
-    .section p{
+    .section p, .section li{
       margin:0;
       color: rgba(0,176,80,.92);
       font-size: 13.5px;
-      line-height: 1.55;
+      line-height: 1.58;
+    }
+    .section ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    .muted{
+      color: rgba(255,255,255,.75) !important;
+      margin-top: 10px !important;
+      font-size: 13px !important;
     }
 
     .btn{
       display:block;
       width:100%;
-      margin-top: 10px;
-      padding: 14px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(0,0,0,.2);
-      background: linear-gradient(180deg, #ffe58f, var(--yellow));
-      color: var(--textDark);
       text-decoration:none;
+      border-radius: 18px;
+      padding: 14px 14px;
+      margin-top: 10px;
+      border: 1px solid rgba(0,0,0,.25);
       font-weight: 900;
-      letter-spacing: .3px;
+      letter-spacing: .35px;
       text-align:center;
-      box-shadow: 0 10px 18px rgba(0,0,0,.25);
-      transition: transform .08s ease, background .15s ease, color .15s ease, filter .15s ease;
-      -webkit-tap-highlight-color: transparent;
+      background: linear-gradient(180deg, #e7c25a, var(--gold2));
+      color: #000;
+      box-shadow: 0 9px 18px rgba(0,0,0,.30);
+      transition: transform .08s ease, filter .15s ease, background .15s ease, color .15s ease;
       user-select:none;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    .btn:hover,
-    .btn:focus,
-    .btn:active{
+    .btn:hover,.btn:focus,.btn:active{
       background: linear-gradient(180deg, #ff3b3b, var(--red));
       color: var(--green);
-      filter: brightness(1.05);
+      filter: brightness(1.03);
     }
     .btn:active{ transform: translateY(1px); }
 
-    .btn .mini{
-      display:block;
-      margin-top:6px;
-      font-size: 12px;
-      font-weight: 800;
-      color: rgba(0,0,0,.78);
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
     }
-    .btn:hover .mini,
-    .btn:active .mini,
-    .btn:focus .mini{
-      color: rgba(0,176,80,.95);
+    @media (max-width: 760px){
+      .grid{ grid-template-columns: 1fr; }
     }
-
-    .notice{
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(212,175,55,.22);
-      background: rgba(0,0,0,.38);
-      color: rgba(0,176,80,.90);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-    .notice strong{ color: var(--red); }
 
     .footer{
       margin-top: 14px;
       padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(212,175,55,.22);
-      background: rgba(0,0,0,.38);
-      text-align:center;
-      color: rgba(0,176,80,.90);
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.82);
       font-size: 13px;
       line-height: 1.6;
+      text-align:center;
     }
-    .footer strong{ color: var(--gold); }
-
-    @media (max-width: 380px){
-      h1{font-size:20px}
-      .logo{width:50px;height:50px}
+    .footer strong{ color:#fff; }
+    .fine{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
     }
   </style>
 </head>
@@ -193,51 +173,60 @@
         <div class="logo">FF</div>
         <div>
           <h1>Family First Equity Group</h1>
-          <div class="sub">Private Real Estate Investment • Acquisitions • Value-Add</div>
+          <div class="subtitle">Real Estate Investment • Commercial Focus • Acquisition Review</div>
         </div>
       </div>
 
       <div class="section">
-        <h2>What We Do</h2>
+        <h2>What we do</h2>
         <p>
-          Family First Equity Group is a private real estate investment group. We acquire properties and assets based on
-          internal acquisition criteria — with a primary focus on small apartment communities, multi-family assets, land,
-          and select commercial opportunities (including plazas and mixed-use).
-          <br><br>
-          Use the options below to submit details. The more information you provide, the faster our team can review and respond.
+          Family First Equity Group is a real estate investment company. We evaluate and acquire assets based on
+          internal investment criteria — with a primary focus on commercial real estate, multi-family, business centers,
+          plazas, and value-driven opportunities. We also review select residential and land opportunities when the deal fits.
+        </p>
+        <p class="muted">
+          We are not a real estate brokerage and do not represent buyers or sellers as an agent. We review opportunities
+          as a principal investor.
         </p>
       </div>
 
-      <!-- 3 MAIN BUTTONS -->
       <div class="section">
-        <h2>Start Here</h2>
-
-        <a class="btn" href="./buy.html">
-          BUY (Acquisition Request)
-          <span class="mini">You want us to buy an asset • Investor or Personal</span>
-        </a>
-
-        <a class="btn" href="./sell.html">
-          SELL (Disposition / Offer Request)
-          <span class="mini">You want to sell an asset • Investor or Personal</span>
-        </a>
-
-        <a class="btn" href="./management.html">
-          PROPERTY MANAGEMENT (Request Review)
-          <span class="mini">Management inquiry • Investor or Personal</span>
-        </a>
+        <h2>Primary focus (commercial-first)</h2>
+        <ul>
+          <li>Listed commercial assets (retail, office, mixed use)</li>
+          <li>Multi-family (small to mid-size)</li>
+          <li>Plazas / business centers</li>
+          <li>Land (strategic / value-driven)</li>
+          <li>Select residential (when the opportunity fits our criteria)</li>
+        </ul>
       </div>
 
-      <div class="notice">
-        <strong>NOTICE:</strong> Family First Equity Group is not a real estate brokerage, agency, or licensed realtor.
-        We operate solely as a private investment entity and do not provide legal, tax, or financial advice.
-        All submissions are reviewed internally for potential acquisition or structured transaction consideration.
+      <div class="section">
+        <h2>Choose your request</h2>
+        <p class="muted" style="margin:0 0 10px;">
+          Select the path below. Each intake asks detailed questions so we can evaluate quickly.
+        </p>
+
+        <div class="grid">
+          <a class="btn" href="buy.html">BUY (Acquire an Asset)</a>
+          <a class="btn" href="sell.html">SELL (Submit an Asset)</a>
+          <a class="btn" href="management.html">PROPERTY MANAGEMENT</a>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Important notice</h2>
+        <p>
+          Family First Equity Group is not an attorney and does not provide legal advice. Submitting information on this site
+          does not create a client relationship, agency relationship, or guarantee of acquisition. All submissions are reviewed
+          for investment consideration only.
+        </p>
       </div>
 
       <div class="footer">
-        <div><strong>Main (800):</strong> (800) 827-9016</div>
+        <div><strong>TitanCore Main (800):</strong> (800) 827-9016</div>
         <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
-        <div style="margin-top:10px; font-size:12px; opacity:.85;">© Family First Equity Group. All rights reserved.</div>
+        <div class="fine">© Family First Equity Group. All rights reserved.</div>
       </div>
 
     </div>
