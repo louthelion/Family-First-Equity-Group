@@ -1,165 +1,399 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Family First Equity Group — Property Management Intake</title>
-<style>
-  :root{--bg:#000;--red:#c1121f;--green:#00b050;--gold:#d4af37;--yellow:#f0cf6e;}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--green);}
-  .wrap{max-width:820px;margin:0 auto;padding:20px 14px 40px;}
-  .panel{background:radial-gradient(120% 120% at 10% 10%, #1a0f12 0%, #000 55%, #050505 100%);
-    border:2px solid rgba(212,175,55,.45);border-radius:22px;padding:18px 16px;box-shadow:0 14px 44px rgba(0,0,0,.45);
-    position:relative;overflow:hidden;}
-  .panel:before{content:"";position:absolute;inset:10px;border-radius:16px;border:1px solid rgba(212,175,55,.22);pointer-events:none;}
-  h1{margin:0;color:var(--red);text-align:center;text-transform:uppercase;letter-spacing:.6px;font-weight:900;}
-  .sub{margin:8px 0 0;text-align:center;font-weight:700;opacity:.95;}
-  .section{margin-top:14px;padding:14px;border-radius:16px;border:1px solid rgba(212,175,55,.22);background:rgba(0,0,0,.38);}
-  .section h2{margin:0 0 8px;color:var(--red);text-transform:uppercase;font-size:15px;letter-spacing:.4px;font-weight:900;}
-  label{display:block;margin-top:12px;color:var(--red);font-weight:900;font-size:12.5px;letter-spacing:.2px;}
-  input,select,textarea{width:100%;margin-top:6px;padding:12px;border-radius:12px;border:1px solid rgba(212,175,55,.28);
-    background:#111;color:var(--green);outline:none;}
-  textarea{min-height:96px;resize:vertical;}
-  .btn{width:100%;margin-top:14px;padding:14px;border-radius:14px;border:none;
-    background:linear-gradient(180deg,#ffe58f,var(--yellow));color:#000;font-weight:900;letter-spacing:.3px;cursor:pointer;
-    box-shadow:0 10px 18px rgba(0,0,0,.25);}
-  .btn:hover,.btn:active,.btn:focus{background:linear-gradient(180deg,#ff3b3b,var(--red));color:var(--green);}
-  .hidden{display:none!important;}
-  .footer{margin-top:14px;padding:12px 14px;border-radius:16px;border:1px solid rgba(212,175,55,.22);
-    background:rgba(0,0,0,.38);text-align:center;font-size:13px;line-height:1.6;}
-  .footer strong{color:var(--gold);}
-  .notice{margin-top:12px;padding:12px 14px;border-radius:16px;border:1px solid rgba(212,175,55,.22);
-    background:rgba(0,0,0,.38);font-size:13px;line-height:1.55;}
-  .notice strong{color:var(--red);}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Family First Equity Group — Property Management</title>
+  <meta name="description" content="Management inquiry form for Family First Equity Group." />
+
+  <style>
+    :root{
+      --bg:#070707; --panel:#0b0b0b;
+      --red:#d10b0b; --green:#00b050;
+      --gold:#d4af37; --gold2:#b88e22;
+      --text:#eaeaea; --line: rgba(212,175,55,.22);
+    }
+    *{box-sizing:border-box}
+    body{ margin:0; font-family: Arial, Helvetica, sans-serif; background:var(--bg); color:var(--text); }
+    .wrap{ max-width: 860px; margin:0 auto; padding: 22px 14px 46px; }
+    .panel{
+      background: radial-gradient(120% 120% at 10% 10%, #131313 0%, var(--panel) 55%, #050505 100%);
+      border: 2px solid rgba(212,175,55,.55);
+      box-shadow: 0 14px 42px rgba(0,0,0,.45);
+      border-radius: 26px;
+      padding: 18px 18px 18px;
+      position: relative; overflow:hidden;
+    }
+    .panel:before{ content:""; position:absolute; inset:10px; border-radius:18px; border:1px solid rgba(212,175,55,.18); pointer-events:none; }
+    .head{ display:flex; align-items:center; gap:12px; margin-bottom:12px; padding:6px 4px 2px; }
+    .logo{
+      width:56px;height:56px;border-radius:16px;
+      border:1px solid rgba(212,175,55,.55);
+      background: linear-gradient(180deg, rgba(209,11,11,.18), rgba(0,0,0,.7));
+      display:flex;align-items:center;justify-content:center;
+      color: var(--gold); font-weight: 900; letter-spacing:.8px;
+    }
+    h1{ margin:0; font-size: 20px; letter-spacing:.6px; text-transform: uppercase; color: var(--red); font-weight: 900; line-height: 1.1; }
+    .subtitle{ margin:6px 0 0; color: rgba(255,255,255,.80); font-size: 13px; line-height: 1.35; }
+
+    .section{
+      margin-top: 14px; padding: 14px; border-radius: 18px;
+      border: 1px solid var(--line); background: rgba(0,0,0,.35);
+      position:relative; z-index:1;
+    }
+    .section h2{ margin:0 0 8px; font-size: 14.5px; letter-spacing:.45px; text-transform: uppercase; color: var(--red); font-weight: 900; }
+    .section p{ margin:0; color: rgba(0,176,80,.92); font-size: 13.5px; line-height: 1.58; }
+    .notice{ margin-top:10px; color: rgba(0,176,80,.90); font-size: 13px; line-height: 1.55; }
+
+    .choiceRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+    .choiceBtn{
+      flex: 1 1 200px;
+      border-radius: 16px;
+      padding: 12px 12px;
+      border: 1px solid rgba(0,0,0,.25);
+      font-weight: 900;
+      letter-spacing:.35px;
+      background: linear-gradient(180deg, #e7c25a, var(--gold2));
+      color:#000;
+      cursor:pointer;
+      transition: background .15s ease, color .15s ease, filter .15s ease, transform .08s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .choiceBtn:hover,.choiceBtn:active,.choiceBtn:focus{
+      background: linear-gradient(180deg, #ff3b3b, var(--red));
+      color: var(--green);
+      filter: brightness(1.03);
+    }
+    .choiceBtn.active{
+      background: linear-gradient(180deg, #ff3b3b, var(--red));
+      color: var(--green);
+    }
+    .choiceBtn:active{ transform: translateY(1px); }
+
+    label{ display:block; margin-top:12px; color: rgba(255,255,255,.90); font-weight:800; font-size: 12.5px; letter-spacing:.2px; }
+    input, select, textarea{
+      width:100%; margin-top:6px; padding: 12px 12px;
+      border-radius: 14px; border: 1px solid rgba(212,175,55,.20);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      outline:none;
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+    input::placeholder, textarea::placeholder{ color: rgba(255,255,255,.55); }
+
+    .btn{
+      display:block; width:100%; border-radius: 18px;
+      padding: 14px 14px; margin-top: 14px;
+      border: 1px solid rgba(0,0,0,.25);
+      font-weight: 900; letter-spacing: .35px; text-align:center;
+      background: linear-gradient(180deg, #e7c25a, var(--gold2));
+      color: #000; box-shadow: 0 9px 18px rgba(0,0,0,.30);
+      transition: transform .08s ease, filter .15s ease, background .15s ease, color .15s ease;
+      user-select:none; -webkit-tap-highlight-color: transparent; cursor:pointer;
+    }
+    .btn:hover,.btn:focus,.btn:active{
+      background: linear-gradient(180deg, #ff3b3b, var(--red));
+      color: var(--green);
+      filter: brightness(1.03);
+    }
+    .btn:active{ transform: translateY(1px); }
+
+    .hidden{ display:none !important; }
+    .status{ margin-top:10px; color: rgba(255,255,255,.85); font-size: 13px; line-height: 1.5; }
+
+    .footer{
+      margin-top: 14px; padding: 12px 14px; border-radius: 18px;
+      border: 1px solid var(--line); background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.82); font-size: 13px; line-height: 1.6; text-align:center;
+    }
+    .footer strong{ color:#fff; }
+    .fine{ margin-top: 10px; font-size: 12px; color: rgba(255,255,255,.60); }
+  </style>
 </head>
+
 <body>
-<div class="wrap"><div class="panel">
-  <h1>Family First Equity Group</h1>
-  <div class="sub">PROPERTY MANAGEMENT INTAKE • Request internal review</div>
+  <div class="wrap">
+    <div class="panel">
 
-  <div class="section" id="preMessage">
-    <h2>Before You Submit</h2>
-    <p>Provide asset details, unit count, condition, and what you need managed. We will review and respond by email.</p>
-  </div>
+      <div class="head">
+        <div class="logo">FF</div>
+        <div>
+          <h1>PROPERTY MANAGEMENT — Inquiry</h1>
+          <div class="subtitle">Operational oversight inquiry • Screening • Maintenance coordination (inquiry only)</div>
+        </div>
+      </div>
 
-  <div class="section" id="formSection">
-    <h2>Management Intake Form</h2>
+      <div class="section" id="introSection">
+        <h2>Before you submit</h2>
+        <p>
+          Use this intake to request management consideration. Provide detailed information so we can evaluate fit,
+          scope, and property requirements.
+        </p>
+        <div class="notice">
+          <strong style="color:#fff;">Notice:</strong> Submission does not guarantee acceptance. This is an inquiry intake only.
+          Family First Equity Group is not an attorney and does not provide legal advice.
+        </div>
 
-    <form id="mgmtForm" name="FamilyFirst-Management" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="FamilyFirst-Management" />
-      <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+        <div class="choiceRow">
+          <button class="choiceBtn active" type="button" id="chooseInvestor">INVESTOR</button>
+          <button class="choiceBtn" type="button" id="choosePersonal">PERSONAL</button>
+        </div>
+      </div>
 
-      <label>Applicant Type (Required)
-        <select name="applicant_type" required>
-          <option value="" selected disabled>Select one</option>
-          <option>Investor</option>
-          <option>Personal</option>
-        </select>
-      </label>
+      <div class="section" id="formSection">
+        <h2>Application Form</h2>
 
-      <label>Full Name (Required)<input name="full_name" required /></label>
-      <label>Email (Required)<input name="email" type="email" required /></label>
-      <label>Phone (Required)<input name="phone" type="tel" required /></label>
+        <!-- INVESTOR MANAGEMENT -->
+        <form id="mgmtInvestorForm"
+              name="FFEG-Management-Investor"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="FFEG-Management-Investor" />
+          <p class="hidden">
+            <label>Don’t fill this out: <input name="bot-field" /></label>
+          </p>
 
-      <label>Asset Type (Required)
-        <select name="asset_type" required>
-          <option value="" selected disabled>Select</option>
-          <option>Small Apartment (2–10)</option>
-          <option>Apartment (10–50)</option>
-          <option>Single Family</option>
-          <option>Mixed-Use</option>
-          <option>Commercial Plaza</option>
-          <option>Other</option>
-        </select>
-      </label>
+          <input type="hidden" name="client_type" value="Investor" />
+          <input type="hidden" name="request_type" value="Property Management" />
 
-      <label>Property Address (Required)<input name="property_address" required /></label>
-      <label># of Units (If applicable)<input name="units" type="number" /></label>
+          <label>Full Name (Required)
+            <input name="full_name" type="text" required />
+          </label>
 
-      <label>Current Occupancy %<input name="occupancy" placeholder="Example: 80%" /></label>
+          <label>Email (Required)
+            <input name="email" type="email" required />
+          </label>
 
-      <label>What do you want managed? (Required)
-        <textarea name="management_needs" required placeholder="Rent collection, maintenance coordination, leasing, inspections, etc."></textarea>
-      </label>
+          <label>Phone (Required)
+            <input name="phone" type="tel" required />
+          </label>
 
-      <label>Maintenance Status (Required)
-        <select name="maintenance_status" required>
-          <option value="" selected disabled>Select</option>
-          <option>Stable</option>
-          <option>Minor Repairs Needed</option>
-          <option>Major Repairs Needed</option>
-          <option>Unknown / Needs Assessment</option>
-        </select>
-      </label>
+          <label>Entity / Organization Name (Required)
+            <input name="entity_name" type="text" required />
+          </label>
 
-      <label>Preferred Start Date (Optional)<input name="start_date" placeholder="ASAP / Date" /></label>
+          <label>Property Type (Required)
+            <select name="property_type" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Multi-Family</option>
+              <option>Commercial</option>
+              <option>Mixed Use</option>
+              <option>Residential Portfolio</option>
+              <option>Other</option>
+            </select>
+          </label>
 
-      <label style="margin-top:14px;font-weight:800;color:rgba(0,176,80,.95);">
-        <input type="checkbox" name="consent" required style="width:auto;margin-right:8px;" />
-        I confirm the information provided is accurate and I agree to be contacted by email.
-      </label>
+          <label>Property Address / Market (Required)
+            <input name="property_location" type="text" placeholder="Street or City/State" required />
+          </label>
 
-      <button class="btn" type="submit">SUBMIT</button>
-    </form>
-  </div>
+          <label>Units / Size (Required)
+            <input name="units_size" type="text" placeholder="Example: 12 units / 25,000 sq ft" required />
+          </label>
 
-  <div class="section hidden" id="thanksSection">
-    <h2 style="text-align:center;font-size:22px;letter-spacing:.8px;">THANK YOU</h2>
-    <p style="text-align:center;">We received your submission. Our team will review it and contact you by email as soon as possible.</p>
+          <label>Current Occupancy (Required)
+            <select name="occupancy" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Vacant</option>
+              <option>Partially Occupied</option>
+              <option>Fully Occupied</option>
+            </select>
+          </label>
 
-    <div class="notice">
-      <strong>NOTICE:</strong> Family First Equity Group is not a real estate brokerage, agency, or licensed realtor.
-      We operate solely as a private investment entity and do not provide legal, tax, or financial advice.
+          <label>Current Issues (Required)
+            <textarea name="current_issues" placeholder="Maintenance backlog, tenant issues, billing problems, etc." required></textarea>
+          </label>
+
+          <label>Scope Needed (Required)
+            <select name="scope" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Full Management</option>
+              <option>Leasing Only</option>
+              <option>Maintenance Coordination</option>
+              <option>Collections / Admin</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Monthly Gross Income (Optional)
+            <input name="monthly_gross" type="text" placeholder="$" />
+          </label>
+
+          <label>Monthly Expenses (Optional)
+            <input name="monthly_expenses" type="text" placeholder="$" />
+          </label>
+
+          <label>Document Link (Optional)
+            <input name="doc_link" type="url" placeholder="Rent roll / leases / photos (Drive/Dropbox link)" />
+          </label>
+
+          <label>Notes (Optional)
+            <textarea name="notes"></textarea>
+          </label>
+
+          <label style="margin-top:14px; font-weight:700; color: rgba(255,255,255,.82);">
+            <input type="checkbox" name="consent" required style="width:auto; margin-right:8px;" />
+            I confirm the information is accurate and I agree to be contacted by email.
+          </label>
+
+          <button class="btn" type="submit">SUBMIT (INVESTOR)</button>
+          <div class="status" id="statusInvestor"></div>
+        </form>
+
+        <!-- PERSONAL MANAGEMENT -->
+        <form id="mgmtPersonalForm"
+              name="FFEG-Management-Personal"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              class="hidden">
+          <input type="hidden" name="form-name" value="FFEG-Management-Personal" />
+          <p class="hidden">
+            <label>Don’t fill this out: <input name="bot-field" /></label>
+          </p>
+
+          <input type="hidden" name="client_type" value="Personal" />
+          <input type="hidden" name="request_type" value="Property Management" />
+
+          <label>Full Name (Required)
+            <input name="full_name" type="text" required />
+          </label>
+
+          <label>Email (Required)
+            <input name="email" type="email" required />
+          </label>
+
+          <label>Phone (Required)
+            <input name="phone" type="tel" required />
+          </label>
+
+          <label>Property Type (Required)
+            <select name="property_type" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Single Family</option>
+              <option>Duplex / Triplex</option>
+              <option>Small Multi-Family</option>
+              <option>Commercial</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Property Address / Market (Required)
+            <input name="property_location" type="text" placeholder="Street or City/State" required />
+          </label>
+
+          <label>What do you need help with? (Required)
+            <textarea name="scope" placeholder="Maintenance coordination, tenant screening, rent collection, etc." required></textarea>
+          </label>
+
+          <label>Current Situation (Required)
+            <textarea name="current_issues" placeholder="Any urgent issues? Repairs needed? Vacancy? Describe." required></textarea>
+          </label>
+
+          <label>Notes (Optional)
+            <textarea name="notes"></textarea>
+          </label>
+
+          <label style="margin-top:14px; font-weight:700; color: rgba(255,255,255,.82);">
+            <input type="checkbox" name="consent" required style="width:auto; margin-right:8px;" />
+            I confirm the information is accurate and I agree to be contacted by email.
+          </label>
+
+          <button class="btn" type="submit">SUBMIT (PERSONAL)</button>
+          <div class="status" id="statusPersonal"></div>
+        </form>
+      </div>
+
+      <div class="section hidden" id="thanksSection">
+        <h2 style="font-size:18px;">THANK YOU</h2>
+        <p style="font-size:14px;">
+          We received your submission. Our team will review it and contact you by email as soon as possible.
+        </p>
+
+        <div class="notice" style="margin-top:12px;">
+          <strong style="color:#fff;">Notice:</strong> Family First Equity Group is not an attorney and does not provide legal advice.
+          Submission does not guarantee acceptance. This is an inquiry intake only.
+        </div>
+
+        <div class="footer" style="margin-top:14px;">
+          <div><strong>TitanCore Main (800):</strong> (800) 827-9016</div>
+          <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
+          <div class="fine">© Family First Equity Group. All rights reserved.</div>
+        </div>
+      </div>
+
+      <div class="footer" id="bottomFooter">
+        <div><strong>TitanCore Main (800):</strong> (800) 827-9016</div>
+        <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
+        <div class="fine">© Family First Equity Group. All rights reserved.</div>
+      </div>
+
     </div>
-
-    <div class="footer">
-      <div><strong>Main (800):</strong> (800) 827-9016</div>
-      <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
-    </div>
   </div>
 
-  <div class="footer" id="footerDefault">
-    <div><strong>Main (800):</strong> (800) 827-9016</div>
-    <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
-    <div style="margin-top:10px;font-size:12px;opacity:.85;">© Family First Equity Group</div>
-  </div>
+  <script>
+    (function(){
+      const btnInvestor = document.getElementById("chooseInvestor");
+      const btnPersonal = document.getElementById("choosePersonal");
+      const investorForm = document.getElementById("mgmtInvestorForm");
+      const personalForm = document.getElementById("mgmtPersonalForm");
 
-</div></div>
+      btnInvestor.addEventListener("click", () => {
+        btnInvestor.classList.add("active");
+        btnPersonal.classList.remove("active");
+        investorForm.classList.remove("hidden");
+        personalForm.classList.add("hidden");
+      });
 
-<script>
-(function(){
-  const form = document.getElementById("mgmtForm");
-  const formSection = document.getElementById("formSection");
-  const thanksSection = document.getElementById("thanksSection");
-  const preMessage = document.getElementById("preMessage");
-  const footerDefault = document.getElementById("footerDefault");
+      btnPersonal.addEventListener("click", () => {
+        btnPersonal.classList.add("active");
+        btnInvestor.classList.remove("active");
+        personalForm.classList.remove("hidden");
+        investorForm.classList.add("hidden");
+      });
+    })();
 
-  function encode(data){
-    const params = new URLSearchParams();
-    for (const pair of data.entries()) params.append(pair[0], pair[1]);
-    return params.toString();
-  }
+    function encode(formData){
+      const params = new URLSearchParams();
+      for (const pair of formData.entries()) params.append(pair[0], pair[1]);
+      return params.toString();
+    }
 
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-    const formData = new FormData(form);
+    function wireForm(formId, statusId){
+      const form = document.getElementById(formId);
+      const status = document.getElementById(statusId);
+      const introSection = document.getElementById("introSection");
+      const formSection = document.getElementById("formSection");
+      const thanksSection = document.getElementById("thanksSection");
+      const bottomFooter = document.getElementById("bottomFooter");
 
-    fetch("/", {
-      method:"POST",
-      headers:{ "Content-Type":"application/x-www-form-urlencoded" },
-      body: encode(formData)
-    })
-    .then(() => {
-      formSection.classList.add("hidden");
-      preMessage.classList.add("hidden");
-      footerDefault.classList.add("hidden");
-      thanksSection.classList.remove("hidden");
-    })
-    .catch(() => alert("Submission failed. Please try again."));
-  });
-})();
-</script>
+      form.addEventListener("submit", function(e){
+        e.preventDefault();
+        status.textContent = "Submitting…";
+
+        const formData = new FormData(form);
+
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encode(formData)
+        })
+        .then(() => {
+          introSection.classList.add("hidden");
+          formSection.classList.add("hidden");
+          bottomFooter.classList.add("hidden");
+          thanksSection.classList.remove("hidden");
+        })
+        .catch(() => {
+          status.textContent = "Submission failed. Please try again.";
+        });
+      });
+    }
+
+    wireForm("mgmtInvestorForm", "statusInvestor");
+    wireForm("mgmtPersonalForm", "statusPersonal");
+  </script>
 </body>
 </html>
