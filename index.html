@@ -2,51 +2,224 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Family First Equity Group</title>
-  <link rel="stylesheet" href="style.css?v=99" />
+  <meta name="description" content="Family First Equity Group is a real estate investment company focused on acquiring value opportunities in commercial real estate, multifamily, land, and select residential assets." />
+
+  <style>
+    :root{
+      --black:#070707;
+      --panel:#0d0d0d;
+      --gold:#d4af37;
+      --gold2:#b88e22;
+      --red:#e10600;
+      --green:#00b050;
+      --white:#ffffff;
+      --muted: rgba(255,255,255,.70);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(1200px 700px at 10% 0%, #151515 0%, var(--black) 55%, #000 100%);
+      color: var(--white);
+    }
+    .wrap{
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 22px 14px 42px;
+    }
+    .panel{
+      position:relative;
+      border-radius: 26px;
+      padding: 18px 16px 18px;
+      background:
+        radial-gradient(120% 120% at 10% 10%, rgba(0,176,80,.18) 0%, rgba(0,0,0,.85) 55%, rgba(0,0,0,1) 100%);
+      border: 2px solid rgba(212,175,55,.55);
+      box-shadow: 0 14px 44px rgba(0,0,0,.45);
+      overflow:hidden;
+    }
+    /* “logo rainbow” accent ring */
+    .panel:before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background:
+        conic-gradient(from 210deg,
+          rgba(225,6,0,.55),
+          rgba(212,175,55,.55),
+          rgba(0,176,80,.55),
+          rgba(225,6,0,.55)
+        );
+      filter: blur(22px);
+      opacity: .22;
+      pointer-events:none;
+    }
+    .panel:after{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border-radius: 18px;
+      border: 1px solid rgba(212,175,55,.22);
+      pointer-events:none;
+    }
+
+    .head{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      position:relative;
+      z-index:1;
+      padding: 6px 4px 2px;
+      margin-bottom: 10px;
+    }
+    .logo{
+      width:56px;height:56px;
+      border-radius: 16px;
+      border: 1px solid rgba(212,175,55,.65);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(225,6,0,.25), transparent 55%),
+        radial-gradient(circle at 80% 30%, rgba(0,176,80,.20), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.65));
+      display:flex;align-items:center;justify-content:center;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing:.6px;
+    }
+    .titleblock h1{
+      margin:0;
+      font-size: 22px;
+      line-height: 1.15;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--red);
+      letter-spacing:.6px;
+    }
+    .titleblock p{
+      margin:6px 0 0;
+      color: rgba(255,255,255,.78);
+      font-size: 13.5px;
+      line-height: 1.35;
+    }
+
+    .section{
+      position:relative;
+      z-index:1;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(212,175,55,.22);
+      background: rgba(0,0,0,.38);
+    }
+    .section h2{
+      margin:0 0 8px;
+      color: var(--red);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing:.45px;
+      font-size: 15px;
+    }
+    .section p{
+      margin:0;
+      color: var(--green);
+      font-size: 13.6px;
+      line-height: 1.58;
+    }
+
+    .btn{
+      display:block;
+      width:100%;
+      text-decoration:none;
+      text-align:center;
+      margin-top: 12px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      font-weight: 900;
+      letter-spacing:.35px;
+      border: 1px solid rgba(0,0,0,.2);
+      background: linear-gradient(180deg, #f2d57b, var(--gold2));
+      color: #000;
+      box-shadow: 0 10px 22px rgba(0,0,0,.35);
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .08s ease, filter .15s ease, background .15s ease, color .15s ease;
+    }
+    .btn:hover,.btn:active,.btn:focus{
+      background: linear-gradient(180deg, rgba(225,6,0,1), rgba(150,0,0,1));
+      color: var(--green);
+      filter: brightness(1.03);
+    }
+    .btn:active{ transform: translateY(1px); }
+
+    .notice{
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px dashed rgba(212,175,55,.32);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.78);
+      font-size: 12.8px;
+      line-height: 1.55;
+    }
+    .notice strong{ color:#fff; }
+
+    .footer{
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(212,175,55,.22);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      line-height: 1.6;
+      text-align:center;
+      position:relative;
+      z-index:1;
+    }
+    .footer strong{ color:#fff; }
+  </style>
 </head>
+
 <body>
   <div class="wrap">
-    <section class="panel">
+    <div class="panel">
 
       <div class="head">
-        <div class="badge">FF</div>
-        <div>
-          <h1 class="title big">Family First Equity Group</h1>
-          <p class="subtitle">Real Estate Investing • Acquisitions • Dispositions • Property Operations</p>
+        <div class="logo">FF</div>
+        <div class="titleblock">
+          <h1>Family First Equity Group</h1>
+          <p>Real Estate Investor • Commercial Focus • Acquisition & Value Opportunities</p>
         </div>
       </div>
 
-      <div class="card">
-        <h2>About Family First</h2>
+      <div class="section">
+        <h2>What We Do</h2>
         <p>
-          Family First Equity Group is a real estate investment company. Our priority is listed commercial,
-          multi-family / apartments, and business centers — and we consider any strong opportunity (land, houses, or other assets).
+          Family First Equity Group is a real estate investment company. We acquire and reposition value opportunities —
+          with a primary focus on listed commercial assets, multifamily properties, business centers/plazas, land, and select residential deals.
+          If the opportunity makes sense, we will evaluate it quickly and respond by email.
         </p>
+      </div>
+
+      <div class="section">
+        <h2>Choose a Request</h2>
+        <a class="btn" href="/buyer.html">BUY</a>
+        <a class="btn" href="/seller.html">SELL</a>
+        <a class="btn" href="/management.html">PROPERTY MANAGEMENT</a>
 
         <div class="notice">
-          <strong>Notice:</strong> We are not a real estate brokerage or agency. We do not provide legal advice.
-          Submissions are for evaluation only.
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Start Here</h2>
-        <div class="btns">
-          <a class="btn" href="buy.html">Buy <small>Submit an acquisition opportunity</small></a>
-          <a class="btn" href="sell.html">Sell <small>Submit an asset for disposition review</small></a>
-          <a class="btn" href="management.html">Property Management <small>Operations support (investor or personal)</small></a>
+          <strong>Notice:</strong> Family First Equity Group is a real estate investment company and is not acting as a real estate broker or agent.
+          We are not attorneys and do not provide legal advice. All decisions are subject to internal review and due diligence.
         </div>
       </div>
 
       <div class="footer">
-        Central Line: <a href="tel:18008279016">(800) 827-9016</a><br/>
-        Email: <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a><br/>
-        © Family First Equity Group. All rights reserved.
+        <div><strong>TitanCore Main (800):</strong> (800) 827-9016</div>
+        <div><strong>Email:</strong> contact@familyfirstequitygroup.com</div>
+        <div style="margin-top:8px; font-size:12px; color:rgba(255,255,255,.60);">© Family First Equity Group. All rights reserved.</div>
       </div>
 
-    </section>
+    </div>
   </div>
 </body>
 </html>
