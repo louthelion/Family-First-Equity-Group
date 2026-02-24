@@ -1,146 +1,244 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sell — Family First Equity Group</title>
-  <link rel="stylesheet" href="style.css?v=99" />
-  <script defer src="app.js?v=99"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Family First — Sell</title>
+
+<style>
+:root{
+  --black:#070707;
+  --gold:#d4af37;
+  --gold2:#b88e22;
+  --red:#e10600;
+  --green:#00b050;
+  --white:#ffffff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:radial-gradient(1200px 700px at 10% 0%,#151515 0%,var(--black) 55%,#000 100%);
+  color:var(--white);
+}
+.wrap{max-width:760px;margin:0 auto;padding:22px 14px 42px;}
+.panel{
+  border-radius:26px;
+  padding:20px;
+  background:radial-gradient(120% 120% at 10% 10%,rgba(0,176,80,.18) 0%,rgba(0,0,0,.85) 55%,rgba(0,0,0,1) 100%);
+  border:2px solid rgba(212,175,55,.55);
+}
+h1{margin:0;color:var(--red);font-size:24px;font-weight:900;text-transform:uppercase;}
+.sub{color:rgba(255,255,255,.75);margin-bottom:14px;}
+
+.section{
+  margin-top:14px;
+  padding:14px;
+  border-radius:18px;
+  border:1px solid rgba(212,175,55,.25);
+  background:rgba(0,0,0,.35);
+}
+.section h2{color:var(--red);margin:0 0 10px;font-size:16px;text-transform:uppercase;}
+label{display:block;margin-top:12px;font-weight:700;font-size:13px;}
+input,select,textarea{
+  width:100%;margin-top:6px;padding:12px;border-radius:12px;
+  border:1px solid rgba(212,175,55,.25);
+  background:rgba(255,255,255,.06);color:#fff;
+}
+textarea{min-height:100px}
+.btn{
+  margin-top:14px;
+  padding:14px;
+  border-radius:18px;
+  font-weight:900;
+  background:linear-gradient(180deg,#f2d57b,var(--gold2));
+  color:#000;border:none;cursor:pointer;width:100%;
+}
+.btn:hover{
+  background:linear-gradient(180deg,var(--red),#9c0000);
+  color:var(--green);
+}
+.hidden{display:none}
+.bigThanks{font-size:26px;color:var(--red);font-weight:900;text-transform:uppercase}
+.notice{
+  margin-top:14px;padding:12px;border-radius:14px;
+  border:1px dashed rgba(212,175,55,.4);
+  font-size:12px;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <section class="panel">
+<div class="wrap">
+<div class="panel">
 
-      <div class="head">
-        <div class="badge">FF</div>
-        <div>
-          <h1 class="title big">Sell — Disposition Intake</h1>
-          <p class="subtitle">Submit an asset for review • Listed commercial priority • Multi-family / apartments • Any strong opportunity</p>
-        </div>
-      </div>
+<h1>SELL</h1>
+<div class="sub">Submit your property for acquisition review.</div>
 
-      <div id="thanks" class="thanks">
-        <h3>Thank you.</h3>
-        <p>We received your submission. Our team will contact you as soon as possible via email.</p>
+<div class="section" id="chooseSection">
+<h2>Select Type</h2>
+<button class="btn" onclick="showForm('investor')">INVESTOR</button>
+<button class="btn" onclick="showForm('personal')">PERSONAL</button>
+</div>
 
-        <div class="notice">
-          <strong>Notice:</strong> We are not a real estate brokerage or agency. We do not provide legal advice.
-          Submissions are for evaluation only.
-        </div>
+<!-- INVESTOR FORM -->
+<div class="section hidden" id="investorSection">
+<h2>Seller Application — Investor</h2>
+<form id="investorForm" name="FFEG-SELL-INVESTOR" method="POST" data-netlify="true">
+<input type="hidden" name="form-name" value="FFEG-SELL-INVESTOR">
 
-        <div class="footer">
-          Central Line: <a href="tel:18008279016">(800) 827-9016</a><br/>
-          Email: <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a>
-        </div>
-      </div>
+<label>Company / Entity Name *</label>
+<input name="entity" required>
 
-      <div id="formWrap" class="card">
-        <h2>Application Form</h2>
+<label>Contact Name *</label>
+<input name="contact_name" required>
 
-        <form name="ff-sell" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="ff-sell" />
+<label>Email *</label>
+<input type="email" name="email" required>
 
-          <div class="formgrid">
-            <div>
-              <label>Submitter Type (Required)</label>
-              <select name="submitter_type" required>
-                <option value="">Select one</option>
-                <option>Investor (individual or entity)</option>
-                <option>Personal (individual)</option>
-              </select>
-            </div>
+<label>Phone *</label>
+<input name="phone" required>
 
-            <div>
-              <label>Full Name (Required)</label>
-              <input name="full_name" required placeholder="Your full name" />
-            </div>
+<label>Property Type *</label>
+<select name="property_type" required>
+<option>Listed Commercial</option>
+<option>Multifamily</option>
+<option>Plaza / Business Center</option>
+<option>Land</option>
+<option>Residential</option>
+<option>Other</option>
+</select>
 
-            <div>
-              <label>Email (Required)</label>
-              <input type="email" name="email" required placeholder="name@domain.com" />
-            </div>
+<label>Property Address *</label>
+<input name="address" required>
 
-            <div>
-              <label>Phone (Required)</label>
-              <input name="phone" required placeholder="(000) 000-0000" />
-            </div>
+<label>Number of Units (if applicable)</label>
+<input name="units">
 
-            <div>
-              <label>Asset Type (Required)</label>
-              <select name="asset_type" required>
-                <option value="">Select one</option>
-                <option>Listed Commercial (priority)</option>
-                <option>Multi-Family / Apartments</option>
-                <option>Business Center / Plaza</option>
-                <option>Land</option>
-                <option>House / Residential</option>
-                <option>Other</option>
-              </select>
-            </div>
+<label>Current Occupancy %</label>
+<input name="occupancy">
 
-            <div>
-              <label>City / State (Required)</label>
-              <input name="location" required placeholder="City, State" />
-            </div>
+<label>Annual Gross Income</label>
+<input name="gross_income">
 
-            <div>
-              <label>Is it currently listed? (Required)</label>
-              <select name="is_listed" required>
-                <option value="">Select one</option>
-                <option>Yes</option>
-                <option>No</option>
-                <option>Not sure</option>
-              </select>
-            </div>
+<label>Asking Price *</label>
+<input name="asking_price" required>
 
-            <div>
-              <label>Target Price (if any)</label>
-              <input name="target_price" placeholder="$" />
-            </div>
+<label>Reason for Selling *</label>
+<textarea name="reason" required></textarea>
 
-            <div>
-              <label>Is there a mortgage / loan?</label>
-              <select name="loan">
-                <option value="">Select one</option>
-                <option>No</option>
-                <option>Yes</option>
-                <option>Not sure</option>
-              </select>
-            </div>
+<label>Is property distressed?</label>
+<select name="distressed">
+<option>No</option>
+<option>Yes</option>
+</select>
 
-            <div>
-              <label>Condition Summary (Required)</label>
-              <textarea name="condition" required placeholder="Describe condition, repairs needed, occupancy, etc."></textarea>
-            </div>
+<label>Timeline to Close *</label>
+<select name="timeline" required>
+<option>ASAP</option>
+<option>30–60 Days</option>
+<option>60–90 Days</option>
+<option>Flexible</option>
+</select>
 
-            <div>
-              <label>Motivation to Sell (Required)</label>
-              <textarea name="motivation" required placeholder="Why are you selling? Timeline? Situation?"></textarea>
-            </div>
+<button class="btn" type="submit">SUBMIT</button>
+</form>
+</div>
 
-            <div>
-              <label>Anything else we should know?</label>
-              <textarea name="notes" placeholder="Extra details"></textarea>
-            </div>
-          </div>
+<!-- PERSONAL FORM -->
+<div class="section hidden" id="personalSection">
+<h2>Seller Application — Personal</h2>
+<form id="personalForm" name="FFEG-SELL-PERSONAL" method="POST" data-netlify="true">
+<input type="hidden" name="form-name" value="FFEG-SELL-PERSONAL">
 
-          <div class="form-actions">
-            <button class="submitBtn" type="submit">Submit</button>
-          </div>
+<label>Full Name *</label>
+<input name="full_name" required>
 
-          <div class="notice">
-            <strong>Notice:</strong> We are not a real estate brokerage or agency. We do not provide legal advice.
-            Submissions are for evaluation only.
-          </div>
-        </form>
-      </div>
+<label>Email *</label>
+<input type="email" name="email" required>
 
-      <div class="footer">
-        Central Line: <a href="tel:18008279016">(800) 827-9016</a><br/>
-        Email: <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a>
-      </div>
+<label>Phone *</label>
+<input name="phone" required>
 
-    </section>
-  </div>
+<label>Property Type *</label>
+<select name="property_type" required>
+<option>House</option>
+<option>Duplex / Triplex</option>
+<option>Small Apartment</option>
+<option>Commercial</option>
+<option>Land</option>
+</select>
+
+<label>Address *</label>
+<input name="address" required>
+
+<label>Condition *</label>
+<select name="condition" required>
+<option>Excellent</option>
+<option>Good</option>
+<option>Needs Repair</option>
+<option>Major Rehab</option>
+</select>
+
+<label>Mortgage Balance</label>
+<input name="mortgage_balance">
+
+<label>Asking Price *</label>
+<input name="asking_price" required>
+
+<label>Urgency to Sell *</label>
+<select name="urgency" required>
+<option>Immediate</option>
+<option>1–3 Months</option>
+<option>Flexible</option>
+</select>
+
+<button class="btn" type="submit">SUBMIT</button>
+</form>
+</div>
+
+<!-- THANK YOU -->
+<div class="section hidden" id="thankYouSection">
+<div class="bigThanks">THANK YOU</div>
+<p>We received your submission. Our team will review and contact you by email shortly.</p>
+<div class="notice">
+Family First Equity Group is a real estate investment company and not a broker or agent.
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+function showForm(type){
+document.getElementById('chooseSection').classList.add('hidden');
+if(type==='investor'){
+document.getElementById('investorSection').classList.remove('hidden');
+}
+if(type==='personal'){
+document.getElementById('personalSection').classList.remove('hidden');
+}
+}
+
+['investorForm','personalForm'].forEach(id=>{
+const form=document.getElementById(id);
+if(form){
+form.addEventListener('submit',function(e){
+e.preventDefault();
+const data=new FormData(form);
+fetch("/",{
+method:"POST",
+headers:{ "Content-Type":"application/x-www-form-urlencoded" },
+body:new URLSearchParams(data).toString()
+}).then(()=>{
+document.getElementById('investorSection').classList.add('hidden');
+document.getElementById('personalSection').classList.add('hidden');
+document.getElementById('thankYouSection').classList.remove('hidden');
+});
+});
+}
+});
+</script>
+
 </body>
 </html>
