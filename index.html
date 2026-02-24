@@ -7,7 +7,6 @@
 
 <style>
 :root{
- --black:#050505;
  --red:#e10600;
  --green:#00b050;
  --gold:#d4af37;
@@ -16,84 +15,71 @@
 body{
  margin:0;
  font-family:Arial, Helvetica, sans-serif;
- background:radial-gradient(circle at top,#111 0%,#000 70%);
- color:white;
+ background:#000;
+ color:#fff;
 }
 
-.container{
+/* Outer rainbow aura */
+.wrapper{
  max-width:900px;
- margin:auto;
- padding:30px 15px;
-}
-
-.panel{
- position:relative;
- border-radius:30px;
- padding:30px;
- background:#0c0c0c;
- border:2px solid var(--gold);
+ margin:40px auto;
+ padding:4px;
+ border-radius:35px;
+ background:
+   conic-gradient(
+     rgba(225,6,0,.7),
+     rgba(212,175,55,.7),
+     rgba(0,176,80,.7),
+     rgba(225,6,0,.7)
+   );
  box-shadow:
-   0 0 30px rgba(212,175,55,.4),
-   0 0 60px rgba(225,6,0,.2),
-   0 0 80px rgba(0,176,80,.2);
- overflow:hidden;
+   0 0 40px rgba(212,175,55,.6),
+   0 0 70px rgba(225,6,0,.4),
+   0 0 90px rgba(0,176,80,.3);
 }
 
-.panel::before{
- content:"";
- position:absolute;
- inset:-50px;
- background:conic-gradient(
-   rgba(225,6,0,.5),
-   rgba(212,175,55,.5),
-   rgba(0,176,80,.5),
-   rgba(225,6,0,.5)
- );
- filter:blur(60px);
- opacity:.25;
- z-index:0;
-}
-
-.content{
- position:relative;
- z-index:2;
+/* Inner panel */
+.panel{
+ background:#0b0b0b;
+ border-radius:30px;
+ padding:35px 25px;
 }
 
 .logo{
- font-size:32px;
- font-weight:900;
  color:var(--gold);
- letter-spacing:2px;
+ font-size:34px;
+ font-weight:900;
+ letter-spacing:3px;
 }
 
 h1{
  color:var(--red);
- font-size:28px;
- margin:10px 0;
+ font-size:30px;
+ margin:15px 0;
  text-transform:uppercase;
 }
 
 .description{
  color:var(--green);
- line-height:1.6;
- font-size:15px;
+ font-size:16px;
+ line-height:1.7;
 }
 
 .buttons{
- margin-top:25px;
+ margin-top:35px;
  display:flex;
  flex-direction:column;
- gap:15px;
+ gap:18px;
 }
 
 .button{
- padding:16px;
- border-radius:20px;
- font-weight:900;
+ padding:18px;
+ border-radius:25px;
  text-align:center;
+ font-weight:900;
  text-decoration:none;
  background:linear-gradient(180deg,#f2d57b,#b88e22);
- color:black;
+ color:#000;
  transition:.3s;
 }
 
@@ -102,22 +88,24 @@ h1{
  color:var(--green);
 }
 
-.notice{
- margin-top:25px;
- padding:15px;
- border-radius:15px;
- border:1px dashed var(--gold);
- font-size:12px;
+.contact{
+ margin-top:40px;
+ padding-top:20px;
+ border-top:1px solid var(--gold);
+ font-size:14px;
  color:#ccc;
+}
+
+.contact strong{
+ color:#fff;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="wrapper">
 <div class="panel">
-<div class="content">
 
 <div class="logo">FF</div>
 
@@ -126,7 +114,7 @@ h1{
 <div class="description">
 Family First Equity Group is a private real estate investment company focused primarily on acquiring listed commercial properties, multifamily assets, business centers, land, and strategic residential opportunities.
 
-We purchase properties directly. We are not a real estate brokerage. We focus on acquisition, repositioning, restructuring, and long-term value growth.
+We purchase properties directly. We are not a brokerage. We focus on acquisition, repositioning, restructuring, and long-term value growth.
 </div>
 
 <div class="buttons">
@@ -135,11 +123,12 @@ We purchase properties directly. We are not a real estate brokerage. We focus on
 <a class="button" href="management.html">PROPERTY MANAGEMENT</a>
 </div>
 
-<div class="notice">
-Family First Equity Group is a real estate investment company and is not a licensed real estate broker or agent. We do not provide legal or tax advice.
+<div class="contact">
+<strong>Central Line:</strong> (800) 827-9016<br>
+<strong>Email:</strong> contact@familyfirstequitygroup.com<br><br>
+© Family First Equity Group. All rights reserved.
 </div>
 
-</div>
 </div>
 </div>
 
