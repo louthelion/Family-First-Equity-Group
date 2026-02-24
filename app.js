@@ -1,125 +1,71 @@
-// app.js — universal (Index + Forms)
-// Works with: Netlify forms + inline Thank You (no thank-you.html redirects)
+/// Tabs + Netlify form submit (thank-you inside page)
 
-(function () {
-  // ---------- helpers ----------
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+function setActiveTab(groupId, showId){
+  const group = document.querySelector(`[data-tabgroup="${groupId}"]`);
+  if(!group) return;
 
-  // Encode form data for Netlify POST
-  function encodeFormData(form) {
-    const data = new FormData(form);
-    const params = new URLSearchParams();
+  group.querySelectorAll(".tabbtn").forEach(btn=>{
+    btn.classList.toggle("active", btn.dataset.show === showId);
+  });
 
-    for (const [k, v] of data.entries()) {
-      params.append(k, typeof v === "string" ? v : String(v));
-    }
-    return params.toString();
-  }
+  group.querySelectorAll(".formwrap").forEach(w=>{
+    w.classList.toggle("hidden", w.id !== showId);
+  });
+}
 
-  // Show inline thank you panel (inside page)
-  function showThanks(form) {
-    const thanks = $("#thanks") || $(".thanks");
-    const wrap = $(".wrap") || document.body;
+document.addEventListener("click", (e)=>{
+  const btn = e.target.closest(".tabbtn");
+  if(!btn) return;
+  e.preventDefault();
+  setActiveTab(btn.dataset.group, btn.dataset.show);
+});
 
-    // hide the form UI
+function encodeFormData(form){
+  const data = new FormData(form);
+  return new URLSearchParams(data).toString();
+}
+
+async function netlifySubmit(form){
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const thanksBox = form.closest(".formwrap")?.querySelector(".thanks");
+  const errorBox = form.closest(".formwrap")?.querySelector("[data-error]");
+
+  if(errorBox) errorBox.textContent = "";
+
+  submitBtn.disabled = true;
+  const original = submitBtn.textContent;
+  submitBtn.textContent = "Submitting...";
+
+  try{
+    const body = encodeFormData(form);
+
+    const res = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body
+    });
+
+    if(!res.ok) throw new Error("Submit failed");
+
+    // Hide form + show thanks
     form.style.display = "none";
+    if(thanksBox) thanksBox.classList.add("show");
 
-    // show thanks
-    if (thanks) {
-      thanks.style.display = "block";
-      thanks.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      // fallback message if thanks block is missing
-      const div = document.createElement("div");
-      div.className = "thanks";
-      div.style.display = "block";
-      div.innerHTML = `
-        <div class="panel">
-          <h2>Thank you.</h2>
-          <p>We received your submission. Our team will contact you via email with next steps.</p>
-        </div>
-      `;
-      wrap.prepend(div);
-      div.scrollIntoView({ behavior: "smooth", block: "start" });
+  }catch(err){
+    if(errorBox){
+      errorBox.textContent = "Something went wrong sending the form. Please try again.";
+    }else{
+      alert("Something went wrong sending the form. Please try again.");
     }
+    submitBtn.disabled = false;
+    submitBtn.textContent = original;
   }
+}
 
-  // Button active state (works for your new gradient/multi-color too)
-  function setActive(btn, groupSelector = ".btn") {
-    const group = btn.closest(".btnGroup") || document;
-    $$(groupSelector, group).forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+document.addEventListener("submit", (e)=>{
+  const form = e.target;
+  if(form.matches("form[data-netlify='true']")){
+    e.preventDefault();
+    netlifySubmit(form);
   }
-
-  // ---------- index page navigation (optional) ----------
-  // Any button with data-go="somepage.html" will navigate
-  $$(".btn[data-go]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      setActive(btn);
-      const go = btn.getAttribute("data-go");
-      if (go) window.location.href = go;
-    });
-  });
-
-  // ---------- show/hide sections inside a page (optional) ----------
-  // Any button with data-show="#sectionId" will hide other .section and show that one
-  $$(".btn[data-show]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      setActive(btn);
-      const target = btn.getAttribute("data-show");
-      if (!target) return;
-
-      $$(".section").forEach(s => (s.style.display = "none"));
-      const el = $(target);
-      if (el) {
-        el.style.display = "block";
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    });
-  });
-
-  // ---------- Netlify form submit (IMPORTANT) ----------
-  // This captures submission and shows THANK YOU inline, no redirect.
-  $$("form").forEach(form => {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      // disable submit button while sending
-      const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.dataset.originalText = submitBtn.innerText || submitBtn.value || "";
-        if ("innerText" in submitBtn) submitBtn.innerText = "Submitting...";
-        if ("value" in submitBtn) submitBtn.value = "Submitting...";
-      }
-
-      try {
-        // Netlify requires a "name" attribute on form: <form name="..." data-netlify="true">
-        // POST to same page path
-        const body = encodeFormData(form);
-
-        const res = await fetch(window.location.pathname, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body
-        });
-
-        if (!res.ok) throw new Error("Network response not ok");
-
-        showThanks(form);
-      } catch (err) {
-        alert("Something went wrong sending the form. Please try again.");
-        console.error(err);
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          const t = submitBtn.dataset.originalText || "";
-          if ("innerText" in submitBtn) submitBtn.innerText = t || "Submit";
-          if ("value" in submitBtn) submitBtn.value = t || "Submit";
-        }
-      }
-    });
-  });
-
-})();
+});
