@@ -1,44 +1,63 @@
-(function () {
-  function $(sel, root=document){ return root.querySelector(sel); }
+function encode(data) {
+  return new URLSearchParams(data).toString();
+}
 
-  async function handleSubmit(form) {
-    const btn = form.querySelector('[data-submit]');
-    const thanks = document.getElementById('thanks');
-    const errorBox = document.getElementById('errorBox');
+function setInvestorMode(form, isInvestor) {
+  const inv = form.querySelector('[data-investor]');
+  const non = form.querySelector('[data-noninvestor]');
+  if (!inv || !non) return;
+  inv.classList.toggle('hidden', !isInvestor);
+  non.classList.toggle('hidden', isInvestor);
+}
 
-    if (errorBox) errorBox.classList.add('hidden');
-    if (btn) { btn.textContent = 'Submitting...'; btn.disabled = true; }
-
-    try {
-      const formData = new FormData(form);
-
-      // Netlify requires posting to the current page path
-      const resp = await fetch(form.getAttribute('action') || window.location.pathname, {
-        method: 'POST',
-        headers: { 'Accept': 'application/x-www-form-urlencoded;charset=UTF-8' },
-        body: new URLSearchParams(formData).toString()
-      });
-
-      if (!resp.ok) throw new Error('Network response not OK');
-
-      // Success → hide form, show thanks
-      form.classList.add('hidden');
-      if (thanks) {
-        thanks.classList.remove('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    } catch (e) {
-      if (errorBox) errorBox.classList.remove('hidden');
-      if (btn) { btn.textContent = 'Submit'; btn.disabled = false; }
-    }
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('form[data-ff-netlify]').forEach(form => {
-      form.addEventListener('submit', (ev) => {
-        ev.preventDefault();
-        handleSubmit(form);
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('form[data-ff]').forEach((form) => {
+    // toggle sections
+    const radios = form.querySelectorAll('input[name="is_investor"]');
+    radios.forEach(r => {
+      r.addEventListener('change', () => {
+        setInvestorMode(form, r.value === 'Yes');
       });
     });
+
+    // default view
+    const checked = form.querySelector('input[name="is_investor"]:checked');
+    if (checked) setInvestorMode(form, checked.value === 'Yes');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn = form.querySelector('button[type="submit"]');
+      const errorBox = form.querySelector('.errorBox');
+      const thanks = document.getElementById('thanks');
+      if (errorBox) errorBox.classList.add('hidden');
+      if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
+
+      try {
+        const formData = new FormData(form);
+        // IMPORTANT: Netlify needs form-name in the payload
+        const payload = {};
+        formData.forEach((v, k) => payload[k] = v);
+
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode(payload)
+        });
+
+        if (!res.ok) throw new Error('Network/submit error');
+
+        // Show thank you inside same page
+        form.classList.add('hidden');
+        if (thanks) thanks.classList.remove('hidden');
+
+        // scroll to top of thank you
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (err) {
+        if (errorBox) errorBox.classList.remove('hidden');
+        if (btn) { btn.disabled = false; btn.textContent = 'Submit'; }
+      }
+    });
   });
-})();
+});
