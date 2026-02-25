@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Family First Equity Group — Landing Page</title>
+  <title>Family First Equity Group — Intake</title>
+
   <style>
     :root{
       --black:#0b0b0c;
@@ -16,6 +17,8 @@
       --card:rgba(255,255,255,.06);
       --border:rgba(255,255,255,.14);
       --shadow: 0 14px 40px rgba(0,0,0,.45);
+      --error: rgba(225,29,46,.95);
+      --ok: rgba(22,163,74,.95);
     }
 
     *{box-sizing:border-box}
@@ -30,11 +33,9 @@
         linear-gradient(180deg, #050506, #0b0b0c 55%, #070708);
       min-height:100vh;
     }
-
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:1060px; margin:0 auto; padding:28px 18px 40px}
+    .wrap{max-width:1060px; margin:0 auto; padding:28px 18px 46px}
 
-    /* Top bar */
     .topbar{
       display:flex; align-items:center; justify-content:space-between; gap:14px;
       padding:14px 16px;
@@ -43,17 +44,13 @@
       border-radius:16px;
       box-shadow: var(--shadow);
     }
-    .brand{
-      display:flex; align-items:center; gap:12px; min-width:0;
-    }
+    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
     .mark{
       width:44px; height:44px; border-radius:14px;
-      background:
-        conic-gradient(from 240deg, var(--green), var(--yellow), var(--red), var(--green));
+      background: conic-gradient(from 240deg, var(--green), var(--yellow), var(--red), var(--green));
       box-shadow: 0 10px 26px rgba(0,0,0,.45);
       border:1px solid rgba(255,255,255,.18);
-      position:relative;
-      flex:0 0 auto;
+      position:relative; flex:0 0 auto;
     }
     .mark:after{
       content:"FF";
@@ -64,23 +61,12 @@
       text-shadow: 0 1px 0 rgba(255,255,255,.35);
       font-size:14px;
     }
-    .brand h1{
-      margin:0;
-      font-size:16px;
-      line-height:1.15;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
+    .brand h1{margin:0; font-size:16px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
     .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
 
-    .badges{
-      display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end;
-    }
+    .badges{display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end;}
     .badge{
-      font-size:12px;
-      padding:8px 10px;
-      border-radius:999px;
+      font-size:12px; padding:8px 10px; border-radius:999px;
       border:1px solid var(--border);
       background:rgba(0,0,0,.22);
       display:flex; align-items:center; gap:8px;
@@ -90,7 +76,6 @@
     .dot.green{background:var(--green)}
     .dot.yellow{background:var(--yellow)}
 
-    /* Hero */
     .hero{
       margin-top:18px;
       padding:26px 18px;
@@ -131,26 +116,11 @@
       font-size:12px;
       color:var(--muted);
     }
-    .kstripe{
-      height:10px; width:44px; border-radius:999px;
-      background:linear-gradient(90deg, var(--red), var(--yellow), var(--green));
-    }
+    .kstripe{height:10px; width:44px; border-radius:999px; background:linear-gradient(90deg, var(--red), var(--yellow), var(--green));}
 
-    .headline{
-      margin:0;
-      font-size:28px;
-      line-height:1.15;
-      letter-spacing:.2px;
-    }
-    .sub{
-      margin:0;
-      max-width:860px;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.6;
-    }
+    .headline{margin:0; font-size:28px; line-height:1.15; letter-spacing:.2px;}
+    .sub{margin:0; max-width:900px; color:var(--muted); font-size:15px; line-height:1.6;}
 
-    /* Notice */
     .notice{
       margin-top:8px;
       border-radius:16px;
@@ -163,7 +133,6 @@
     .notice strong{color:rgba(250,204,21,.98)}
     .notice p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
 
-    /* Buttons */
     .cta-row{
       margin-top:14px;
       display:grid;
@@ -195,32 +164,82 @@
       flex:0 0 auto;
     }
     .pill.red{background:linear-gradient(135deg, var(--red), rgba(225,29,46,.65))}
-    .pill.green{background:linear-gradient(135deg, var(--green), rgba(22,163,74,.65))}
     .pill.yellow{background:linear-gradient(135deg, var(--yellow), rgba(250,204,21,.65))}
+    .pill.green{background:linear-gradient(135deg, var(--green), rgba(22,163,74,.65))}
     .btn h3{margin:0; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
     .btn span{color:var(--muted); font-size:12px; white-space:nowrap}
     .arrow{opacity:.9}
 
-    /* Sections */
-    .grid{
+    .panel{
       margin-top:16px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
-      align-items:start;
-    }
-    .card{
       border-radius:18px;
       border:1px solid var(--border);
       background:rgba(255,255,255,.04);
       padding:16px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.30);
     }
-    .card h2{margin:0 0 8px; font-size:16px}
-    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.65}
-    .list{margin:10px 0 0; padding:0 0 0 18px; color:var(--muted); font-size:13px; line-height:1.65}
-    .list li{margin:6px 0}
+    .panel h2{margin:0 0 6px; font-size:16px}
+    .panel p{margin:0 0 12px; color:var(--muted); font-size:13px; line-height:1.6}
 
-    /* Footer */
+    form{display:grid; gap:10px}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    label{display:grid; gap:6px; font-size:12px; color:var(--muted)}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.28);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:96px; resize:vertical}
+    input::placeholder, textarea::placeholder{color:rgba(247,247,248,.45)}
+    .req{color:rgba(250,204,21,.95); font-weight:800; margin-left:6px}
+
+    .submit-row{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      margin-top:4px;
+    }
+    .primary{
+      border:0;
+      padding:12px 16px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:800;
+      color:var(--black);
+      background:linear-gradient(90deg, var(--yellow), rgba(250,204,21,.75));
+      box-shadow: 0 14px 30px rgba(0,0,0,.35);
+    }
+    .primary:hover{filter:brightness(1.04)}
+    .smallnote{color:var(--muted); font-size:12px; line-height:1.55; max-width:720px}
+    .smallnote b{color:rgba(250,204,21,.95)}
+
+    .hidden{display:none !important}
+
+    /* Thank you screen */
+    .thankyou{
+      margin-top:16px;
+      border-radius:20px;
+      border:1px solid rgba(22,163,74,.35);
+      background:rgba(22,163,74,.08);
+      padding:18px 16px;
+      display:grid;
+      gap:8px;
+    }
+    .thankyou h2{margin:0; font-size:18px; color:rgba(22,163,74,.98)}
+    .thankyou p{margin:0; color:var(--muted); line-height:1.6; font-size:13px}
+    .backlink{
+      margin-top:6px;
+      display:inline-flex;
+      width:max-content;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.22);
+      color:var(--text);
+    }
+
     footer{
       margin-top:16px;
       padding:16px;
@@ -248,7 +267,7 @@
 
     @media (max-width: 860px){
       .cta-row{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
       .headline{font-size:24px}
       .badges{justify-content:flex-start}
     }
@@ -264,7 +283,7 @@
         <div class="mark" aria-hidden="true"></div>
         <div>
           <h1>Family First Equity Group</h1>
-          <p>Real Estate Solutions • Seller • Buyer • Property Management</p>
+          <p>Seller • Buyer • Property Management Intake</p>
         </div>
       </div>
 
@@ -275,128 +294,263 @@
       </div>
     </div>
 
-    <!-- HERO + DESCRIPTION -->
-    <section class="hero">
+    <!-- HERO -->
+    <section class="hero" id="top">
       <div class="hero-inner">
-        <div class="kicker"><span class="kstripe" aria-hidden="true"></span>Built for Orlando + beyond</div>
+        <div class="kicker"><span class="kstripe" aria-hidden="true"></span>Choose your application</div>
 
-        <h2 class="headline">Sell with confidence. Buy with clarity. Manage with peace.</h2>
-
-        <!-- DESCRIPTION (as you requested: “all the description… then put the notice”) -->
+        <h2 class="headline">Start here — Seller, Buyer, or Management</h2>
         <p class="sub">
-          Family First Equity Group helps everyday families and serious investors move through real estate the right way.
-          We focus on clean communication, simple steps, and real results—whether you’re selling a property, buying a home,
-          or looking for steady property management.
-          <br><br>
-          Our team can help you:
-          identify the best plan for your goal, organize the documents and next steps, and move forward with a structured process.
-          You choose the path below (Seller, Buyer, or Management) and we’ll guide you from start to finish.
+          Click a button below to open the right application. Fill it out and submit.
+          After you submit, you will see a confirmation message saying we received your application,
+          and we will contact you by email as soon as possible.
         </p>
 
-        <!-- NOTICE -->
+        <!-- IMPORTANT NOTICE ABOUT BUTTONS -->
         <div class="notice" role="note">
-          <strong>Notice</strong>
+          <strong>Important Notice (About the Buttons)</strong>
           <p>
-            This is a request/intake landing page. Submitting a request does not create an agency relationship or contract.
-            Final pricing, timelines, and eligibility depend on the property, location, and verification of details.
+            Each button opens a different application form (Seller, Buyer, or Management).
+            Please choose the correct button so your request goes to the right team and we can respond faster.
+            Submitting an application does not create a contract or agency relationship.
           </p>
         </div>
 
-        <!-- 3 CLICKING BUTTONS -->
+        <!-- BUTTONS OPEN FORMS (NOT SCROLL LINKS) -->
         <div class="cta-row" aria-label="Primary actions">
-          <a class="btn" href="#seller">
+          <button class="btn" type="button" data-mode="seller" aria-controls="formPanel">
             <div class="left">
               <div class="pill red">S</div>
               <div>
-                <h3>Seller</h3>
-                <span>List • Offer review • Close plan</span>
+                <h3>Seller Application</h3>
+                <span>Sell • List • Offer review</span>
               </div>
             </div>
             <div class="arrow">→</div>
-          </a>
+          </button>
 
-          <a class="btn" href="#buyer">
+          <button class="btn" type="button" data-mode="buyer" aria-controls="formPanel">
             <div class="left">
               <div class="pill yellow">B</div>
               <div>
-                <h3>Buyer</h3>
-                <span>Search • Match • Negotiate</span>
+                <h3>Buyer Application</h3>
+                <span>Buy • Match • Negotiate</span>
               </div>
             </div>
             <div class="arrow">→</div>
-          </a>
+          </button>
 
-          <a class="btn" href="#management">
+          <button class="btn" type="button" data-mode="management" aria-controls="formPanel">
             <div class="left">
               <div class="pill green">M</div>
               <div>
-                <h3>Management</h3>
-                <span>Tenant handling • Rent systems</span>
+                <h3>Management Application</h3>
+                <span>Rent • Tenants • Reporting</span>
               </div>
             </div>
             <div class="arrow">→</div>
-          </a>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- LOWER SECTIONS -->
-    <section class="grid">
-      <div class="card" id="seller">
-        <h2>Seller Path</h2>
-        <p>
-          Want to sell fast without confusion? We help you organize the selling plan, prepare the property,
-          and position it for strong offers.
-        </p>
-        <ul class="list">
-          <li>Property info intake + goal planning</li>
-          <li>Pricing strategy and next-step checklist</li>
-          <li>Offer review support + closing coordination</li>
-        </ul>
-      </div>
+    <!-- FORM PANEL -->
+    <section class="panel hidden" id="formPanel" aria-live="polite">
+      <h2 id="formTitle">Application</h2>
+      <p id="formDesc">Fill out the form below.</p>
 
-      <div class="card" id="buyer">
-        <h2>Buyer Path</h2>
-        <p>
-          Buying is easier when the steps are clear. We help you stay focused on budget, location, and the right property type.
-        </p>
-        <ul class="list">
-          <li>Needs assessment (budget, timeline, area)</li>
-          <li>Property matching + viewing strategy</li>
-          <li>Negotiation support and closing readiness</li>
-        </ul>
-      </div>
+      <!-- NOTE: This is a front-end demo. To actually receive applications, connect to Formspree/Netlify Forms/backend. -->
+      <form id="intakeForm">
+        <!-- hidden field so you know what type -->
+        <input type="hidden" name="application_type" id="application_type" value="" />
 
-      <div class="card" id="management">
-        <h2>Management Path</h2>
-        <p>
-          Hands-off property ownership starts with systems. We support owners with tenant handling, rent workflow,
-          and maintenance coordination (based on your chosen service level).
-        </p>
-        <ul class="list">
-          <li>Owner intake + property setup checklist</li>
-          <li>Tenant communication + issue tracking</li>
-          <li>Rent workflow + monthly reporting (optional)</li>
-        </ul>
-      </div>
+        <div class="row">
+          <label>
+            Full Name <span class="req">*</span>
+            <input name="full_name" required placeholder="Your name" />
+          </label>
 
-      <div class="card">
-        <h2>Quick Start</h2>
-        <p>
-          Use the buttons above to choose your path. If you want the fastest response,
-          email with your name, city, and what you need (Seller / Buyer / Management).
-        </p>
-        <ul class="list">
-          <li>Subject example: <b>Family First — Buyer Request</b></li>
-          <li>Include: timeline, budget (if buyer), property address (if seller/management)</li>
-        </ul>
-      </div>
+          <label>
+            Email <span class="req">*</span>
+            <input type="email" name="email" required placeholder="you@email.com" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            Phone <span class="req">*</span>
+            <input type="tel" name="phone" required placeholder="(###) ###-####" />
+          </label>
+
+          <label>
+            City / Area <span class="req">*</span>
+            <input name="city" required placeholder="Orlando, FL" />
+          </label>
+        </div>
+
+        <!-- Seller-only fields -->
+        <div id="sellerFields" class="hidden">
+          <div class="row">
+            <label>
+              Property Address <span class="req">*</span>
+              <input name="seller_property_address" placeholder="Street, City, State, Zip" />
+            </label>
+            <label>
+              Property Type <span class="req">*</span>
+              <select name="seller_property_type">
+                <option value="">Select…</option>
+                <option>Single Family</option>
+                <option>Townhome / Condo</option>
+                <option>Multi-Family (2–4)</option>
+                <option>Apartment Building (5+)</option>
+                <option>Land</option>
+                <option>Commercial</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              Estimated Asking Price / Target <span class="req">*</span>
+              <input name="seller_price_target" placeholder="$" />
+            </label>
+            <label>
+              Timeline to Sell <span class="req">*</span>
+              <select name="seller_timeline">
+                <option value="">Select…</option>
+                <option>ASAP (0–30 days)</option>
+                <option>30–60 days</option>
+                <option>60–90 days</option>
+                <option>90+ days</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <!-- Buyer-only fields -->
+        <div id="buyerFields" class="hidden">
+          <div class="row">
+            <label>
+              Budget Range <span class="req">*</span>
+              <input name="buyer_budget" placeholder="$250,000 - $350,000" />
+            </label>
+            <label>
+              Pre-Approved? <span class="req">*</span>
+              <select name="buyer_preapproved">
+                <option value="">Select…</option>
+                <option>Yes</option>
+                <option>No</option>
+                <option>Not sure yet</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              Property Type <span class="req">*</span>
+              <select name="buyer_property_type">
+                <option value="">Select…</option>
+                <option>Single Family</option>
+                <option>Townhome / Condo</option>
+                <option>Multi-Family (2–4)</option>
+                <option>Apartment Building (5+)</option>
+                <option>Land</option>
+                <option>Commercial</option>
+              </select>
+            </label>
+            <label>
+              Timeline to Buy <span class="req">*</span>
+              <select name="buyer_timeline">
+                <option value="">Select…</option>
+                <option>ASAP (0–30 days)</option>
+                <option>30–60 days</option>
+                <option>60–90 days</option>
+                <option>90+ days</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <!-- Management-only fields -->
+        <div id="managementFields" class="hidden">
+          <div class="row">
+            <label>
+              Property Address <span class="req">*</span>
+              <input name="mgmt_property_address" placeholder="Street, City, State, Zip" />
+            </label>
+            <label>
+              Units / Doors <span class="req">*</span>
+              <select name="mgmt_units">
+                <option value="">Select…</option>
+                <option>1 unit</option>
+                <option>2–4 units</option>
+                <option>5–20 units</option>
+                <option>21–100 units</option>
+                <option>100+ units</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              Currently Occupied? <span class="req">*</span>
+              <select name="mgmt_occupied">
+                <option value="">Select…</option>
+                <option>Yes</option>
+                <option>No</option>
+                <option>Partially</option>
+              </select>
+            </label>
+            <label>
+              Service Needed <span class="req">*</span>
+              <select name="mgmt_service">
+                <option value="">Select…</option>
+                <option>Full Management</option>
+                <option>Tenant Placement Only</option>
+                <option>Rent Collection / Admin Only</option>
+                <option>Not sure yet</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <!-- Shared notes -->
+        <label>
+          Details / Notes <span class="req">*</span>
+          <textarea name="notes" required placeholder="Tell us what you need. Any details that help us respond faster."></textarea>
+        </label>
+
+        <!-- form notice -->
+        <div class="notice" role="note" style="border-color: rgba(255,255,255,.14); background: rgba(0,0,0,.22);">
+          <strong>Important Notice (Application)</strong>
+          <p>
+            Please enter accurate information. We use your email to reply.
+            Submitting this application does not guarantee approval, pricing, or availability.
+          </p>
+        </div>
+
+        <div class="submit-row">
+          <button class="primary" type="submit">Submit Application</button>
+          <div class="smallnote">
+            <b>After submit:</b> you will see “Thank you — we received your application and we will contact you by email as soon as possible.”
+          </div>
+        </div>
+      </form>
     </section>
 
-    <!-- BOTTOM CONTACT (email + phone number) -->
+    <!-- THANK YOU PAGE (same file, shown after submit) -->
+    <section class="thankyou hidden" id="thankYouPanel">
+      <h2>Thank you — we received your application.</h2>
+      <p>
+        We will contact you by email as soon as possible.
+      </p>
+      <a class="backlink" href="#top" id="startOver">← Back to start</a>
+    </section>
+
+    <!-- FOOTER CONTACT -->
     <footer>
       <div class="contact">
-        <a href="mailto:REPLACE_WITH_YOUR_EMAIL?subject=Family%20First%20Equity%20Request">Email: REPLACE_WITH_YOUR_EMAIL</a>
+        <a href="mailto:REPLACE_WITH_YOUR_EMAIL?subject=Family%20First%20Equity%20Application">Email: REPLACE_WITH_YOUR_EMAIL</a>
         <a href="tel:+14074763032">Phone: +1 (407) 476-3032</a>
       </div>
       <div class="fineprint">© <span id="y"></span> Family First Equity Group. All rights reserved.</div>
@@ -405,7 +559,114 @@
   </div>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    // ====== CONFIG (edit this) ======
+    const COMPANY_EMAIL = "REPLACE_WITH_YOUR_EMAIL"; // e.g. "contact@familyfirstequitygroup.com"
+    // ================================
+
+    // Patch email links
+    document.querySelectorAll('a[href^="mailto:REPLACE_WITH_YOUR_EMAIL"]').forEach(a=>{
+      a.href = a.href.replace("REPLACE_WITH_YOUR_EMAIL", encodeURIComponent(COMPANY_EMAIL));
+      a.textContent = a.textContent.replace("REPLACE_WITH_YOUR_EMAIL", COMPANY_EMAIL);
+    });
+
+    const formPanel = document.getElementById("formPanel");
+    const thankYouPanel = document.getElementById("thankYouPanel");
+    const formTitle = document.getElementById("formTitle");
+    const formDesc  = document.getElementById("formDesc");
+    const intakeForm = document.getElementById("intakeForm");
+    const typeField = document.getElementById("application_type");
+
+    const sellerFields = document.getElementById("sellerFields");
+    const buyerFields = document.getElementById("buyerFields");
+    const managementFields = document.getElementById("managementFields");
+
+    const year = document.getElementById("y");
+    year.textContent = new Date().getFullYear();
+
+    function setMode(mode){
+      // Show panel
+      formPanel.classList.remove("hidden");
+      thankYouPanel.classList.add("hidden");
+
+      // Reset required toggles first
+      sellerFields.classList.add("hidden");
+      buyerFields.classList.add("hidden");
+      managementFields.classList.add("hidden");
+
+      // Clear any previous required flags from mode-specific inputs
+      [...sellerFields.querySelectorAll("input,select"), ...buyerFields.querySelectorAll("input,select"), ...managementFields.querySelectorAll("input,select")]
+        .forEach(el => el.required = false);
+
+      // Apply mode
+      typeField.value = mode;
+
+      if(mode === "seller"){
+        formTitle.textContent = "Seller Application";
+        formDesc.textContent = "Tell us about the property you want to sell. Required fields are marked.";
+        sellerFields.classList.remove("hidden");
+        sellerFields.querySelectorAll("input,select").forEach(el => el.required = true);
+      }
+
+      if(mode === "buyer"){
+        formTitle.textContent = "Buyer Application";
+        formDesc.textContent = "Tell us what you want to buy and your timeline. Required fields are marked.";
+        buyerFields.classList.remove("hidden");
+        buyerFields.querySelectorAll("input,select").forEach(el => el.required = true);
+      }
+
+      if(mode === "management"){
+        formTitle.textContent = "Management Application";
+        formDesc.textContent = "Tell us about the property you want managed. Required fields are marked.";
+        managementFields.classList.remove("hidden");
+        managementFields.querySelectorAll("input,select").forEach(el => el.required = true);
+      }
+
+      // Scroll to the form
+      formPanel.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    document.querySelectorAll("[data-mode]").forEach(btn=>{
+      btn.addEventListener("click", () => setMode(btn.dataset.mode));
+    });
+
+    // Demo submit behavior (shows Thank You page).
+    // To actually receive applications:
+    // - Use Netlify Forms, Formspree, or your own backend endpoint.
+    intakeForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+
+      // Basic guard: ensure they picked a mode first
+      if(!typeField.value){
+        alert("Please choose Seller, Buyer, or Management first.");
+        return;
+      }
+
+      // Show Thank You panel
+      formPanel.classList.add("hidden");
+      thankYouPanel.classList.remove("hidden");
+      thankYouPanel.scrollIntoView({behavior:"smooth", block:"start"});
+
+      // OPTIONAL: Also open an email draft with a summary (client-side)
+      // (You can delete this if you don't want it.)
+      const data = new FormData(intakeForm);
+      const lines = [];
+      for (const [k,v] of data.entries()) lines.push(`${k}: ${v}`);
+      const subject = `Family First — ${typeField.value.toUpperCase()} Application`;
+      const body = encodeURIComponent(lines.join("\n"));
+
+      // Comment out the next line if you do NOT want the email draft to open.
+      window.location.href = `mailto:${encodeURIComponent(COMPANY_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+      // Reset the form for next time (optional)
+      intakeForm.reset();
+      typeField.value = "";
+    });
+
+    // Start over link
+    document.getElementById("startOver").addEventListener("click", ()=>{
+      thankYouPanel.classList.add("hidden");
+      // back to top, keep form hidden
+    });
   </script>
 </body>
 </html>
