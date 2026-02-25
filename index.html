@@ -31,23 +31,29 @@
       min-height:100vh;
     }
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:1060px; margin:0 auto; padding:28px 18px 46px}
+    .wrap{max-width:1060px; margin:0 auto; padding:22px 16px 46px}
 
-    /* Top bar */
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
-      padding:14px 16px;
+    /* CLEAN TOP HEADER (horizontal + readable) */
+    .header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 14px;
       border:1px solid var(--border);
       background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border-radius:16px;
       box-shadow: var(--shadow);
     }
-    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width:0;
+    }
     .mark{
       width:44px; height:44px; border-radius:14px;
       background: conic-gradient(from 240deg, var(--green), var(--yellow), var(--red), var(--green));
-      box-shadow: 0 10px 26px rgba(0,0,0,.45);
       border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 26px rgba(0,0,0,.45);
       position:relative; flex:0 0 auto;
     }
     .mark:after{
@@ -59,26 +65,46 @@
       text-shadow: 0 1px 0 rgba(255,255,255,.35);
       font-size:14px;
     }
-    .brand h1{margin:0; font-size:16px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-    .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
+    .brandtext{min-width:0}
+    .brandname{
+      margin:0;
+      font-weight:900;
+      letter-spacing:.2px;
+      font-size:16px;
+      line-height:1.1;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .tagline{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
 
-    .badges{display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end;}
-    .badge{
-      font-size:12px; padding:8px 10px; border-radius:999px;
+    .chips{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;}
+    .chip{
+      display:flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
       border:1px solid var(--border);
       background:rgba(0,0,0,.22);
-      display:flex; align-items:center; gap:8px;
       color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
     }
     .dot{width:9px; height:9px; border-radius:50%}
     .dot.red{background:var(--red)}
-    .dot.green{background:var(--green)}
     .dot.yellow{background:var(--yellow)}
+    .dot.green{background:var(--green)}
 
-    /* HERO (only shown before picking a form) */
-    .hero{
-      margin-top:18px;
-      padding:26px 18px;
+    /* LANDING BODY */
+    .panel{
+      margin-top:16px;
+      padding:22px 16px;
       border-radius:20px;
       border:1px solid var(--border);
       background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
@@ -86,25 +112,23 @@
       position:relative;
       overflow:hidden;
     }
-    .hero:before{
+    .panel:before{
       content:"";
       position:absolute;
-      width:520px; height:520px;
-      border-radius:50%;
+      width:520px; height:520px; border-radius:50%;
       background:radial-gradient(circle, rgba(250,204,21,.22), transparent 60%);
-      left:-240px; top:-260px;
+      left:-260px; top:-300px;
       filter: blur(2px);
     }
-    .hero:after{
+    .panel:after{
       content:"";
       position:absolute;
-      width:520px; height:520px;
-      border-radius:50%;
+      width:520px; height:520px; border-radius:50%;
       background:radial-gradient(circle, rgba(22,163,74,.18), transparent 60%);
-      right:-240px; bottom:-260px;
+      right:-260px; bottom:-300px;
       filter: blur(2px);
     }
-    .hero-inner{position:relative; display:grid; gap:16px}
+    .panelInner{position:relative}
 
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
@@ -118,11 +142,23 @@
     }
     .kstripe{height:10px; width:44px; border-radius:999px; background:linear-gradient(90deg, var(--red), var(--yellow), var(--green));}
 
-    .headline{margin:0; font-size:28px; line-height:1.15; letter-spacing:.2px;}
-    .sub{margin:0; max-width:900px; color:var(--muted); font-size:15px; line-height:1.6;}
+    .title{
+      margin:12px 0 0;
+      font-size:30px;
+      line-height:1.1;
+      letter-spacing:.2px;
+      font-weight:950;
+    }
+    .desc{
+      margin:12px 0 0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+      max-width:920px;
+    }
 
     .notice{
-      margin-top:8px;
+      margin-top:14px;
       border-radius:16px;
       border:1px solid rgba(250,204,21,.35);
       background:rgba(250,204,21,.08);
@@ -133,8 +169,8 @@
     .notice strong{color:rgba(250,204,21,.98)}
     .notice p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
 
-    /* Buttons */
-    .cta-row{
+    /* ACTION BUTTONS */
+    .cta{
       margin-top:14px;
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -149,13 +185,12 @@
       border-radius:16px;
       border:1px solid var(--border);
       background:rgba(0,0,0,.20);
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
       cursor:pointer;
       user-select:none;
-      color:var(--text);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
     }
     .btn:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.28); background:rgba(0,0,0,.28)}
-    .btn .left{display:flex; align-items:center; gap:10px; min-width:0}
+    .left{display:flex; align-items:center; gap:10px; min-width:0}
     .pill{
       width:38px; height:38px; border-radius:14px;
       display:grid; place-items:center;
@@ -172,9 +207,35 @@
     .btn span{color:var(--muted); font-size:12px; white-space:nowrap}
     .arrow{opacity:.9}
 
-    /* FORM VIEW (full-screen mode after click) */
-    .formView{
-      margin-top:18px;
+    /* CONTACT FOOTER */
+    .footer{
+      margin-top:14px;
+      padding:16px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.22);
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .contact{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      color:var(--muted); font-size:13px;
+    }
+    .contact a{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+    }
+    .fineprint{color:var(--muted); font-size:12px}
+
+    /* FORM-ONLY VIEW */
+    .formOnly{
+      margin-top:16px;
       border-radius:20px;
       border:1px solid var(--border);
       background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
@@ -182,8 +243,7 @@
       padding:18px;
     }
     .formHead{
-      display:flex;
-      flex-wrap:wrap;
+      display:flex; flex-wrap:wrap;
       align-items:flex-start;
       justify-content:space-between;
       gap:10px;
@@ -218,7 +278,6 @@
     input::placeholder, textarea::placeholder{color:rgba(247,247,248,.45)}
     .req{color:rgba(250,204,21,.95); font-weight:800; margin-left:6px}
 
-    /* Submit button is YELLOW (no blue) */
     .primary{
       border:0;
       padding:12px 16px;
@@ -229,37 +288,36 @@
       background:linear-gradient(90deg, var(--yellow), rgba(250,204,21,.75));
       box-shadow: 0 14px 30px rgba(0,0,0,.35);
     }
-    .primary:hover{filter:brightness(1.04)}
-    .smallnote{color:var(--muted); font-size:12px; line-height:1.55; max-width:720px}
-    .smallnote b{color:rgba(250,204,21,.95)}
-
-    .miniNotice{
-      border-radius:16px;
-      border:1px solid rgba(250,204,21,.35);
-      background:rgba(250,204,21,.08);
-      padding:12px 12px;
-      display:grid;
-      gap:6px;
-      margin-top:6px;
-    }
-    .miniNotice strong{color:rgba(250,204,21,.98)}
-    .miniNotice p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
 
     .hidden{display:none !important}
 
-    /* Thank you page */
-    .thankyou{
-      margin-top:18px;
+    /* THANK YOU VIEW (clean + centered) */
+    .thanksWrap{
+      margin-top:16px;
       border-radius:20px;
       border:1px solid rgba(22,163,74,.35);
       background:rgba(22,163,74,.08);
       box-shadow: var(--shadow);
-      padding:20px 18px;
+      padding:28px 18px;
       display:grid;
-      gap:8px;
+      place-items:center;
+      text-align:center;
+      gap:10px;
     }
-    .thankyou h2{margin:0; font-size:20px; color:rgba(22,163,74,.98)}
-    .thankyou p{margin:0; color:var(--muted); line-height:1.6; font-size:13px}
+    .thanksTitle{
+      margin:0;
+      font-size:28px;
+      font-weight:950;
+      color:rgba(22,163,74,.98);
+      line-height:1.1;
+    }
+    .thanksMsg{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.7;
+      max-width:760px;
+    }
     .restart{
       margin-top:6px;
       display:inline-flex;
@@ -271,81 +329,79 @@
       color:var(--text);
       cursor:pointer;
     }
-
-    footer{
-      margin-top:16px;
-      padding:16px;
-      border-radius:18px;
-      border:1px solid var(--border);
-      background:rgba(0,0,0,.22);
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
+    .legalNotice{
+      margin-top:8px;
+      border-radius:16px;
+      border:1px solid rgba(250,204,21,.35);
+      background:rgba(250,204,21,.08);
+      padding:14px 14px;
+      display:grid;
+      gap:6px;
+      max-width:860px;
     }
-    .contact{
-      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
-      color:var(--muted); font-size:13px;
-    }
-    .contact a{
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
-      color:var(--text);
-    }
-    .fineprint{color:var(--muted); font-size:12px}
+    .legalNotice strong{color:rgba(250,204,21,.98)}
+    .legalNotice p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
 
     @media (max-width: 860px){
-      .cta-row{grid-template-columns:1fr}
+      .cta{grid-template-columns:1fr}
       .row{grid-template-columns:1fr}
-      .headline{font-size:24px}
-      .badges{justify-content:flex-start}
+      .title{font-size:26px}
+      .chips{justify-content:flex-start}
+      .brandname{font-size:15px}
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap" id="app">
+  <div class="wrap">
 
-    <!-- LANDING VIEW (visible at start only) -->
+    <!-- VIEW 1: LANDING -->
     <div id="landingView">
-      <div class="topbar">
+      <div class="header">
         <div class="brand">
           <div class="mark" aria-hidden="true"></div>
-          <div>
-            <h1>Family First Equity Group</h1>
-            <p>Seller • Buyer • Property Management Intake</p>
+          <div class="brandtext">
+            <h1 class="brandname">Family First Equity Group</h1>
+            <p class="tagline">Seller • Buyer • Property Management • Residential & Commercial</p>
           </div>
         </div>
 
-        <div class="badges" aria-label="Highlights">
-          <div class="badge"><span class="dot red"></span>Fast response</div>
-          <div class="badge"><span class="dot yellow"></span>Commercial-friendly</div>
-          <div class="badge"><span class="dot green"></span>All property types</div>
+        <div class="chips" aria-label="Highlights">
+          <div class="chip"><span class="dot red"></span>Seller intake</div>
+          <div class="chip"><span class="dot yellow"></span>Buyer intake</div>
+          <div class="chip"><span class="dot green"></span>Management intake</div>
         </div>
       </div>
 
-      <section class="hero" id="top">
-        <div class="hero-inner">
+      <section class="panel">
+        <div class="panelInner">
           <div class="kicker"><span class="kstripe" aria-hidden="true"></span>Choose your application</div>
 
-          <h2 class="headline">Start here — Seller, Buyer, or Management</h2>
-          <p class="sub">
-            Click a button below to open the right application. After you click, you will go straight to the form
-            and you will not see anything else—just the application.
+          <!-- BIG TITLE -->
+          <h2 class="title">Family First Equity Group</h2>
+
+          <!-- BIG DESCRIPTION (clean + clear) -->
+          <p class="desc">
+            Family First Equity Group is a real estate investment-focused company that helps property owners, buyers, and
+            investors move forward with a clear, simple process. We work with residential and commercial opportunities,
+            including single-family homes, multifamily properties, land, and select commercial real estate.
+            <br><br>
+            Use the buttons below to start the correct application:
+            <b>Seller</b> (you want to sell), <b>Buyer</b> (you want to buy), or <b>Management</b> (you want help managing a property).
+            After you click, you will go straight into the form and see only the application.
           </p>
 
+          <!-- NOTICE (under description, before buttons) -->
           <div class="notice" role="note">
-            <strong>Important Notice (Buttons)</strong>
+            <strong>Notice</strong>
             <p>
-              Each button opens a different application form. Please choose the correct button so your request goes to the right place
-              and we can respond faster. Submitting an application does not create a contract or agency relationship.
+              This page is for submitting a request. Submitting an application does not create a contract.
+              We review your information and respond by email as soon as possible.
             </p>
           </div>
 
-          <div class="cta-row" aria-label="Primary actions">
+          <!-- BUTTONS -->
+          <div class="cta" aria-label="Primary actions">
             <button class="btn" type="button" data-mode="seller">
               <div class="left">
                 <div class="pill red">S</div>
@@ -379,25 +435,27 @@
               <div class="arrow">→</div>
             </button>
           </div>
+
+          <!-- CONTACT INFO (bottom of landing) -->
+          <div class="footer">
+            <div class="contact">
+              <a id="emailLink" href="mailto:REPLACE_EMAIL?subject=Family%20First%20Equity%20Request">Email: <span id="emailText">REPLACE_EMAIL</span></a>
+              <a id="phoneLink" href="tel:+14074763032">Phone: <span id="phoneText">+1 (407) 476-3032</span></a>
+            </div>
+            <div class="fineprint">© <span id="year"></span> Family First Equity Group. All rights reserved.</div>
+          </div>
+
         </div>
       </section>
-
-      <footer>
-        <div class="contact">
-          <a href="mailto:REPLACE_WITH_YOUR_EMAIL?subject=Family%20First%20Equity%20Application">Email: REPLACE_WITH_YOUR_EMAIL</a>
-          <a href="tel:+14074763032">Phone: +1 (407) 476-3032</a>
-        </div>
-        <div class="fineprint">© <span id="y"></span> Family First Equity Group. All rights reserved.</div>
-      </footer>
     </div>
 
-    <!-- FORM VIEW (full-screen: shows ONLY after click) -->
-    <div id="formOnlyView" class="hidden">
-      <section class="formView" aria-live="polite">
+    <!-- VIEW 2: FORM ONLY (shows NOTHING else) -->
+    <div id="formView" class="hidden">
+      <section class="formOnly" aria-live="polite">
         <div class="formHead">
           <div>
             <h2 id="formTitle">Application</h2>
-            <p id="formDesc">Fill out the form below.</p>
+            <p id="formDesc">Fill out the form below and submit.</p>
           </div>
           <button class="back" id="backBtn" type="button">← Back</button>
         </div>
@@ -405,28 +463,43 @@
         <form id="intakeForm">
           <input type="hidden" name="application_type" id="application_type" value="" />
 
-          <!-- NEW: Person vs Company (for commercial + anything else) -->
+          <!-- IMPORTANT: Investor vs Personal -->
           <div class="row">
             <label>
-              Are you applying as… <span class="req">*</span>
-              <select name="applicant_type" id="applicant_type" required>
+              You are applying as… <span class="req">*</span>
+              <select name="client_role" id="client_role" required>
                 <option value="">Select…</option>
-                <option value="person">Person (Individual)</option>
-                <option value="company">Company (Business / Entity)</option>
+                <option value="investor">Investor</option>
+                <option value="personal">Personal (Individual)</option>
+                <option value="company">Company / Entity</option>
               </select>
             </label>
 
             <label>
-              Request Category <span class="req">*</span>
+              Property Category <span class="req">*</span>
               <select name="property_category" required>
                 <option value="">Select…</option>
                 <option>Residential</option>
                 <option>Commercial Real Estate</option>
                 <option>Multi-Family (5+ units)</option>
                 <option>Land</option>
-                <option>Other (we will still help)</option>
+                <option>Other (we still help)</option>
               </select>
             </label>
+          </div>
+
+          <!-- Company fields (only if Company/Entity) -->
+          <div id="companyFields" class="hidden">
+            <div class="row">
+              <label>
+                Company Name <span class="req">*</span>
+                <input name="company_name" id="company_name" placeholder="Your company name" />
+              </label>
+              <label>
+                Your Title / Role <span class="req">*</span>
+                <input name="company_role" id="company_role" placeholder="Owner / Manager / Representative" />
+              </label>
+            </div>
           </div>
 
           <!-- Shared contact -->
@@ -454,21 +527,7 @@
             </label>
           </div>
 
-          <!-- Company fields (only if company selected) -->
-          <div id="companyFields" class="hidden">
-            <div class="row">
-              <label>
-                Company Name <span class="req">*</span>
-                <input name="company_name" id="company_name" placeholder="Your business name" />
-              </label>
-              <label>
-                Your Title / Role <span class="req">*</span>
-                <input name="company_role" id="company_role" placeholder="Owner / Manager / Agent" />
-              </label>
-            </div>
-          </div>
-
-          <!-- Seller-only fields -->
+          <!-- Seller -->
           <div id="sellerFields" class="hidden">
             <div class="row">
               <label>
@@ -491,7 +550,7 @@
 
             <div class="row">
               <label>
-                Estimated Asking Price / Target <span class="req">*</span>
+                Price Target (if known) <span class="req">*</span>
                 <input name="seller_price_target" id="seller_price_target" placeholder="$" />
               </label>
               <label>
@@ -507,7 +566,7 @@
             </div>
           </div>
 
-          <!-- Buyer-only fields -->
+          <!-- Buyer -->
           <div id="buyerFields" class="hidden">
             <div class="row">
               <label>
@@ -551,7 +610,7 @@
             </div>
           </div>
 
-          <!-- Management-only fields -->
+          <!-- Management -->
           <div id="managementFields" class="hidden">
             <div class="row">
               <label>
@@ -596,37 +655,42 @@
 
           <label>
             Details / Notes <span class="req">*</span>
-            <textarea name="notes" required placeholder="Tell us what you need. Any details that help us respond faster."></textarea>
+            <textarea name="notes" required placeholder="Tell us what you need. Include any details that help us respond faster."></textarea>
           </label>
 
-          <div class="miniNotice" role="note">
+          <div class="notice" role="note" style="border-color: rgba(255,255,255,.14); background: rgba(0,0,0,.22);">
             <strong>Important Notice</strong>
             <p>
-              We accept Residential, Commercial, and “Other” requests too—do not leave this page.
-              Submit your request and we will contact you by email as soon as possible.
-              Submitting this application does not create a contract or guarantee approval.
+              We review every request (including Commercial and “Other”). Submitting this form does not create a contract,
+              and we respond by email as soon as possible.
             </p>
           </div>
 
-          <div class="row">
-            <button class="primary" type="submit">Submit Application</button>
-            <div class="smallnote">
-              <b>After submit:</b> “Thank you — we received your application and we will contact you by email as soon as possible.”
-            </div>
-          </div>
+          <button class="primary" type="submit">Submit Application</button>
         </form>
       </section>
     </div>
 
-    <!-- THANK YOU VIEW (only after submit; shows nothing else) -->
-    <div id="thankYouOnlyView" class="hidden">
-      <section class="thankyou">
-        <h2>Thank you — we received your application.</h2>
-        <p>We will contact you by email as soon as possible.</p>
+    <!-- VIEW 3: THANK YOU ONLY (title centered + notice at bottom) -->
+    <div id="thankYouView" class="hidden">
+      <section class="thanksWrap">
+        <h2 class="thanksTitle">Thank You</h2>
+        <p class="thanksMsg">
+          We received your information / application, and we will contact you as soon as possible.
+        </p>
+
         <button class="restart" id="restartBtn" type="button">← Back to start</button>
 
-        <div style="margin-top:10px; color: rgba(247,247,248,.65); font-size:12px; line-height:1.6;">
-          If you need urgent help, you can also call: <b>+1 (407) 476-3032</b>
+        <div class="legalNotice" role="note">
+          <strong>Notice</strong>
+          <p>
+            Family First Equity Group is not a law firm and does not provide legal advice. We are not your attorney.
+            If you need legal advice, please consult a qualified attorney.
+          </p>
+          <p>
+            If a real estate license, brokerage representation, or legal service is required for your situation,
+            we may refer you to the appropriate licensed professionals. All decisions and agreements are made in writing.
+          </p>
         </div>
       </section>
     </div>
@@ -634,24 +698,31 @@
   </div>
 
   <script>
-    // ====== CONFIG (edit this) ======
-    const COMPANY_EMAIL = "REPLACE_WITH_YOUR_EMAIL"; // e.g. "contact@familyfirstequitygroup.com"
-    // ================================
+    // ====== SET YOUR CONTACT INFO HERE ======
+    const COMPANY_EMAIL = "REPLACE_EMAIL";     // example: "contact@familyfirstequitygroup.com"
+    const COMPANY_PHONE = "+1 (407) 476-3032"; // change if you want
+    const COMPANY_PHONE_TEL = "+14074763032";  // digits only for tel:
+    // =======================================
 
-    // Patch email links on landing footer
-    document.querySelectorAll('a[href^="mailto:REPLACE_WITH_YOUR_EMAIL"]').forEach(a=>{
-      a.href = a.href.replace("REPLACE_WITH_YOUR_EMAIL", encodeURIComponent(COMPANY_EMAIL));
-      a.textContent = a.textContent.replace("REPLACE_WITH_YOUR_EMAIL", COMPANY_EMAIL);
-    });
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    document.getElementById("y").textContent = new Date().getFullYear();
+    // Patch contact links
+    const emailLink = document.getElementById("emailLink");
+    const emailText = document.getElementById("emailText");
+    emailLink.href = `mailto:${encodeURIComponent(COMPANY_EMAIL)}?subject=Family%20First%20Equity%20Request`;
+    emailText.textContent = COMPANY_EMAIL;
+
+    const phoneLink = document.getElementById("phoneLink");
+    const phoneText = document.getElementById("phoneText");
+    phoneLink.href = `tel:${COMPANY_PHONE_TEL}`;
+    phoneText.textContent = COMPANY_PHONE;
 
     // Views
     const landingView = document.getElementById("landingView");
-    const formOnlyView = document.getElementById("formOnlyView");
-    const thankYouOnlyView = document.getElementById("thankYouOnlyView");
+    const formView = document.getElementById("formView");
+    const thankYouView = document.getElementById("thankYouView");
 
-    // Form elements
+    // Form controls
     const formTitle = document.getElementById("formTitle");
     const formDesc  = document.getElementById("formDesc");
     const intakeForm = document.getElementById("intakeForm");
@@ -661,74 +732,65 @@
     const buyerFields = document.getElementById("buyerFields");
     const managementFields = document.getElementById("managementFields");
 
-    const applicantType = document.getElementById("applicant_type");
+    const clientRole = document.getElementById("client_role");
     const companyFields = document.getElementById("companyFields");
     const companyName = document.getElementById("company_name");
     const companyRole = document.getElementById("company_role");
 
-    // Helper: toggle required inside a container
     function setRequired(container, on){
-      container.querySelectorAll("input,select,textarea").forEach(el=>{
-        // Don't touch shared fields like notes (handled separately), only mode-specific
-        if(el.name && el.name !== "notes") el.required = on;
-      });
+      container.querySelectorAll("input,select").forEach(el => el.required = on);
     }
 
-    function resetModeRequired(){
-      // Hide all mode blocks
+    function resetMode(){
       sellerFields.classList.add("hidden");
       buyerFields.classList.add("hidden");
       managementFields.classList.add("hidden");
-
-      // Remove required from mode blocks
       setRequired(sellerFields, false);
       setRequired(buyerFields, false);
       setRequired(managementFields, false);
     }
 
+    function showLanding(){
+      landingView.classList.remove("hidden");
+      formView.classList.add("hidden");
+      thankYouView.classList.add("hidden");
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
     function showFormOnly(){
       landingView.classList.add("hidden");
-      thankYouOnlyView.classList.add("hidden");
-      formOnlyView.classList.remove("hidden");
+      formView.classList.remove("hidden");
+      thankYouView.classList.add("hidden");
       window.scrollTo({top:0, behavior:"smooth"});
     }
 
-    function showLanding(){
-      formOnlyView.classList.add("hidden");
-      thankYouOnlyView.classList.add("hidden");
-      landingView.classList.remove("hidden");
-      window.scrollTo({top:0, behavior:"smooth"});
-    }
-
-    function showThankYou(){
+    function showThankYouOnly(){
       landingView.classList.add("hidden");
-      formOnlyView.classList.add("hidden");
-      thankYouOnlyView.classList.remove("hidden");
+      formView.classList.add("hidden");
+      thankYouView.classList.remove("hidden");
       window.scrollTo({top:0, behavior:"smooth"});
     }
 
-    // Mode switching (Seller/Buyer/Management)
     function setMode(mode){
       showFormOnly();
-      resetModeRequired();
-
+      resetMode();
       typeField.value = mode;
 
       if(mode === "seller"){
         formTitle.textContent = "Seller Application";
-        formDesc.textContent = "Residential, Commercial, Land — we accept all. Fill it out and submit.";
+        formDesc.textContent = "For sellers (personal, investor, or company). Fill it out and submit.";
         sellerFields.classList.remove("hidden");
         setRequired(sellerFields, true);
       }
       if(mode === "buyer"){
         formTitle.textContent = "Buyer Application";
-        formDesc.textContent = "Homes, investments, and commercial — fill it out and submit.";
+        formDesc.textContent = "For buyers (personal, investor, or company). Fill it out and submit.";
         buyerFields.classList.remove("hidden");
         setRequired(buyerFields, true);
       }
       if(mode === "management"){
         formTitle.textContent = "Management Application";
-        formDesc.textContent = "Single, multi, and commercial management — fill it out and submit.";
+        formDesc.textContent = "For property management requests. Fill it out and submit.";
         managementFields.classList.remove("hidden");
         setRequired(managementFields, true);
       }
@@ -738,9 +800,9 @@
       btn.addEventListener("click", ()=> setMode(btn.dataset.mode));
     });
 
-    // Applicant type (Person vs Company)
-    applicantType.addEventListener("change", ()=>{
-      const v = applicantType.value;
+    // Investor/Personal/Company behavior
+    clientRole.addEventListener("change", ()=>{
+      const v = clientRole.value;
       if(v === "company"){
         companyFields.classList.remove("hidden");
         companyName.required = true;
@@ -754,23 +816,20 @@
       }
     });
 
-    // Back buttons
     document.getElementById("backBtn").addEventListener("click", ()=>{
-      // Optional: keep form data or reset (here we keep it)
-      showLanding();
-    });
-    document.getElementById("restartBtn").addEventListener("click", ()=>{
-      // reset everything
-      intakeForm.reset();
-      applicantType.dispatchEvent(new Event("change"));
-      typeField.value = "";
-      resetModeRequired();
       showLanding();
     });
 
-    // Submit behavior (front-end thank you page)
-    // IMPORTANT: This DOES NOT send data to a server by itself.
-    // To truly capture applications, connect to Netlify Forms / Formspree / backend endpoint.
+    document.getElementById("restartBtn").addEventListener("click", ()=>{
+      intakeForm.reset();
+      clientRole.dispatchEvent(new Event("change"));
+      typeField.value = "";
+      resetMode();
+      showLanding();
+    });
+
+    // Submit -> Thank you ONLY
+    // NOTE: This is a front-end demo. To actually RECEIVE the form, connect Netlify Forms / Formspree / backend.
     intakeForm.addEventListener("submit", (e)=>{
       e.preventDefault();
 
@@ -780,10 +839,10 @@
         return;
       }
 
-      showThankYou();
+      showThankYouOnly();
 
-      // OPTIONAL email draft (client-side).
-      // Comment out next block if you do not want mailto.
+      // OPTIONAL: open an email draft with the submission summary.
+      // Comment out if you do not want mailto to open.
       const data = new FormData(intakeForm);
       const lines = [];
       for (const [k,v] of data.entries()) lines.push(`${k}: ${v}`);
@@ -791,11 +850,11 @@
       const body = encodeURIComponent(lines.join("\n"));
       window.location.href = `mailto:${encodeURIComponent(COMPANY_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-      // Reset after drafting email (optional)
+      // Reset (optional)
       intakeForm.reset();
-      applicantType.dispatchEvent(new Event("change"));
+      clientRole.dispatchEvent(new Event("change"));
       typeField.value = "";
-      resetModeRequired();
+      resetMode();
     });
   </script>
 </body>
