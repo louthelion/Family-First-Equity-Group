@@ -1,16 +1,16 @@
-:root{
+::root{
   --bg:#070707;
-  --panel:#0b0b0b;
+  --panel:#0c0c0c;
 
-  --stroke: rgba(212,175,55,.38);
-  --stroke2: rgba(212,175,55,.18);
+  --gold:#d4af37;
+  --gold2:#b88e22;
+  --green:#00b050;
 
-  --text: rgba(255,255,255,.90);
-  --muted: rgba(255,255,255,.72);
+  --text:rgba(255,255,255,.90);
+  --muted:rgba(255,255,255,.72);
 
-  /* Rainbow metal like logo */
-  --rainbow: linear-gradient(90deg,#b00000 0%,#ff6a00 22%,#d4af37 46%,#55c96a 72%,#00b050 100%);
-  --rainbowSoft: linear-gradient(90deg,rgba(176,0,0,.28) 0%,rgba(255,106,0,.22) 22%,rgba(212,175,55,.22) 46%,rgba(85,201,106,.18) 72%,rgba(0,176,80,.18) 100%);
+  --stroke:rgba(212,175,55,.38);
+  --stroke2:rgba(212,175,55,.18);
 }
 
 *{box-sizing:border-box}
@@ -27,9 +27,8 @@ body::before{content:"";position:fixed;inset:0;background:var(--bg);z-index:-999
   position:relative;
   overflow:hidden;
   background:
-    radial-gradient(120% 90% at 20% 10%, rgba(0,176,80,.18), transparent 55%),
-    radial-gradient(120% 90% at 85% 20%, rgba(212,175,55,.18), transparent 55%),
-    radial-gradient(120% 90% at 20% 90%, rgba(176,0,0,.18), transparent 55%),
+    radial-gradient(120% 90% at 15% 10%, rgba(0,176,80,.10), transparent 55%),
+    radial-gradient(120% 90% at 85% 20%, rgba(212,175,55,.10), transparent 55%),
     linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)),
     var(--bg);
 }
@@ -39,15 +38,17 @@ body::before{content:"";position:fixed;inset:0;background:var(--bg);z-index:-999
 .badge{
   width:54px;height:54px;border-radius:16px;
   display:flex;align-items:center;justify-content:center;
-  font-weight:950;letter-spacing:.8px;color:rgba(0,0,0,.82);
-  background:var(--rainbow);
-  border:1px solid rgba(255,255,255,.12);
+  font-weight:950;letter-spacing:.8px;
+  color:rgba(0,0,0,.85);
+  background:linear-gradient(180deg,var(--gold),var(--gold2));
+  border:1px solid rgba(255,255,255,.10);
   box-shadow:0 12px 26px rgba(0,0,0,.55)
 }
+
 .title{
   margin:0;font-size:24px;line-height:1.08;
   text-transform:uppercase;letter-spacing:1.2px;font-weight:950;
-  background:var(--rainbow);-webkit-background-clip:text;background-clip:text;color:transparent;
+  color:var(--gold);
 }
 .sub{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.35}
 
@@ -56,9 +57,7 @@ body::before{content:"";position:fixed;inset:0;background:var(--bg);z-index:-999
   border-radius:22px;
   border:1px solid var(--stroke2);
   background:
-    radial-gradient(110% 90% at 20% 20%, rgba(0,176,80,.12), transparent 60%),
-    radial-gradient(110% 90% at 85% 20%, rgba(212,175,55,.12), transparent 60%),
-    radial-gradient(110% 90% at 20% 90%, rgba(176,0,0,.12), transparent 60%),
+    radial-gradient(110% 90% at 20% 20%, rgba(0,176,80,.08), transparent 60%),
     linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)),
     var(--panel);
   padding:16px 14px;
@@ -70,8 +69,7 @@ body::before{content:"";position:fixed;inset:0;background:var(--bg);z-index:-999
   letter-spacing:1.2px;
   text-transform:uppercase;
   font-weight:950;
-  background:var(--rainbow);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
+  color:var(--green);
 }
 
 p{margin:0 0 12px;line-height:1.6;color:rgba(255,255,255,.86);font-size:15px}
@@ -83,10 +81,10 @@ p{margin:0 0 12px;line-height:1.6;color:rgba(255,255,255,.86);font-size:15px}
   font-weight:950;letter-spacing:1.1px;text-transform:uppercase;
   padding:18px 16px;border-radius:22px;
   border:1px solid rgba(255,255,255,.10);
-  background:var(--rainbow);color:rgba(0,0,0,.85);
+  background:linear-gradient(180deg,var(--gold),var(--gold2));
+  color:rgba(0,0,0,.85);
   box-shadow:0 16px 36px rgba(0,0,0,.60);
 }
-.btn small{display:block;margin-top:6px;font-weight:800;letter-spacing:.2px;text-transform:none;color:rgba(0,0,0,.72)}
 .btn:active{transform:translateY(1px)}
 
 .field{margin:12px 0}
@@ -112,20 +110,12 @@ textarea{min-height:110px;resize:vertical}
   border:1px solid rgba(255,255,255,.10);
   background:rgba(0,0,0,.25)
 }
-.notice strong{
-  background:var(--rainbow);-webkit-background-clip:text;background-clip:text;color:transparent;
-}
+.notice strong{color:var(--gold)}
 
 .contactLine{
   margin-top:14px;padding:12px;border-radius:16px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25)
 }
-.contactLine a{
-  color:transparent;background:var(--rainbow);
-  -webkit-background-clip:text;background-clip:text;
-  font-weight:950;text-decoration:underline;
-  text-decoration-color:rgba(212,175,55,.55);
-  text-underline-offset:3px
-}
+.contactLine a{color:var(--green);font-weight:900;text-decoration:underline;text-underline-offset:3px}
 
 .hidden{display:none !important}
 
