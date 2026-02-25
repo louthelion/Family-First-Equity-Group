@@ -1,861 +1,191 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Family First Equity Group — Intake</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Family First Equity Group</title>
 
-  <style>
-    :root{
-      --black:#0b0b0c;
-      --red:#e11d2e;
-      --green:#16a34a;
-      --yellow:#facc15;
+<style>
+:root{
+--black:#0b0b0c;
+--red:#e11d2e;
+--green:#16a34a;
+--yellow:#facc15;
+--text:#f7f7f8;
+--muted:rgba(247,247,248,.78);
+--border:rgba(255,255,255,.14);
+--shadow:0 14px 40px rgba(0,0,0,.45);
+--gold:rgba(250,204,21,.55);
+--gold2:rgba(250,204,21,.25);
+--linkGreen:#27d17c;
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:system-ui;
+color:var(--text);
+background:linear-gradient(180deg,#050506,#0b0b0c);
+}
+.wrap{max-width:1060px;margin:auto;padding:22px}
 
-      --text:#f7f7f8;
-      --muted:rgba(247,247,248,.78);
-      --border:rgba(255,255,255,.14);
-      --shadow: 0 14px 40px rgba(0,0,0,.45);
-    }
+/* HEADER */
+.header{
+display:flex;align-items:center;justify-content:space-between;
+padding:14px;border:1px solid var(--border);
+border-radius:16px;background:#111;
+}
+.brand{display:flex;gap:10px;align-items:center}
+.mark{width:40px;height:40px;border-radius:12px;
+background:conic-gradient(from 240deg,var(--green),var(--yellow),var(--red),var(--green))}
+.brandname{margin:0;font-weight:900}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(900px 600px at 10% 5%, rgba(250,204,21,.18), transparent 60%),
-        radial-gradient(900px 600px at 90% 15%, rgba(225,29,46,.18), transparent 60%),
-        radial-gradient(900px 600px at 65% 95%, rgba(22,163,74,.18), transparent 60%),
-        linear-gradient(180deg, #050506, #0b0b0c 55%, #070708);
-      min-height:100vh;
-    }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:1060px; margin:0 auto; padding:22px 16px 46px}
+/* PANEL */
+.panel{margin-top:16px;padding:22px;border-radius:20px;border:1px solid var(--border);background:#111}
+.title{font-size:30px;font-weight:900}
+.desc{color:var(--muted);line-height:1.7;margin-top:10px}
 
-    /* CLEAN TOP HEADER (horizontal + readable) */
-    .header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:14px 14px;
-      border:1px solid var(--border);
-      background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius:16px;
-      box-shadow: var(--shadow);
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      min-width:0;
-    }
-    .mark{
-      width:44px; height:44px; border-radius:14px;
-      background: conic-gradient(from 240deg, var(--green), var(--yellow), var(--red), var(--green));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow: 0 10px 26px rgba(0,0,0,.45);
-      position:relative; flex:0 0 auto;
-    }
-    .mark:after{
-      content:"FF";
-      position:absolute; inset:0;
-      display:grid; place-items:center;
-      font-weight:900; letter-spacing:.6px;
-      color:var(--black);
-      text-shadow: 0 1px 0 rgba(255,255,255,.35);
-      font-size:14px;
-    }
-    .brandtext{min-width:0}
-    .brandname{
-      margin:0;
-      font-weight:900;
-      letter-spacing:.2px;
-      font-size:16px;
-      line-height:1.1;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .tagline{
-      margin:4px 0 0;
-      color:var(--muted);
-      font-size:12px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
+.notice{
+margin-top:14px;padding:14px;border-radius:16px;
+border:1px solid rgba(250,204,21,.35);
+background:rgba(250,204,21,.08);
+}
 
-    .chips{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;}
-    .chip{
-      display:flex; align-items:center; gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(0,0,0,.22);
-      color:var(--muted);
-      font-size:12px;
-      white-space:nowrap;
-    }
-    .dot{width:9px; height:9px; border-radius:50%}
-    .dot.red{background:var(--red)}
-    .dot.yellow{background:var(--yellow)}
-    .dot.green{background:var(--green)}
+.cta{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.btn{padding:14px;border-radius:16px;border:1px solid var(--border);background:#000;cursor:pointer}
+.btn:hover{background:#111}
 
-    /* LANDING BODY */
-    .panel{
-      margin-top:16px;
-      padding:22px 16px;
-      border-radius:20px;
-      border:1px solid var(--border);
-      background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .panel:before{
-      content:"";
-      position:absolute;
-      width:520px; height:520px; border-radius:50%;
-      background:radial-gradient(circle, rgba(250,204,21,.22), transparent 60%);
-      left:-260px; top:-300px;
-      filter: blur(2px);
-    }
-    .panel:after{
-      content:"";
-      position:absolute;
-      width:520px; height:520px; border-radius:50%;
-      background:radial-gradient(circle, rgba(22,163,74,.18), transparent 60%);
-      right:-260px; bottom:-300px;
-      filter: blur(2px);
-    }
-    .panelInner{position:relative}
+/* CONTACT BOX */
+.contactCard{
+margin-top:16px;border-radius:22px;padding:18px;border:1px solid var(--gold);
+background:#000;box-shadow:0 18px 42px rgba(0,0,0,.55)
+}
+.contactLabel{font-size:34px;font-weight:900}
+.contactLink{
+font-size:34px;font-weight:950;color:var(--linkGreen);
+text-decoration:underline;text-underline-offset:6px
+}
+.copyright{margin-top:14px;color:#777;font-size:24px}
 
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(0,0,0,.25);
-      width:max-content;
-      font-size:12px;
-      color:var(--muted);
-    }
-    .kstripe{height:10px; width:44px; border-radius:999px; background:linear-gradient(90deg, var(--red), var(--yellow), var(--green));}
+/* FORM */
+.hidden{display:none}
+form{display:grid;gap:10px;margin-top:16px}
+input,select,textarea{padding:12px;border-radius:14px;border:1px solid #333;background:#000;color:#fff}
+.primary{background:var(--yellow);border:0;padding:12px;font-weight:900;cursor:pointer}
 
-    .title{
-      margin:12px 0 0;
-      font-size:30px;
-      line-height:1.1;
-      letter-spacing:.2px;
-      font-weight:950;
-    }
-    .desc{
-      margin:12px 0 0;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.7;
-      max-width:920px;
-    }
+/* THANK YOU */
+.thanksWrap{text-align:center;margin-top:16px}
+.thanksTitle{font-size:32px;color:#27d17c;font-weight:900}
 
-    .notice{
-      margin-top:14px;
-      border-radius:16px;
-      border:1px solid rgba(250,204,21,.35);
-      background:rgba(250,204,21,.08);
-      padding:14px 14px;
-      display:grid;
-      gap:6px;
-    }
-    .notice strong{color:rgba(250,204,21,.98)}
-    .notice p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
-
-    /* ACTION BUTTONS */
-    .cta{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:10px;
-    }
-    .btn{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:14px 14px;
-      border-radius:16px;
-      border:1px solid var(--border);
-      background:rgba(0,0,0,.20);
-      cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
-    }
-    .btn:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.28); background:rgba(0,0,0,.28)}
-    .left{display:flex; align-items:center; gap:10px; min-width:0}
-    .pill{
-      width:38px; height:38px; border-radius:14px;
-      display:grid; place-items:center;
-      color:var(--black);
-      font-weight:900;
-      border:1px solid rgba(255,255,255,.2);
-      box-shadow: 0 10px 22px rgba(0,0,0,.35);
-      flex:0 0 auto;
-    }
-    .pill.red{background:linear-gradient(135deg, var(--red), rgba(225,29,46,.65))}
-    .pill.yellow{background:linear-gradient(135deg, var(--yellow), rgba(250,204,21,.65))}
-    .pill.green{background:linear-gradient(135deg, var(--green), rgba(22,163,74,.65))}
-    .btn h3{margin:0; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-    .btn span{color:var(--muted); font-size:12px; white-space:nowrap}
-    .arrow{opacity:.9}
-
-    /* CONTACT FOOTER */
-    .footer{
-      margin-top:14px;
-      padding:16px;
-      border-radius:18px;
-      border:1px solid var(--border);
-      background:rgba(0,0,0,.22);
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .contact{
-      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
-      color:var(--muted); font-size:13px;
-    }
-    .contact a{
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
-      color:var(--text);
-    }
-    .fineprint{color:var(--muted); font-size:12px}
-
-    /* FORM-ONLY VIEW */
-    .formOnly{
-      margin-top:16px;
-      border-radius:20px;
-      border:1px solid var(--border);
-      background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow: var(--shadow);
-      padding:18px;
-    }
-    .formHead{
-      display:flex; flex-wrap:wrap;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
-    .formHead h2{margin:0; font-size:18px}
-    .formHead p{margin:4px 0 0; color:var(--muted); font-size:13px; line-height:1.55; max-width:760px}
-    .back{
-      display:inline-flex;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(0,0,0,.22);
-      color:var(--text);
-      cursor:pointer;
-      height:max-content;
-    }
-
-    form{display:grid; gap:10px}
-    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-    label{display:grid; gap:6px; font-size:12px; color:var(--muted)}
-    input, select, textarea{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.28);
-      color:var(--text);
-      outline:none;
-    }
-    textarea{min-height:96px; resize:vertical}
-    input::placeholder, textarea::placeholder{color:rgba(247,247,248,.45)}
-    .req{color:rgba(250,204,21,.95); font-weight:800; margin-left:6px}
-
-    .primary{
-      border:0;
-      padding:12px 16px;
-      border-radius:14px;
-      cursor:pointer;
-      font-weight:900;
-      color:var(--black);
-      background:linear-gradient(90deg, var(--yellow), rgba(250,204,21,.75));
-      box-shadow: 0 14px 30px rgba(0,0,0,.35);
-    }
-
-    .hidden{display:none !important}
-
-    /* THANK YOU VIEW (clean + centered) */
-    .thanksWrap{
-      margin-top:16px;
-      border-radius:20px;
-      border:1px solid rgba(22,163,74,.35);
-      background:rgba(22,163,74,.08);
-      box-shadow: var(--shadow);
-      padding:28px 18px;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      gap:10px;
-    }
-    .thanksTitle{
-      margin:0;
-      font-size:28px;
-      font-weight:950;
-      color:rgba(22,163,74,.98);
-      line-height:1.1;
-    }
-    .thanksMsg{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.7;
-      max-width:760px;
-    }
-    .restart{
-      margin-top:6px;
-      display:inline-flex;
-      width:max-content;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(0,0,0,.22);
-      color:var(--text);
-      cursor:pointer;
-    }
-    .legalNotice{
-      margin-top:8px;
-      border-radius:16px;
-      border:1px solid rgba(250,204,21,.35);
-      background:rgba(250,204,21,.08);
-      padding:14px 14px;
-      display:grid;
-      gap:6px;
-      max-width:860px;
-    }
-    .legalNotice strong{color:rgba(250,204,21,.98)}
-    .legalNotice p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
-
-    @media (max-width: 860px){
-      .cta{grid-template-columns:1fr}
-      .row{grid-template-columns:1fr}
-      .title{font-size:26px}
-      .chips{justify-content:flex-start}
-      .brandname{font-size:15px}
-    }
-  </style>
+@media(max-width:860px){
+.cta{grid-template-columns:1fr}
+.contactLabel,.contactLink{font-size:26px}
+}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
+<div class="wrap">
 
-    <!-- VIEW 1: LANDING -->
-    <div id="landingView">
-      <div class="header">
-        <div class="brand">
-          <div class="mark" aria-hidden="true"></div>
-          <div class="brandtext">
-            <h1 class="brandname">Family First Equity Group</h1>
-            <p class="tagline">Seller • Buyer • Property Management • Residential & Commercial</p>
-          </div>
-        </div>
+<!-- LANDING -->
+<div id="landingView">
 
-        <div class="chips" aria-label="Highlights">
-          <div class="chip"><span class="dot red"></span>Seller intake</div>
-          <div class="chip"><span class="dot yellow"></span>Buyer intake</div>
-          <div class="chip"><span class="dot green"></span>Management intake</div>
-        </div>
-      </div>
+<div class="header">
+<div class="brand">
+<div class="mark"></div>
+<h1 class="brandname">Family First Equity Group</h1>
+</div>
+</div>
 
-      <section class="panel">
-        <div class="panelInner">
-          <div class="kicker"><span class="kstripe" aria-hidden="true"></span>Choose your application</div>
+<section class="panel">
 
-          <!-- BIG TITLE -->
-          <h2 class="title">Family First Equity Group</h2>
+<h2 class="title">Family First Equity Group</h2>
 
-          <!-- BIG DESCRIPTION (clean + clear) -->
-          <p class="desc">
-            Family First Equity Group is a real estate investment-focused company that helps property owners, buyers, and
-            investors move forward with a clear, simple process. We work with residential and commercial opportunities,
-            including single-family homes, multifamily properties, land, and select commercial real estate.
-            <br><br>
-            Use the buttons below to start the correct application:
-            <b>Seller</b> (you want to sell), <b>Buyer</b> (you want to buy), or <b>Management</b> (you want help managing a property).
-            After you click, you will go straight into the form and see only the application.
-          </p>
+<p class="desc">
+Family First Equity Group is a real estate investment company helping sellers, buyers,
+and investors with residential and commercial opportunities including land, multifamily,
+and commercial real estate.
+<br><br>
+Choose your application below. After clicking, you will go directly to the form.
+</p>
 
-          <!-- NOTICE (under description, before buttons) -->
-          <div class="notice" role="note">
-            <strong>Notice</strong>
-            <p>
-              This page is for submitting a request. Submitting an application does not create a contract.
-              We review your information and respond by email as soon as possible.
-            </p>
-          </div>
+<div class="notice">
+Submitting an application does not create a contract. We will review and respond by email.
+</div>
 
-          <!-- BUTTONS -->
-          <div class="cta" aria-label="Primary actions">
-            <button class="btn" type="button" data-mode="seller">
-              <div class="left">
-                <div class="pill red">S</div>
-                <div>
-                  <h3>Seller Application</h3>
-                  <span>Residential • Commercial • Land</span>
-                </div>
-              </div>
-              <div class="arrow">→</div>
-            </button>
+<div class="cta">
+<button class="btn" onclick="setMode('seller')">Seller Application</button>
+<button class="btn" onclick="setMode('buyer')">Buyer Application</button>
+<button class="btn" onclick="setMode('management')">Management Application</button>
+</div>
 
-            <button class="btn" type="button" data-mode="buyer">
-              <div class="left">
-                <div class="pill yellow">B</div>
-                <div>
-                  <h3>Buyer Application</h3>
-                  <span>Home • Investment • Commercial</span>
-                </div>
-              </div>
-              <div class="arrow">→</div>
-            </button>
+<!-- CONTACT -->
+<div class="contactCard">
+<div class="contactLabel">Central Line:</div>
+<a class="contactLink" href="tel:+18008279016">(800) 827-9016</a>
 
-            <button class="btn" type="button" data-mode="management">
-              <div class="left">
-                <div class="pill green">M</div>
-                <div>
-                  <h3>Management Application</h3>
-                  <span>Single • Multi • Commercial</span>
-                </div>
-              </div>
-              <div class="arrow">→</div>
-            </button>
-          </div>
+<div class="contactLabel" style="margin-top:10px">Email:</div>
+<a class="contactLink" href="mailto:contact@familyfirstequitygroup.com">
+contact@familyfirstequitygroup.com
+</a>
 
-          <!-- CONTACT INFO (bottom of landing) -->
-          <div class="footer">
-            <div class="contact">
-              <a id="emailLink" href="mailto:REPLACE_EMAIL?subject=Family%20First%20Equity%20Request">Email: <span id="emailText">REPLACE_EMAIL</span></a>
-              <a id="phoneLink" href="tel:+14074763032">Phone: <span id="phoneText">+1 (407) 476-3032</span></a>
-            </div>
-            <div class="fineprint">© <span id="year"></span> Family First Equity Group. All rights reserved.</div>
-          </div>
+<div class="copyright">© 2026 Family First Equity Group. All rights reserved.</div>
+</div>
 
-        </div>
-      </section>
-    </div>
+</section>
+</div>
 
-    <!-- VIEW 2: FORM ONLY (shows NOTHING else) -->
-    <div id="formView" class="hidden">
-      <section class="formOnly" aria-live="polite">
-        <div class="formHead">
-          <div>
-            <h2 id="formTitle">Application</h2>
-            <p id="formDesc">Fill out the form below and submit.</p>
-          </div>
-          <button class="back" id="backBtn" type="button">← Back</button>
-        </div>
+<!-- FORM -->
+<div id="formView" class="hidden">
+<form id="intakeForm">
 
-        <form id="intakeForm">
-          <input type="hidden" name="application_type" id="application_type" value="" />
+<select required>
+<option value="">Investor / Personal / Company</option>
+<option>Investor</option>
+<option>Personal</option>
+<option>Company</option>
+</select>
 
-          <!-- IMPORTANT: Investor vs Personal -->
-          <div class="row">
-            <label>
-              You are applying as… <span class="req">*</span>
-              <select name="client_role" id="client_role" required>
-                <option value="">Select…</option>
-                <option value="investor">Investor</option>
-                <option value="personal">Personal (Individual)</option>
-                <option value="company">Company / Entity</option>
-              </select>
-            </label>
+<select required>
+<option>Residential</option>
+<option>Commercial</option>
+<option>Land</option>
+<option>Other</option>
+</select>
 
-            <label>
-              Property Category <span class="req">*</span>
-              <select name="property_category" required>
-                <option value="">Select…</option>
-                <option>Residential</option>
-                <option>Commercial Real Estate</option>
-                <option>Multi-Family (5+ units)</option>
-                <option>Land</option>
-                <option>Other (we still help)</option>
-              </select>
-            </label>
-          </div>
+<input placeholder="Full Name" required>
+<input placeholder="Email" required>
+<input placeholder="Phone" required>
 
-          <!-- Company fields (only if Company/Entity) -->
-          <div id="companyFields" class="hidden">
-            <div class="row">
-              <label>
-                Company Name <span class="req">*</span>
-                <input name="company_name" id="company_name" placeholder="Your company name" />
-              </label>
-              <label>
-                Your Title / Role <span class="req">*</span>
-                <input name="company_role" id="company_role" placeholder="Owner / Manager / Representative" />
-              </label>
-            </div>
-          </div>
+<textarea placeholder="Details" required></textarea>
 
-          <!-- Shared contact -->
-          <div class="row">
-            <label>
-              Full Name <span class="req">*</span>
-              <input name="full_name" required placeholder="Your name" />
-            </label>
+<button class="primary">Submit</button>
+</form>
+</div>
 
-            <label>
-              Email <span class="req">*</span>
-              <input type="email" name="email" required placeholder="you@email.com" />
-            </label>
-          </div>
+<!-- THANK YOU -->
+<div id="thankYouView" class="hidden">
+<div class="thanksWrap">
+<h2 class="thanksTitle">Thank You</h2>
+<p>We received your application and will contact you as soon as possible.</p>
 
-          <div class="row">
-            <label>
-              Phone <span class="req">*</span>
-              <input type="tel" name="phone" required placeholder="(###) ###-####" />
-            </label>
+<div class="notice">
+We are not a law firm or brokerage. Licensed professionals may be involved when required.
+</div>
+</div>
+</div>
 
-            <label>
-              City / Area <span class="req">*</span>
-              <input name="city" required placeholder="Orlando, FL" />
-            </label>
-          </div>
+</div>
 
-          <!-- Seller -->
-          <div id="sellerFields" class="hidden">
-            <div class="row">
-              <label>
-                Property Address <span class="req">*</span>
-                <input name="seller_property_address" id="seller_property_address" placeholder="Street, City, State, Zip" />
-              </label>
-              <label>
-                Property Type <span class="req">*</span>
-                <select name="seller_property_type" id="seller_property_type">
-                  <option value="">Select…</option>
-                  <option>Single Family</option>
-                  <option>Townhome / Condo</option>
-                  <option>Multi-Family (2–4)</option>
-                  <option>Apartment Building (5+)</option>
-                  <option>Land</option>
-                  <option>Commercial</option>
-                </select>
-              </label>
-            </div>
-
-            <div class="row">
-              <label>
-                Price Target (if known) <span class="req">*</span>
-                <input name="seller_price_target" id="seller_price_target" placeholder="$" />
-              </label>
-              <label>
-                Timeline to Sell <span class="req">*</span>
-                <select name="seller_timeline" id="seller_timeline">
-                  <option value="">Select…</option>
-                  <option>ASAP (0–30 days)</option>
-                  <option>30–60 days</option>
-                  <option>60–90 days</option>
-                  <option>90+ days</option>
-                </select>
-              </label>
-            </div>
-          </div>
-
-          <!-- Buyer -->
-          <div id="buyerFields" class="hidden">
-            <div class="row">
-              <label>
-                Budget Range <span class="req">*</span>
-                <input name="buyer_budget" id="buyer_budget" placeholder="$250,000 - $350,000" />
-              </label>
-              <label>
-                Pre-Approved? <span class="req">*</span>
-                <select name="buyer_preapproved" id="buyer_preapproved">
-                  <option value="">Select…</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                  <option>Not sure yet</option>
-                </select>
-              </label>
-            </div>
-
-            <div class="row">
-              <label>
-                Property Type <span class="req">*</span>
-                <select name="buyer_property_type" id="buyer_property_type">
-                  <option value="">Select…</option>
-                  <option>Single Family</option>
-                  <option>Townhome / Condo</option>
-                  <option>Multi-Family (2–4)</option>
-                  <option>Apartment Building (5+)</option>
-                  <option>Land</option>
-                  <option>Commercial</option>
-                </select>
-              </label>
-              <label>
-                Timeline to Buy <span class="req">*</span>
-                <select name="buyer_timeline" id="buyer_timeline">
-                  <option value="">Select…</option>
-                  <option>ASAP (0–30 days)</option>
-                  <option>30–60 days</option>
-                  <option>60–90 days</option>
-                  <option>90+ days</option>
-                </select>
-              </label>
-            </div>
-          </div>
-
-          <!-- Management -->
-          <div id="managementFields" class="hidden">
-            <div class="row">
-              <label>
-                Property Address <span class="req">*</span>
-                <input name="mgmt_property_address" id="mgmt_property_address" placeholder="Street, City, State, Zip" />
-              </label>
-              <label>
-                Units / Doors <span class="req">*</span>
-                <select name="mgmt_units" id="mgmt_units">
-                  <option value="">Select…</option>
-                  <option>1 unit</option>
-                  <option>2–4 units</option>
-                  <option>5–20 units</option>
-                  <option>21–100 units</option>
-                  <option>100+ units</option>
-                </select>
-              </label>
-            </div>
-
-            <div class="row">
-              <label>
-                Currently Occupied? <span class="req">*</span>
-                <select name="mgmt_occupied" id="mgmt_occupied">
-                  <option value="">Select…</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                  <option>Partially</option>
-                </select>
-              </label>
-              <label>
-                Service Needed <span class="req">*</span>
-                <select name="mgmt_service" id="mgmt_service">
-                  <option value="">Select…</option>
-                  <option>Full Management</option>
-                  <option>Tenant Placement Only</option>
-                  <option>Rent Collection / Admin Only</option>
-                  <option>Not sure yet</option>
-                </select>
-              </label>
-            </div>
-          </div>
-
-          <label>
-            Details / Notes <span class="req">*</span>
-            <textarea name="notes" required placeholder="Tell us what you need. Include any details that help us respond faster."></textarea>
-          </label>
-
-          <div class="notice" role="note" style="border-color: rgba(255,255,255,.14); background: rgba(0,0,0,.22);">
-            <strong>Important Notice</strong>
-            <p>
-              We review every request (including Commercial and “Other”). Submitting this form does not create a contract,
-              and we respond by email as soon as possible.
-            </p>
-          </div>
-
-          <button class="primary" type="submit">Submit Application</button>
-        </form>
-      </section>
-    </div>
-
-    <!-- VIEW 3: THANK YOU ONLY (title centered + notice at bottom) -->
-    <div id="thankYouView" class="hidden">
-      <section class="thanksWrap">
-        <h2 class="thanksTitle">Thank You</h2>
-        <p class="thanksMsg">
-          We received your information / application, and we will contact you as soon as possible.
-        </p>
-
-        <button class="restart" id="restartBtn" type="button">← Back to start</button>
-
-        <div class="legalNotice" role="note">
-          <strong>Notice</strong>
-          <p>
-            Family First Equity Group is not a law firm and does not provide legal advice. We are not your attorney.
-            If you need legal advice, please consult a qualified attorney.
-          </p>
-          <p>
-            If a real estate license, brokerage representation, or legal service is required for your situation,
-            we may refer you to the appropriate licensed professionals. All decisions and agreements are made in writing.
-          </p>
-        </div>
-      </section>
-    </div>
-
-  </div>
-
-  <script>
-    // ====== SET YOUR CONTACT INFO HERE ======
-    const COMPANY_EMAIL = "REPLACE_EMAIL";     // example: "contact@familyfirstequitygroup.com"
-    const COMPANY_PHONE = "+1 (407) 476-3032"; // change if you want
-    const COMPANY_PHONE_TEL = "+14074763032";  // digits only for tel:
-    // =======================================
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Patch contact links
-    const emailLink = document.getElementById("emailLink");
-    const emailText = document.getElementById("emailText");
-    emailLink.href = `mailto:${encodeURIComponent(COMPANY_EMAIL)}?subject=Family%20First%20Equity%20Request`;
-    emailText.textContent = COMPANY_EMAIL;
-
-    const phoneLink = document.getElementById("phoneLink");
-    const phoneText = document.getElementById("phoneText");
-    phoneLink.href = `tel:${COMPANY_PHONE_TEL}`;
-    phoneText.textContent = COMPANY_PHONE;
-
-    // Views
-    const landingView = document.getElementById("landingView");
-    const formView = document.getElementById("formView");
-    const thankYouView = document.getElementById("thankYouView");
-
-    // Form controls
-    const formTitle = document.getElementById("formTitle");
-    const formDesc  = document.getElementById("formDesc");
-    const intakeForm = document.getElementById("intakeForm");
-    const typeField = document.getElementById("application_type");
-
-    const sellerFields = document.getElementById("sellerFields");
-    const buyerFields = document.getElementById("buyerFields");
-    const managementFields = document.getElementById("managementFields");
-
-    const clientRole = document.getElementById("client_role");
-    const companyFields = document.getElementById("companyFields");
-    const companyName = document.getElementById("company_name");
-    const companyRole = document.getElementById("company_role");
-
-    function setRequired(container, on){
-      container.querySelectorAll("input,select").forEach(el => el.required = on);
-    }
-
-    function resetMode(){
-      sellerFields.classList.add("hidden");
-      buyerFields.classList.add("hidden");
-      managementFields.classList.add("hidden");
-      setRequired(sellerFields, false);
-      setRequired(buyerFields, false);
-      setRequired(managementFields, false);
-    }
-
-    function showLanding(){
-      landingView.classList.remove("hidden");
-      formView.classList.add("hidden");
-      thankYouView.classList.add("hidden");
-      window.scrollTo({top:0, behavior:"smooth"});
-    }
-
-    function showFormOnly(){
-      landingView.classList.add("hidden");
-      formView.classList.remove("hidden");
-      thankYouView.classList.add("hidden");
-      window.scrollTo({top:0, behavior:"smooth"});
-    }
-
-    function showThankYouOnly(){
-      landingView.classList.add("hidden");
-      formView.classList.add("hidden");
-      thankYouView.classList.remove("hidden");
-      window.scrollTo({top:0, behavior:"smooth"});
-    }
-
-    function setMode(mode){
-      showFormOnly();
-      resetMode();
-      typeField.value = mode;
-
-      if(mode === "seller"){
-        formTitle.textContent = "Seller Application";
-        formDesc.textContent = "For sellers (personal, investor, or company). Fill it out and submit.";
-        sellerFields.classList.remove("hidden");
-        setRequired(sellerFields, true);
-      }
-      if(mode === "buyer"){
-        formTitle.textContent = "Buyer Application";
-        formDesc.textContent = "For buyers (personal, investor, or company). Fill it out and submit.";
-        buyerFields.classList.remove("hidden");
-        setRequired(buyerFields, true);
-      }
-      if(mode === "management"){
-        formTitle.textContent = "Management Application";
-        formDesc.textContent = "For property management requests. Fill it out and submit.";
-        managementFields.classList.remove("hidden");
-        setRequired(managementFields, true);
-      }
-    }
-
-    document.querySelectorAll("[data-mode]").forEach(btn=>{
-      btn.addEventListener("click", ()=> setMode(btn.dataset.mode));
-    });
-
-    // Investor/Personal/Company behavior
-    clientRole.addEventListener("change", ()=>{
-      const v = clientRole.value;
-      if(v === "company"){
-        companyFields.classList.remove("hidden");
-        companyName.required = true;
-        companyRole.required = true;
-      } else {
-        companyFields.classList.add("hidden");
-        companyName.required = false;
-        companyRole.required = false;
-        companyName.value = "";
-        companyRole.value = "";
-      }
-    });
-
-    document.getElementById("backBtn").addEventListener("click", ()=>{
-      showLanding();
-    });
-
-    document.getElementById("restartBtn").addEventListener("click", ()=>{
-      intakeForm.reset();
-      clientRole.dispatchEvent(new Event("change"));
-      typeField.value = "";
-      resetMode();
-      showLanding();
-    });
-
-    // Submit -> Thank you ONLY
-    // NOTE: This is a front-end demo. To actually RECEIVE the form, connect Netlify Forms / Formspree / backend.
-    intakeForm.addEventListener("submit", (e)=>{
-      e.preventDefault();
-
-      if(!typeField.value){
-        alert("Please choose Seller, Buyer, or Management first.");
-        showLanding();
-        return;
-      }
-
-      showThankYouOnly();
-
-      // OPTIONAL: open an email draft with the submission summary.
-      // Comment out if you do not want mailto to open.
-      const data = new FormData(intakeForm);
-      const lines = [];
-      for (const [k,v] of data.entries()) lines.push(`${k}: ${v}`);
-      const subject = `Family First — ${typeField.value.toUpperCase()} Application`;
-      const body = encodeURIComponent(lines.join("\n"));
-      window.location.href = `mailto:${encodeURIComponent(COMPANY_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${body}`;
-
-      // Reset (optional)
-      intakeForm.reset();
-      clientRole.dispatchEvent(new Event("change"));
-      typeField.value = "";
-      resetMode();
-    });
-  </script>
+<script>
+function setMode(){
+document.getElementById("landingView").classList.add("hidden")
+document.getElementById("formView").classList.remove("hidden")
+}
+document.getElementById("intakeForm").addEventListener("submit",e=>{
+e.preventDefault()
+document.getElementById("formView").classList.add("hidden")
+document.getElementById("thankYouView").classList.remove("hidden")
+})
+</script>
 </body>
 </html>
