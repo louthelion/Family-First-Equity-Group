@@ -2,51 +2,410 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Family First Equity Group</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Family First Equity Group — Landing Page</title>
+  <style>
+    :root{
+      --black:#0b0b0c;
+      --red:#e11d2e;
+      --green:#16a34a;
+      --yellow:#facc15;
+
+      --text:#f7f7f8;
+      --muted:rgba(247,247,248,.78);
+      --card:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.14);
+      --shadow: 0 14px 40px rgba(0,0,0,.45);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 10% 5%, rgba(250,204,21,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 15%, rgba(225,29,46,.18), transparent 60%),
+        radial-gradient(900px 600px at 65% 95%, rgba(22,163,74,.18), transparent 60%),
+        linear-gradient(180deg, #050506, #0b0b0c 55%, #070708);
+      min-height:100vh;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1060px; margin:0 auto; padding:28px 18px 40px}
+
+    /* Top bar */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:14px 16px;
+      border:1px solid var(--border);
+      background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:16px;
+      box-shadow: var(--shadow);
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width:0;
+    }
+    .mark{
+      width:44px; height:44px; border-radius:14px;
+      background:
+        conic-gradient(from 240deg, var(--green), var(--yellow), var(--red), var(--green));
+      box-shadow: 0 10px 26px rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.18);
+      position:relative;
+      flex:0 0 auto;
+    }
+    .mark:after{
+      content:"FF";
+      position:absolute; inset:0;
+      display:grid; place-items:center;
+      font-weight:900; letter-spacing:.6px;
+      color:var(--black);
+      text-shadow: 0 1px 0 rgba(255,255,255,.35);
+      font-size:14px;
+    }
+    .brand h1{
+      margin:0;
+      font-size:16px;
+      line-height:1.15;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
+
+    .badges{
+      display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end;
+    }
+    .badge{
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.22);
+      display:flex; align-items:center; gap:8px;
+    }
+    .dot{width:9px; height:9px; border-radius:50%}
+    .dot.red{background:var(--red)}
+    .dot.green{background:var(--green)}
+    .dot.yellow{background:var(--yellow)}
+
+    /* Hero */
+    .hero{
+      margin-top:18px;
+      padding:26px 18px;
+      border-radius:20px;
+      border:1px solid var(--border);
+      background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(250,204,21,.22), transparent 60%);
+      left:-240px; top:-260px;
+      filter: blur(2px);
+    }
+    .hero:after{
+      content:"";
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(22,163,74,.18), transparent 60%);
+      right:-240px; bottom:-260px;
+      filter: blur(2px);
+    }
+    .hero-inner{position:relative; display:grid; gap:16px}
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.25);
+      width:max-content;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .kstripe{
+      height:10px; width:44px; border-radius:999px;
+      background:linear-gradient(90deg, var(--red), var(--yellow), var(--green));
+    }
+
+    .headline{
+      margin:0;
+      font-size:28px;
+      line-height:1.15;
+      letter-spacing:.2px;
+    }
+    .sub{
+      margin:0;
+      max-width:860px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.6;
+    }
+
+    /* Notice */
+    .notice{
+      margin-top:8px;
+      border-radius:16px;
+      border:1px solid rgba(250,204,21,.35);
+      background:rgba(250,204,21,.08);
+      padding:14px 14px;
+      display:grid;
+      gap:6px;
+    }
+    .notice strong{color:rgba(250,204,21,.98)}
+    .notice p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
+
+    /* Buttons */
+    .cta-row{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:10px;
+    }
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.20);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.28); background:rgba(0,0,0,.28)}
+    .btn .left{display:flex; align-items:center; gap:10px; min-width:0}
+    .pill{
+      width:38px; height:38px; border-radius:14px;
+      display:grid; place-items:center;
+      color:var(--black);
+      font-weight:900;
+      border:1px solid rgba(255,255,255,.2);
+      box-shadow: 0 10px 22px rgba(0,0,0,.35);
+      flex:0 0 auto;
+    }
+    .pill.red{background:linear-gradient(135deg, var(--red), rgba(225,29,46,.65))}
+    .pill.green{background:linear-gradient(135deg, var(--green), rgba(22,163,74,.65))}
+    .pill.yellow{background:linear-gradient(135deg, var(--yellow), rgba(250,204,21,.65))}
+    .btn h3{margin:0; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .btn span{color:var(--muted); font-size:12px; white-space:nowrap}
+    .arrow{opacity:.9}
+
+    /* Sections */
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+      align-items:start;
+    }
+    .card{
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      padding:16px;
+    }
+    .card h2{margin:0 0 8px; font-size:16px}
+    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.65}
+    .list{margin:10px 0 0; padding:0 0 0 18px; color:var(--muted); font-size:13px; line-height:1.65}
+    .list li{margin:6px 0}
+
+    /* Footer */
+    footer{
+      margin-top:16px;
+      padding:16px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.22);
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .contact{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      color:var(--muted); font-size:13px;
+    }
+    .contact a{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+    }
+    .fineprint{color:var(--muted); font-size:12px}
+
+    @media (max-width: 860px){
+      .cta-row{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .headline{font-size:24px}
+      .badges{justify-content:flex-start}
+    }
+  </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="panel">
-      <div class="brandRow">
-        <div class="badge">FF</div>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
         <div>
           <h1>Family First Equity Group</h1>
-          <p class="sub">Private Real Estate Investment • Acquisitions • Dispositions • Property Operations</p>
+          <p>Real Estate Solutions • Seller • Buyer • Property Management</p>
         </div>
       </div>
 
-      <div class="card">
-        <div class="sectionTitle">About Family First</div>
-        <p>
-          Family First Equity Group is a private real estate investment company focused primarily on acquiring
-          <strong>listed commercial</strong> properties, multifamily assets, business centers (plazas), land, and strategic residential opportunities.
-          Our priority is listed commercial — but we review any strong deal (direct purchase, bank sale, off-market, etc.).
-        </p>
-        <p>
-          We purchase assets directly. We are not a real estate brokerage and we do not provide legal or real estate advice.
-          Submissions are for deal review and internal evaluation only.
-        </p>
-      </div>
-
-      <div class="notice">
-        <strong>Notice:</strong> Submissions are for internal review only. We may request additional documentation during evaluation.
-      </div>
-
-      <div class="sectionTitle">Start Here</div>
-      <div class="btnRow">
-        <a class="btn" href="buy.html">Buy</a>
-        <a class="btn" href="sell.html">Sell</a>
-        <a class="btn" href="management.html">Property Management</a>
-      </div>
-
-      <div class="footer">
-        <div><strong>Central Line:</strong> <a href="tel:+18008279016">(800) 827-9016</a></div>
-        <div><strong>Email:</strong> <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a></div>
-        <div style="margin-top:10px;">© Family First Equity Group. All rights reserved.</div>
+      <div class="badges" aria-label="Highlights">
+        <div class="badge"><span class="dot red"></span>Fast response</div>
+        <div class="badge"><span class="dot yellow"></span>Clear process</div>
+        <div class="badge"><span class="dot green"></span>Professional support</div>
       </div>
     </div>
+
+    <!-- HERO + DESCRIPTION -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="kicker"><span class="kstripe" aria-hidden="true"></span>Built for Orlando + beyond</div>
+
+        <h2 class="headline">Sell with confidence. Buy with clarity. Manage with peace.</h2>
+
+        <!-- DESCRIPTION (as you requested: “all the description… then put the notice”) -->
+        <p class="sub">
+          Family First Equity Group helps everyday families and serious investors move through real estate the right way.
+          We focus on clean communication, simple steps, and real results—whether you’re selling a property, buying a home,
+          or looking for steady property management.
+          <br><br>
+          Our team can help you:
+          identify the best plan for your goal, organize the documents and next steps, and move forward with a structured process.
+          You choose the path below (Seller, Buyer, or Management) and we’ll guide you from start to finish.
+        </p>
+
+        <!-- NOTICE -->
+        <div class="notice" role="note">
+          <strong>Notice</strong>
+          <p>
+            This is a request/intake landing page. Submitting a request does not create an agency relationship or contract.
+            Final pricing, timelines, and eligibility depend on the property, location, and verification of details.
+          </p>
+        </div>
+
+        <!-- 3 CLICKING BUTTONS -->
+        <div class="cta-row" aria-label="Primary actions">
+          <a class="btn" href="#seller">
+            <div class="left">
+              <div class="pill red">S</div>
+              <div>
+                <h3>Seller</h3>
+                <span>List • Offer review • Close plan</span>
+              </div>
+            </div>
+            <div class="arrow">→</div>
+          </a>
+
+          <a class="btn" href="#buyer">
+            <div class="left">
+              <div class="pill yellow">B</div>
+              <div>
+                <h3>Buyer</h3>
+                <span>Search • Match • Negotiate</span>
+              </div>
+            </div>
+            <div class="arrow">→</div>
+          </a>
+
+          <a class="btn" href="#management">
+            <div class="left">
+              <div class="pill green">M</div>
+              <div>
+                <h3>Management</h3>
+                <span>Tenant handling • Rent systems</span>
+              </div>
+            </div>
+            <div class="arrow">→</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOWER SECTIONS -->
+    <section class="grid">
+      <div class="card" id="seller">
+        <h2>Seller Path</h2>
+        <p>
+          Want to sell fast without confusion? We help you organize the selling plan, prepare the property,
+          and position it for strong offers.
+        </p>
+        <ul class="list">
+          <li>Property info intake + goal planning</li>
+          <li>Pricing strategy and next-step checklist</li>
+          <li>Offer review support + closing coordination</li>
+        </ul>
+      </div>
+
+      <div class="card" id="buyer">
+        <h2>Buyer Path</h2>
+        <p>
+          Buying is easier when the steps are clear. We help you stay focused on budget, location, and the right property type.
+        </p>
+        <ul class="list">
+          <li>Needs assessment (budget, timeline, area)</li>
+          <li>Property matching + viewing strategy</li>
+          <li>Negotiation support and closing readiness</li>
+        </ul>
+      </div>
+
+      <div class="card" id="management">
+        <h2>Management Path</h2>
+        <p>
+          Hands-off property ownership starts with systems. We support owners with tenant handling, rent workflow,
+          and maintenance coordination (based on your chosen service level).
+        </p>
+        <ul class="list">
+          <li>Owner intake + property setup checklist</li>
+          <li>Tenant communication + issue tracking</li>
+          <li>Rent workflow + monthly reporting (optional)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Quick Start</h2>
+        <p>
+          Use the buttons above to choose your path. If you want the fastest response,
+          email with your name, city, and what you need (Seller / Buyer / Management).
+        </p>
+        <ul class="list">
+          <li>Subject example: <b>Family First — Buyer Request</b></li>
+          <li>Include: timeline, budget (if buyer), property address (if seller/management)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- BOTTOM CONTACT (email + phone number) -->
+    <footer>
+      <div class="contact">
+        <a href="mailto:REPLACE_WITH_YOUR_EMAIL?subject=Family%20First%20Equity%20Request">Email: REPLACE_WITH_YOUR_EMAIL</a>
+        <a href="tel:+14074763032">Phone: +1 (407) 476-3032</a>
+      </div>
+      <div class="fineprint">© <span id="y"></span> Family First Equity Group. All rights reserved.</div>
+    </footer>
+
   </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
