@@ -1,147 +1,119 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Buy • Family First Equity Group</title>
-  <link rel="stylesheet" href="ff-style.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buy – Family First Equity Group</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="wrap">
-    <div class="frame">
-
-      <div id="thanks" class="panel hidden">
-        <div class="formTitle">Thank you.</div>
-        <p>We received your submission. Our team will contact you as soon as possible via email.</p>
-
-        <div class="notice">
-          <strong>Notice:</strong> Family First Equity Group does not provide brokerage services or legal advice.
-          Submissions are for internal evaluation only.
-        </div>
-
-        <div class="contactLine">
-          Central Line: <a href="tel:+18008279016">(800) 827-9016</a><br/>
-          Email: <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a>
+    <div class="panel">
+      <div class="brandRow">
+        <div class="badge">FF</div>
+        <div>
+          <h1>Buy Inquiry</h1>
+          <p class="sub">Acquisitions Intake • Listed Commercial Priority</p>
         </div>
       </div>
 
-      <form name="FF-BUY" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-ff>
-        <input type="hidden" name="form-name" value="FF-BUY">
-        <p class="hidden">
-          <label>Don’t fill this out: <input name="bot-field"></label>
+      <form name="ffeg-buy" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="ffeg-buy" />
+        <p style="display:none;">
+          <label>Don’t fill this out: <input name="bot-field" /></label>
         </p>
 
-        <div class="panel">
-          <div class="formTitle">Buy Request</div>
-          <div class="smallMuted">Answer the questions below. We focus on listed commercial and multifamily.</div>
+        <div class="fieldBlock">
+          <div class="sectionTitle">Buyer Profile</div>
 
-          <div class="field">
-            <label>Are you an investor?</label>
-            <div class="radioRow">
-              <label class="chip"><input type="radio" name="is_investor" value="Yes" required> Yes</label>
-              <label class="chip"><input type="radio" name="is_investor" value="No" required> No</label>
-            </div>
+          <label>Are you an investor? (Required)</label>
+          <select name="investor" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+
+          <label>Full Name (Required)</label>
+          <input name="full_name" placeholder="Your full name" required />
+
+          <label>Email (Required)</label>
+          <input name="email" type="email" placeholder="name@domain.com" required />
+
+          <label>Phone (Required)</label>
+          <input name="phone" type="tel" placeholder="(000) 000-0000" required />
+
+          <label>Company / Entity Name (If any)</label>
+          <input name="entity" placeholder="LLC / Company / Fund / Family Office" />
+
+          <label>What are you looking to buy? (Required)</label>
+          <select name="asset_type" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Listed Commercial (Primary)</option>
+            <option>Multifamily</option>
+            <option>Business Center / Plaza</option>
+            <option>Land</option>
+            <option>Residential (Selective)</option>
+            <option>Other</option>
+          </select>
+
+          <label>Target Location(s) (Required)</label>
+          <input name="locations" placeholder="City / County / State" required />
+
+          <label>Target Price Range (Required)</label>
+          <select name="price_range" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Under $500k</option>
+            <option>$500k – $1M</option>
+            <option>$1M – $3M</option>
+            <option>$3M – $10M</option>
+            <option>$10M+</option>
+          </select>
+
+          <label>How fast are you ready to close? (Required)</label>
+          <select name="closing_speed" required>
+            <option value="" selected disabled>Select one</option>
+            <option>0–30 days</option>
+            <option>30–60 days</option>
+            <option>60–90 days</option>
+            <option>90+ days</option>
+          </select>
+
+          <label>Funding Proof Available? (Required)</label>
+          <select name="proof_of_funds" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Yes (POF / Bank Letter)</option>
+            <option>In process</option>
+            <option>No</option>
+          </select>
+
+          <label>Financing Type (Required)</label>
+          <select name="financing_type" required>
+            <option value="" selected disabled>Select one</option>
+            <option>Cash</option>
+            <option>Bank financing</option>
+            <option>Private financing</option>
+            <option>Mixed</option>
+          </select>
+
+          <label>Anything else we should know?</label>
+          <textarea name="notes" placeholder="Investment goals, property specs, deal structure, etc."></textarea>
+
+          <div class="small">
+            Notice: Submissions are for internal review only. We are not a brokerage and do not provide legal/real estate advice.
           </div>
+        </div>
 
-          <!-- Investor section -->
-          <div data-investor class="hidden">
-            <div class="row">
-              <div class="field">
-                <label>Full Name (Required)</label>
-                <input name="full_name" required placeholder="Your full name">
-              </div>
-              <div class="field">
-                <label>Email (Required)</label>
-                <input type="email" name="email" required placeholder="name@domain.com">
-              </div>
-            </div>
+        <button class="submitBtn" type="submit">Submit</button>
 
-            <div class="row">
-              <div class="field">
-                <label>Phone (Required)</label>
-                <input name="phone" required placeholder="(000) 000-0000">
-              </div>
-              <div class="field">
-                <label>Organization / Fund (Required)</label>
-                <input name="org_fund" required placeholder="Fund / Company / Family Office">
-              </div>
-            </div>
-
-            <div class="field">
-              <label>Investment Range</label>
-              <select name="investment_range">
-                <option value="">Select one</option>
-                <option>$50K – $250K</option>
-                <option>$250K – $1M</option>
-                <option>$1M – $5M</option>
-                <option>$5M+</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>Target Preference (optional)</label>
-              <textarea name="target_pref" placeholder="Listed commercial, multifamily, business centers, land, etc."></textarea>
-            </div>
+        <div class="thanks">
+          <h2>Thank you.</h2>
+          <p>We received your application. Our team will contact you as soon as possible via email.</p>
+          <div class="footer">
+            <div><strong>Central Line:</strong> <a href="tel:+18008279016">(800) 827-9016</a></div>
+            <div><strong>Email:</strong> <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a></div>
           </div>
-
-          <!-- Non-investor section -->
-          <div data-noninvestor class="hidden">
-            <div class="row">
-              <div class="field">
-                <label>Full Name (Required)</label>
-                <input name="full_name" required placeholder="Your full name">
-              </div>
-              <div class="field">
-                <label>Email (Required)</label>
-                <input type="email" name="email" required placeholder="name@domain.com">
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="field">
-                <label>Phone (Required)</label>
-                <input name="phone" required placeholder="(000) 000-0000">
-              </div>
-              <div class="field">
-                <label>Buyer Type</label>
-                <select name="buyer_type">
-                  <option value="">Select one</option>
-                  <option>Individual</option>
-                  <option>Company</option>
-                  <option>Broker/Agent (info only)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="field">
-              <label>What are you looking to buy? (Required)</label>
-              <textarea name="buy_criteria" required placeholder="Listed commercial, multifamily, plaza, land, etc."></textarea>
-            </div>
-
-            <div class="field">
-              <label>Budget / Proof of Funds (Required)</label>
-              <textarea name="budget_pof" required placeholder="Budget amount + proof of funds status."></textarea>
-            </div>
-          </div>
-
-          <div class="field">
-            <label>Preferred Location(s)</label>
-            <input name="locations" placeholder="City / State / Region">
-          </div>
-
-          <div class="field">
-            <label>Anything else we should know?</label>
-            <textarea name="notes" placeholder="Timeline, special requirements, documents available, etc."></textarea>
-          </div>
-
-          <div class="errorBox hidden">
-            Something went wrong sending the form. Please try again.
-          </div>
-
-          <button class="submitBtn" type="submit">Submit</button>
         </div>
       </form>
-
     </div>
   </div>
 
