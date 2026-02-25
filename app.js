@@ -1,63 +1,52 @@
 function encode(data) {
-  return new URLSearchParams(data).toString();
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
 }
 
-function setInvestorMode(form, isInvestor) {
-  const inv = form.querySelector('[data-investor]');
-  const non = form.querySelector('[data-noninvestor]');
-  if (!inv || !non) return;
-  inv.classList.toggle('hidden', !isInvestor);
-  non.classList.toggle('hidden', isInvestor);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('form[data-ff]').forEach((form) => {
-    // toggle sections
-    const radios = form.querySelectorAll('input[name="is_investor"]');
-    radios.forEach(r => {
-      r.addEventListener('change', () => {
-        setInvestorMode(form, r.value === 'Yes');
-      });
-    });
-
-    // default view
-    const checked = form.querySelector('input[name="is_investor"]:checked');
-    if (checked) setInvestorMode(form, checked.value === 'Yes');
-
-    form.addEventListener('submit', async (e) => {
+function hookForms() {
+  const forms = document.querySelectorAll("form[data-netlify='true']");
+  forms.forEach((form) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const btn = form.querySelector('button[type="submit"]');
-      const errorBox = form.querySelector('.errorBox');
-      const thanks = document.getElementById('thanks');
-      if (errorBox) errorBox.classList.add('hidden');
-      if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
+      const btn = form.querySelector("button[type='submit']");
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Submitting...";
+      }
+
+      const thanks = form.querySelector(".thanks");
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((v, k) => (data[k] = v));
 
       try {
-        const formData = new FormData(form);
-        // IMPORTANT: Netlify needs form-name in the payload
-        const payload = {};
-        formData.forEach((v, k) => payload[k] = v);
-
-        const res = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encode(payload)
+        // Netlify Forms POST endpoint is the SAME site root
+        const res = await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encode(data),
         });
 
-        if (!res.ok) throw new Error('Network/submit error');
+        if (!res.ok) throw new Error("Netlify rejected submission");
 
-        // Show thank you inside same page
-        form.classList.add('hidden');
-        if (thanks) thanks.classList.remove('hidden');
-
-        // scroll to top of thank you
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
+        // Show thank you (inside the form page)
+        form.querySelectorAll(".fieldBlock, .submitBtn").forEach(el => el.style.display = "none");
+        if (thanks) {
+          thanks.style.display = "block";
+          thanks.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        form.reset();
       } catch (err) {
-        if (errorBox) errorBox.classList.remove('hidden');
-        if (btn) { btn.disabled = false; btn.textContent = 'Submit'; }
+        alert("Something went wrong sending the form. Please try again.");
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Submit";
+        }
       }
     });
   });
-});
+}
+
+document.addEventListener("DOMContentLoaded", hookForms);
