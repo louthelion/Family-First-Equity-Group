@@ -1,71 +1,44 @@
-/// Tabs + Netlify form submit (thank-you inside page)
+(function () {
+  function $(sel, root=document){ return root.querySelector(sel); }
 
-function setActiveTab(groupId, showId){
-  const group = document.querySelector(`[data-tabgroup="${groupId}"]`);
-  if(!group) return;
+  async function handleSubmit(form) {
+    const btn = form.querySelector('[data-submit]');
+    const thanks = document.getElementById('thanks');
+    const errorBox = document.getElementById('errorBox');
 
-  group.querySelectorAll(".tabbtn").forEach(btn=>{
-    btn.classList.toggle("active", btn.dataset.show === showId);
-  });
+    if (errorBox) errorBox.classList.add('hidden');
+    if (btn) { btn.textContent = 'Submitting...'; btn.disabled = true; }
 
-  group.querySelectorAll(".formwrap").forEach(w=>{
-    w.classList.toggle("hidden", w.id !== showId);
-  });
-}
+    try {
+      const formData = new FormData(form);
 
-document.addEventListener("click", (e)=>{
-  const btn = e.target.closest(".tabbtn");
-  if(!btn) return;
-  e.preventDefault();
-  setActiveTab(btn.dataset.group, btn.dataset.show);
-});
+      // Netlify requires posting to the current page path
+      const resp = await fetch(form.getAttribute('action') || window.location.pathname, {
+        method: 'POST',
+        headers: { 'Accept': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: new URLSearchParams(formData).toString()
+      });
 
-function encodeFormData(form){
-  const data = new FormData(form);
-  return new URLSearchParams(data).toString();
-}
+      if (!resp.ok) throw new Error('Network response not OK');
 
-async function netlifySubmit(form){
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const thanksBox = form.closest(".formwrap")?.querySelector(".thanks");
-  const errorBox = form.closest(".formwrap")?.querySelector("[data-error]");
-
-  if(errorBox) errorBox.textContent = "";
-
-  submitBtn.disabled = true;
-  const original = submitBtn.textContent;
-  submitBtn.textContent = "Submitting...";
-
-  try{
-    const body = encodeFormData(form);
-
-    const res = await fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body
-    });
-
-    if(!res.ok) throw new Error("Submit failed");
-
-    // Hide form + show thanks
-    form.style.display = "none";
-    if(thanksBox) thanksBox.classList.add("show");
-
-  }catch(err){
-    if(errorBox){
-      errorBox.textContent = "Something went wrong sending the form. Please try again.";
-    }else{
-      alert("Something went wrong sending the form. Please try again.");
+      // Success → hide form, show thanks
+      form.classList.add('hidden');
+      if (thanks) {
+        thanks.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } catch (e) {
+      if (errorBox) errorBox.classList.remove('hidden');
+      if (btn) { btn.textContent = 'Submit'; btn.disabled = false; }
     }
-    submitBtn.disabled = false;
-    submitBtn.textContent = original;
   }
-}
 
-document.addEventListener("submit", (e)=>{
-  const form = e.target;
-  if(form.matches("form[data-netlify='true']")){
-    e.preventDefault();
-    netlifySubmit(form);
-  }
-});
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('form[data-ff-netlify]').forEach(form => {
+      form.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        handleSubmit(form);
+      });
+    });
+  });
+})();
