@@ -1,136 +1,52 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Family First Equity Group</title>
-
-<style>
-:root{
- --red:#e10600;
- --green:#00b050;
- --gold:#d4af37;
-}
-
-body{
- margin:0;
- font-family:Arial, Helvetica, sans-serif;
- background:#000;
- color:#fff;
-}
-
-/* Outer rainbow aura */
-.wrapper{
- max-width:900px;
- margin:40px auto;
- padding:4px;
- border-radius:35px;
- background:
-   conic-gradient(
-     rgba(225,6,0,.7),
-     rgba(212,175,55,.7),
-     rgba(0,176,80,.7),
-     rgba(225,6,0,.7)
-   );
- box-shadow:
-   0 0 40px rgba(212,175,55,.6),
-   0 0 70px rgba(225,6,0,.4),
-   0 0 90px rgba(0,176,80,.3);
-}
-
-/* Inner panel */
-.panel{
- background:#0b0b0b;
- border-radius:30px;
- padding:35px 25px;
-}
-
-.logo{
- color:var(--gold);
- font-size:34px;
- font-weight:900;
- letter-spacing:3px;
-}
-
-h1{
- color:var(--red);
- font-size:30px;
- margin:15px 0;
- text-transform:uppercase;
-}
-
-.description{
- color:var(--green);
- font-size:16px;
- line-height:1.7;
-}
-
-.buttons{
- margin-top:35px;
- display:flex;
- flex-direction:column;
- gap:18px;
-}
-
-.button{
- padding:18px;
- border-radius:25px;
- text-align:center;
- font-weight:900;
- text-decoration:none;
- background:linear-gradient(180deg,#f2d57b,#b88e22);
- color:#000;
- transition:.3s;
-}
-
-.button:hover{
- background:linear-gradient(180deg,var(--red),#900);
- color:var(--green);
-}
-
-.contact{
- margin-top:40px;
- padding-top:20px;
- border-top:1px solid var(--gold);
- font-size:14px;
- color:#ccc;
-}
-
-.contact strong{
- color:#fff;
-}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Family First Equity Group</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
-
 <body>
 
-<div class="wrapper">
-<div class="panel">
+  <div class="frame">
+    <div class="panel">
 
-<div class="logo">FF</div>
+      <div class="brand">
+        <img src="assets/familyfirst-logo.png" alt="Family First Equity Group Logo">
+        <div>
+          <h1>Family First Equity Group</h1>
+          <p class="sub">Private Real Estate Investment • Acquisitions • Dispositions • Property Operations</p>
+        </div>
+      </div>
 
-<h1>Family First Equity Group</h1>
+      <div class="section">
+        <div class="h2">About Family First</div>
+        <div class="small" style="font-size:15px;">
+          Family First Equity Group is a private real estate investment company focused primarily on acquiring listed commercial properties,
+          multifamily assets, business centers (plazas), land, and strategic residential opportunities.
+          <br><br>
+          We purchase assets directly. We are not a real estate brokerage and we do not provide legal or real estate advice.
+          Submissions are for deal review and internal evaluation only.
+        </div>
+      </div>
 
-<div class="description">
-Family First Equity Group is a private real estate investment company focused primarily on acquiring listed commercial properties, multifamily assets, business centers, land, and strategic residential opportunities.
+      <div class="section">
+        <div class="h2">Start Here</div>
+        <div class="btnStack">
+          <a class="btn" href="buyer.html">Buy</a>
+          <a class="btn" href="seller.html">Sell</a>
+          <a class="btn" href="management.html">Property Management</a>
+        </div>
 
-We purchase properties directly. We are not a brokerage. We focus on acquisition, repositioning, restructuring, and long-term value growth.
-</div>
+        <div class="contact">
+          <div><strong>Central Line:</strong> <a href="tel:18008279016">(800) 827-9016</a></div>
+          <div><strong>Email:</strong> <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a></div>
+          <div class="small">© Family First Equity Group. All rights reserved.</div>
+        </div>
+      </div>
 
-<div class="buttons">
-<a class="button" href="buyer.html">BUY</a>
-<a class="button" href="seller.html">SELL</a>
-<a class="button" href="management.html">PROPERTY MANAGEMENT</a>
-</div>
-
-<div class="contact">
-<strong>Central Line:</strong> (800) 827-9016<br>
-<strong>Email:</strong> contact@familyfirstequitygroup.com<br><br>
-© Family First Equity Group. All rights reserved.
-</div>
-
-</div>
-</div>
+    </div>
+  </div>
 
 </body>
 </html>
