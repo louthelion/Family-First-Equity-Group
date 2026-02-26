@@ -1,98 +1,101 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Property Management – Family First Equity Group</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Management Application — Family First Equity Group</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
   <div class="wrap">
-    <div class="panel">
-      <div class="brandRow">
-        <div class="badge">FF</div>
+
+    <section class="card formCard">
+      <div class="formHead">
         <div>
-          <h1>Property Management</h1>
-          <p class="sub">Management Inquiry • Operations Intake</p>
+          <h2>Management Application</h2>
+          <p>For property management requests. Complete the form and submit.</p>
         </div>
+        <a class="back" href="index.html">← Back</a>
       </div>
 
-      <form name="ffeg-management" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="ffeg-management" />
-        <p style="display:none;">
-          <label>Don’t fill this out: <input name="bot-field" /></label>
-        </p>
+      <form name="management" method="POST" action="thank-you.html">
+        <input type="hidden" name="form_type" value="management"/>
 
-        <div class="fieldBlock">
-          <div class="sectionTitle">Contact</div>
+        <div class="row">
+          <label>You are applying as… <span class="req">*</span>
+            <select name="client_role" required>
+              <option value="">Select…</option>
+              <option>Investor</option>
+              <option>Personal (Individual)</option>
+              <option>Company / Entity</option>
+            </select>
+          </label>
 
-          <label>Are you the owner? (Required)</label>
-          <select name="is_owner" required>
-            <option value="" selected disabled>Select one</option>
-            <option>Yes</option>
-            <option>No (Representative)</option>
-          </select>
-
-          <label>Full Name (Required)</label>
-          <input name="full_name" placeholder="Your full name" required />
-
-          <label>Email (Required)</label>
-          <input name="email" type="email" placeholder="name@domain.com" required />
-
-          <label>Phone (Required)</label>
-          <input name="phone" type="tel" placeholder="(000) 000-0000" required />
-
-          <div class="sectionTitle">Property</div>
-
-          <label>Property Type (Required)</label>
-          <select name="property_type" required>
-            <option value="" selected disabled>Select one</option>
-            <option>Commercial</option>
-            <option>Multifamily</option>
-            <option>Residential</option>
-            <option>Mixed-use</option>
-            <option>Other</option>
-          </select>
-
-          <label>Property Address (Required)</label>
-          <input name="address" placeholder="Street, City, State, ZIP" required />
-
-          <label>Units / Size (Required)</label>
-          <input name="size" placeholder="Units, Sq Ft, Lots, etc." required />
-
-          <label>What do you need help with? (Required)</label>
-          <select name="needs" required>
-            <option value="" selected disabled>Select one</option>
-            <option>Full management</option>
-            <option>Leasing only</option>
-            <option>Maintenance coordination</option>
-            <option>Tenant placement</option>
-            <option>Collections / accounting</option>
-            <option>Other</option>
-          </select>
-
-          <label>Current issues / priorities (Required)</label>
-          <textarea name="priorities" required placeholder="Vacancy, repairs, tenants, compliance, timeline, etc."></textarea>
-
-          <div class="small">
-            Notice: Submissions are for internal review only. We may request additional documentation during evaluation.
-          </div>
+          <label>Property Category <span class="req">*</span>
+            <select name="property_category" required>
+              <option value="">Select…</option>
+              <option>Residential</option>
+              <option>Commercial Real Estate</option>
+              <option>Multi-Family (5+ units)</option>
+              <option>Land</option>
+              <option>Other (we still help)</option>
+            </select>
+          </label>
         </div>
 
-        <button class="submitBtn" type="submit">Submit</button>
-
-        <div class="thanks">
-          <h2>Thank you.</h2>
-          <p>We received your request. Our team will contact you as soon as possible via email.</p>
-          <div class="footer">
-            <div><strong>Central Line:</strong> <a href="tel:+18008279016">(800) 827-9016</a></div>
-            <div><strong>Email:</strong> <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a></div>
-          </div>
+        <div class="row">
+          <label>Full Name <span class="req">*</span><input name="full_name" required></label>
+          <label>Email <span class="req">*</span><input type="email" name="email" required></label>
         </div>
+
+        <div class="row">
+          <label>Phone <span class="req">*</span><input name="phone" required></label>
+          <label>City / Area <span class="req">*</span><input name="city" required></label>
+        </div>
+
+        <div class="row">
+          <label>Property Address <span class="req">*</span><input name="property_address" required></label>
+          <label>Units / Doors <span class="req">*</span>
+            <select name="units" required>
+              <option value="">Select…</option>
+              <option>1 unit</option>
+              <option>2–4 units</option>
+              <option>5–20 units</option>
+              <option>21–100 units</option>
+              <option>100+ units</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>Currently Occupied? <span class="req">*</span>
+            <select name="occupied" required>
+              <option value="">Select…</option>
+              <option>Yes</option>
+              <option>No</option>
+              <option>Partially</option>
+            </select>
+          </label>
+
+          <label>Service Needed <span class="req">*</span>
+            <select name="service" required>
+              <option value="">Select…</option>
+              <option>Full Management</option>
+              <option>Tenant Placement Only</option>
+              <option>Rent Collection / Admin Only</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Details / Notes <span class="req">*</span>
+          <textarea name="notes" required></textarea>
+        </label>
+
+        <button class="primary" type="submit">Submit Management Application</button>
       </form>
-    </div>
-  </div>
+    </section>
 
-  <script src="app.js"></script>
+  </div>
 </body>
 </html>
