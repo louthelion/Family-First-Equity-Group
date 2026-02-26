@@ -1,191 +1,86 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Family First Equity Group</title>
-
-<style>
-:root{
---black:#0b0b0c;
---red:#e11d2e;
---green:#16a34a;
---yellow:#facc15;
---text:#f7f7f8;
---muted:rgba(247,247,248,.78);
---border:rgba(255,255,255,.14);
---shadow:0 14px 40px rgba(0,0,0,.45);
---gold:rgba(250,204,21,.55);
---gold2:rgba(250,204,21,.25);
---linkGreen:#27d17c;
-}
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:system-ui;
-color:var(--text);
-background:linear-gradient(180deg,#050506,#0b0b0c);
-}
-.wrap{max-width:1060px;margin:auto;padding:22px}
-
-/* HEADER */
-.header{
-display:flex;align-items:center;justify-content:space-between;
-padding:14px;border:1px solid var(--border);
-border-radius:16px;background:#111;
-}
-.brand{display:flex;gap:10px;align-items:center}
-.mark{width:40px;height:40px;border-radius:12px;
-background:conic-gradient(from 240deg,var(--green),var(--yellow),var(--red),var(--green))}
-.brandname{margin:0;font-weight:900}
-
-/* PANEL */
-.panel{margin-top:16px;padding:22px;border-radius:20px;border:1px solid var(--border);background:#111}
-.title{font-size:30px;font-weight:900}
-.desc{color:var(--muted);line-height:1.7;margin-top:10px}
-
-.notice{
-margin-top:14px;padding:14px;border-radius:16px;
-border:1px solid rgba(250,204,21,.35);
-background:rgba(250,204,21,.08);
-}
-
-.cta{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.btn{padding:14px;border-radius:16px;border:1px solid var(--border);background:#000;cursor:pointer}
-.btn:hover{background:#111}
-
-/* CONTACT BOX */
-.contactCard{
-margin-top:16px;border-radius:22px;padding:18px;border:1px solid var(--gold);
-background:#000;box-shadow:0 18px 42px rgba(0,0,0,.55)
-}
-.contactLabel{font-size:34px;font-weight:900}
-.contactLink{
-font-size:34px;font-weight:950;color:var(--linkGreen);
-text-decoration:underline;text-underline-offset:6px
-}
-.copyright{margin-top:14px;color:#777;font-size:24px}
-
-/* FORM */
-.hidden{display:none}
-form{display:grid;gap:10px;margin-top:16px}
-input,select,textarea{padding:12px;border-radius:14px;border:1px solid #333;background:#000;color:#fff}
-.primary{background:var(--yellow);border:0;padding:12px;font-weight:900;cursor:pointer}
-
-/* THANK YOU */
-.thanksWrap{text-align:center;margin-top:16px}
-.thanksTitle{font-size:32px;color:#27d17c;font-weight:900}
-
-@media(max-width:860px){
-.cta{grid-template-columns:1fr}
-.contactLabel,.contactLink{font-size:26px}
-}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Family First Equity Group</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
-
 <body>
-<div class="wrap">
+  <div class="wrap">
 
-<!-- LANDING -->
-<div id="landingView">
+    <div class="card header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Family First Equity Group</h1>
+          <p>Seller • Buyer • Property Management • Residential & Commercial</p>
+        </div>
+      </div>
+      <div class="pills">
+        <div class="pill"><span class="dot red"></span>Seller</div>
+        <div class="pill"><span class="dot yellow"></span>Buyer</div>
+        <div class="pill"><span class="dot green"></span>Management</div>
+      </div>
+    </div>
 
-<div class="header">
-<div class="brand">
-<div class="mark"></div>
-<h1 class="brandname">Family First Equity Group</h1>
-</div>
-</div>
+    <section class="card section">
+      <div class="kicker"><span class="stripe"></span>Choose your application</div>
+      <h2 class="h1">Family First Equity Group</h2>
 
-<section class="panel">
+      <p class="lead">
+        Family First Equity Group is a real estate investment company helping sellers, buyers, and investors with
+        residential and commercial opportunities—including land, multifamily, and select commercial real estate.
+        <br><br>
+        Click the correct button below to start. You will go directly to the form.
+      </p>
 
-<h2 class="title">Family First Equity Group</h2>
+      <div class="notice">
+        <strong>Notice</strong>
+        <p>Submitting an application does not create a contract. We will review and contact you by email as soon as possible.</p>
+      </div>
 
-<p class="desc">
-Family First Equity Group is a real estate investment company helping sellers, buyers,
-and investors with residential and commercial opportunities including land, multifamily,
-and commercial real estate.
-<br><br>
-Choose your application below. After clicking, you will go directly to the form.
-</p>
+      <div class="grid3">
+        <a class="btn" href="seller.html">
+          <div class="left">
+            <div class="ico red">S</div>
+            <div><h3>Seller Application</h3><span>Residential • Commercial • Land</span></div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
 
-<div class="notice">
-Submitting an application does not create a contract. We will review and respond by email.
-</div>
+        <a class="btn" href="buyer.html">
+          <div class="left">
+            <div class="ico yellow">B</div>
+            <div><h3>Buyer Application</h3><span>Home • Investment • Commercial</span></div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
 
-<div class="cta">
-<button class="btn" onclick="setMode('seller')">Seller Application</button>
-<button class="btn" onclick="setMode('buyer')">Buyer Application</button>
-<button class="btn" onclick="setMode('management')">Management Application</button>
-</div>
+        <a class="btn" href="management.html">
+          <div class="left">
+            <div class="ico green">M</div>
+            <div><h3>Management Application</h3><span>Single • Multi • Commercial</span></div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+      </div>
 
-<!-- CONTACT -->
-<div class="contactCard">
-<div class="contactLabel">Central Line:</div>
-<a class="contactLink" href="tel:+18008279016">(800) 827-9016</a>
+      <div class="contactCard">
+        <div class="contactRow">
+          <div class="contactLabel">Central Line:</div>
+          <a class="contactLink" data-phone href="#">(800) 827-9016</a>
+        </div>
+        <div class="contactRow">
+          <div class="contactLabel">Email:</div>
+          <a class="contactLink" data-email href="#">contact@familyfirstequitygroup.com</a>
+        </div>
+        <div class="copy">© <span data-year></span> Family First Equity Group. All rights reserved.</div>
+      </div>
+    </section>
 
-<div class="contactLabel" style="margin-top:10px">Email:</div>
-<a class="contactLink" href="mailto:contact@familyfirstequitygroup.com">
-contact@familyfirstequitygroup.com
-</a>
+  </div>
 
-<div class="copyright">© 2026 Family First Equity Group. All rights reserved.</div>
-</div>
-
-</section>
-</div>
-
-<!-- FORM -->
-<div id="formView" class="hidden">
-<form id="intakeForm">
-
-<select required>
-<option value="">Investor / Personal / Company</option>
-<option>Investor</option>
-<option>Personal</option>
-<option>Company</option>
-</select>
-
-<select required>
-<option>Residential</option>
-<option>Commercial</option>
-<option>Land</option>
-<option>Other</option>
-</select>
-
-<input placeholder="Full Name" required>
-<input placeholder="Email" required>
-<input placeholder="Phone" required>
-
-<textarea placeholder="Details" required></textarea>
-
-<button class="primary">Submit</button>
-</form>
-</div>
-
-<!-- THANK YOU -->
-<div id="thankYouView" class="hidden">
-<div class="thanksWrap">
-<h2 class="thanksTitle">Thank You</h2>
-<p>We received your application and will contact you as soon as possible.</p>
-
-<div class="notice">
-We are not a law firm or brokerage. Licensed professionals may be involved when required.
-</div>
-</div>
-</div>
-
-</div>
-
-<script>
-function setMode(){
-document.getElementById("landingView").classList.add("hidden")
-document.getElementById("formView").classList.remove("hidden")
-}
-document.getElementById("intakeForm").addEventListener("submit",e=>{
-e.preventDefault()
-document.getElementById("formView").classList.add("hidden")
-document.getElementById("thankYouView").classList.remove("hidden")
-})
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
