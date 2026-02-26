@@ -1,122 +1,94 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Buy – Family First Equity Group</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Seller Application — Family First Equity Group</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
   <div class="wrap">
-    <div class="panel">
-      <div class="brandRow">
-        <div class="badge">FF</div>
+
+    <section class="card formCard">
+      <div class="formHead">
         <div>
-          <h1>Buy Inquiry</h1>
-          <p class="sub">Acquisitions Intake • Listed Commercial Priority</p>
+          <h2>Seller Application</h2>
+          <p>For sellers (personal, investor, or company). Complete the form and submit.</p>
         </div>
+        <a class="back" href="index.html">← Back</a>
       </div>
 
-      <form name="ffeg-buy" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="ffeg-buy" />
-        <p style="display:none;">
-          <label>Don’t fill this out: <input name="bot-field" /></label>
-        </p>
+      <form name="seller" method="POST" action="thank-you.html">
+        <input type="hidden" name="form_type" value="seller"/>
 
-        <div class="fieldBlock">
-          <div class="sectionTitle">Buyer Profile</div>
+        <div class="row">
+          <label>You are applying as… <span class="req">*</span>
+            <select name="client_role" required>
+              <option value="">Select…</option>
+              <option>Investor</option>
+              <option>Personal (Individual)</option>
+              <option>Company / Entity</option>
+            </select>
+          </label>
 
-          <label>Are you an investor? (Required)</label>
-          <select name="investor" required>
-            <option value="" selected disabled>Select one</option>
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-
-          <label>Full Name (Required)</label>
-          <input name="full_name" placeholder="Your full name" required />
-
-          <label>Email (Required)</label>
-          <input name="email" type="email" placeholder="name@domain.com" required />
-
-          <label>Phone (Required)</label>
-          <input name="phone" type="tel" placeholder="(000) 000-0000" required />
-
-          <label>Company / Entity Name (If any)</label>
-          <input name="entity" placeholder="LLC / Company / Fund / Family Office" />
-
-          <label>What are you looking to buy? (Required)</label>
-          <select name="asset_type" required>
-            <option value="" selected disabled>Select one</option>
-            <option>Listed Commercial (Primary)</option>
-            <option>Multifamily</option>
-            <option>Business Center / Plaza</option>
-            <option>Land</option>
-            <option>Residential (Selective)</option>
-            <option>Other</option>
-          </select>
-
-          <label>Target Location(s) (Required)</label>
-          <input name="locations" placeholder="City / County / State" required />
-
-          <label>Target Price Range (Required)</label>
-          <select name="price_range" required>
-            <option value="" selected disabled>Select one</option>
-            <option>Under $500k</option>
-            <option>$500k – $1M</option>
-            <option>$1M – $3M</option>
-            <option>$3M – $10M</option>
-            <option>$10M+</option>
-          </select>
-
-          <label>How fast are you ready to close? (Required)</label>
-          <select name="closing_speed" required>
-            <option value="" selected disabled>Select one</option>
-            <option>0–30 days</option>
-            <option>30–60 days</option>
-            <option>60–90 days</option>
-            <option>90+ days</option>
-          </select>
-
-          <label>Funding Proof Available? (Required)</label>
-          <select name="proof_of_funds" required>
-            <option value="" selected disabled>Select one</option>
-            <option>Yes (POF / Bank Letter)</option>
-            <option>In process</option>
-            <option>No</option>
-          </select>
-
-          <label>Financing Type (Required)</label>
-          <select name="financing_type" required>
-            <option value="" selected disabled>Select one</option>
-            <option>Cash</option>
-            <option>Bank financing</option>
-            <option>Private financing</option>
-            <option>Mixed</option>
-          </select>
-
-          <label>Anything else we should know?</label>
-          <textarea name="notes" placeholder="Investment goals, property specs, deal structure, etc."></textarea>
-
-          <div class="small">
-            Notice: Submissions are for internal review only. We are not a brokerage and do not provide legal/real estate advice.
-          </div>
+          <label>Property Category <span class="req">*</span>
+            <select name="property_category" required>
+              <option value="">Select…</option>
+              <option>Residential</option>
+              <option>Commercial Real Estate</option>
+              <option>Multi-Family (5+ units)</option>
+              <option>Land</option>
+              <option>Other (we still help)</option>
+            </select>
+          </label>
         </div>
 
-        <button class="submitBtn" type="submit">Submit</button>
-
-        <div class="thanks">
-          <h2>Thank you.</h2>
-          <p>We received your application. Our team will contact you as soon as possible via email.</p>
-          <div class="footer">
-            <div><strong>Central Line:</strong> <a href="tel:+18008279016">(800) 827-9016</a></div>
-            <div><strong>Email:</strong> <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a></div>
-          </div>
+        <div class="row">
+          <label>Full Name <span class="req">*</span><input name="full_name" required></label>
+          <label>Email <span class="req">*</span><input type="email" name="email" required></label>
         </div>
+
+        <div class="row">
+          <label>Phone <span class="req">*</span><input name="phone" required></label>
+          <label>City / Area <span class="req">*</span><input name="city" required></label>
+        </div>
+
+        <div class="row">
+          <label>Property Address <span class="req">*</span><input name="property_address" required></label>
+          <label>Property Type <span class="req">*</span>
+            <select name="property_type" required>
+              <option value="">Select…</option>
+              <option>Single Family</option>
+              <option>Townhome / Condo</option>
+              <option>Multi-Family (2–4)</option>
+              <option>Apartment Building (5+)</option>
+              <option>Land</option>
+              <option>Commercial</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>Price Target (if known) <span class="req">*</span><input name="price_target" required placeholder="$"></label>
+          <label>Timeline to Sell <span class="req">*</span>
+            <select name="timeline" required>
+              <option value="">Select…</option>
+              <option>ASAP (0–30 days)</option>
+              <option>30–60 days</option>
+              <option>60–90 days</option>
+              <option>90+ days</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Details / Notes <span class="req">*</span>
+          <textarea name="notes" required></textarea>
+        </label>
+
+        <button class="primary" type="submit">Submit Seller Application</button>
       </form>
-    </div>
-  </div>
+    </section>
 
-  <script src="app.js"></script>
+  </div>
 </body>
 </html>
