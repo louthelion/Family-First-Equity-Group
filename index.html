@@ -7,7 +7,7 @@
 
   <style>
     :root{
-      --bg:#000;
+      --bg:#000000;
       --title:#e11d2e;      /* RED */
       --text:#16a34a;       /* GREEN */
       --btn:#facc15;        /* YELLOW */
@@ -20,7 +20,6 @@
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
     .wrap{max-width:980px;margin:0 auto;padding:22px 14px 54px}
 
-    /* LANDING CARD */
     .card{
       border:1px solid var(--border);
       border-radius:18px;
@@ -28,7 +27,6 @@
       padding:22px;
     }
 
-    /* TITLE */
     h1{
       margin:0;
       color:var(--title);
@@ -38,7 +36,7 @@
       letter-spacing:.2px;
     }
 
-    /* BIG DEFINITION */
+    /* BIG DEFINITION (priority #1) */
     .desc{
       margin:16px 0 0;
       font-size:18px;
@@ -48,22 +46,20 @@
     }
     .desc strong{color:var(--btn)}
 
-    /* NOTICE (SMALLER + LOWER PRIORITY) */
+    /* NOTICE (smaller + lower priority) */
     .notice{
-      margin-top:18px;           /* pushes it down */
-      padding:10px 12px;         /* smaller box */
+      margin-top:18px;
+      padding:10px 12px;
       border-radius:14px;
       border:1px solid var(--noticeBorder);
       background:var(--noticeBg);
       color:rgba(22,163,74,.92);
       line-height:1.55;
-      font-size:13px;            /* ✅ smaller than definition */
+      font-size:13px;
       max-width:880px;
     }
     .notice b{color:var(--btn)}
-    .notice .muted{opacity:.9}
 
-    /* BUTTONS */
     .btnRow{
       margin-top:18px;
       display:grid;
@@ -85,7 +81,6 @@
     .btn:hover{transform:translateY(-2px);filter:brightness(1.03)}
     .btn small{display:block;font-weight:850;opacity:.9;margin-top:5px}
 
-    /* CONTACT */
     .contact{
       margin-top:18px;
       padding:14px 14px;
@@ -103,16 +98,14 @@
       word-break:break-word;
     }
 
-    /* FORM VIEW */
     .hidden{display:none !important}
 
+    /* FORM VIEW (ONLY FORM) */
     .formWrap{
       border:1px solid var(--border);
       border-radius:18px;
       background:var(--panel);
       padding:18px;
-      max-width:980px;
-      margin:0 auto;
     }
     .topbar{
       display:flex;
@@ -170,15 +163,13 @@
       cursor:pointer;
     }
 
-    /* THANK YOU */
+    /* THANK YOU (inside page) */
     .thanks{
       border:1px solid rgba(22,163,74,.45);
       border-radius:18px;
       background:rgba(22,163,74,.06);
       padding:30px 18px;
       text-align:center;
-      max-width:980px;
-      margin:0 auto;
     }
     .thanks h2{margin:0;color:var(--title);font-weight:1000;font-size:34px}
     .thanks p{margin:10px auto 0;line-height:1.75;max-width:860px}
@@ -208,7 +199,7 @@
 <body>
   <div class="wrap">
 
-    <!-- LANDING VIEW -->
+    <!-- LANDING -->
     <section id="landing" class="card">
       <h1>Family First Equity Group</h1>
 
@@ -225,23 +216,15 @@
         Choose the correct application below to start. After you click, you will go straight to the form.
       </p>
 
-      <!-- Notice is intentionally smaller + lower priority -->
       <div class="notice">
         <b>Notice:</b> Submitting an application does <b>not</b> create a contract.
-        We are <b>not</b> a law firm and do <b>not</b> provide legal advice.
-        <span class="muted">If you need legal advice, consult a licensed attorney.</span>
+        We are <b>not</b> a law firm and do <b>not</b> provide legal advice. If you need legal advice, consult a licensed attorney.
       </div>
 
       <div class="btnRow">
-        <button class="btn" type="button" onclick="openForm('seller')">
-          Seller <small>Sell a property</small>
-        </button>
-        <button class="btn" type="button" onclick="openForm('buyer')">
-          Buyer <small>Buy / invest</small>
-        </button>
-        <button class="btn" type="button" onclick="openForm('management')">
-          Management <small>Manage my property</small>
-        </button>
+        <button class="btn" type="button" onclick="openForm('seller')">Seller <small>Sell a property</small></button>
+        <button class="btn" type="button" onclick="openForm('buyer')">Buyer <small>Buy / invest</small></button>
+        <button class="btn" type="button" onclick="openForm('management')">Management <small>Manage my property</small></button>
       </div>
 
       <div class="contact">
@@ -250,7 +233,7 @@
       </div>
     </section>
 
-    <!-- FORM VIEW (ONLY FORM) -->
+    <!-- FORM (ONLY FORM) -->
     <section id="formView" class="formWrap hidden" aria-live="polite">
       <div class="topbar">
         <div>
@@ -260,22 +243,18 @@
         <button class="back" type="button" onclick="goHome()">← Back</button>
       </div>
 
-      <!-- ✅ NETLIFY FORM CONNECTED -->
+      <!-- Netlify collects the lead; JS shows Thank You in-page -->
       <form id="leadForm"
             name="FamilyFirstLead"
             method="POST"
             data-netlify="true"
-            netlify-honeypot="bot-field"
-            action="/thank-you/">
+            netlify-honeypot="bot-field">
 
         <input type="hidden" name="form-name" value="FamilyFirstLead">
-        <p class="hidden">
-          <label>Don’t fill this out: <input name="bot-field" /></label>
-        </p>
+        <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
 
         <input type="hidden" id="applicationType" name="application_type" value="">
 
-        <!-- HIGH VALUE LEAD QUESTIONS -->
         <div class="row">
           <label>
             Are you an Investor, Personal, or Company? *
@@ -418,7 +397,6 @@
           </div>
         </div>
 
-        <!-- MOST VALUABLE LEAD FIELD -->
         <label>
           Details / Notes (most important) *
           <textarea name="notes" required placeholder="Add numbers, condition, timeline, and your goal."></textarea>
@@ -428,13 +406,29 @@
       </form>
     </section>
 
+    <!-- THANK YOU (INSIDE PAGE — no separate file needed) -->
+    <section id="thankYou" class="thanks hidden">
+      <h2>Thank You</h2>
+      <p>We received your information / application, and we will contact you by email as soon as possible.</p>
+
+      <div class="miniNotice">
+        <b>Notice:</b> Submitting an application does not create a contract.
+        We are not a law firm and do not provide legal advice.
+      </div>
+
+      <button class="back" style="margin-top:16px;" type="button" onclick="resetToHome()">← Back to Start</button>
+    </section>
+
   </div>
 
   <script>
     const landing = document.getElementById("landing");
     const formView = document.getElementById("formView");
+    const thankYou = document.getElementById("thankYou");
+
     const formTitle = document.getElementById("formTitle");
     const appType = document.getElementById("applicationType");
+    const leadForm = document.getElementById("leadForm");
 
     const sellerFields = document.getElementById("sellerFields");
     const buyerFields = document.getElementById("buyerFields");
@@ -456,6 +450,7 @@
 
     function openForm(type){
       landing.classList.add("hidden");
+      thankYou.classList.add("hidden");
       formView.classList.remove("hidden");
 
       appType.value = type;
@@ -482,8 +477,17 @@
 
     function goHome(){
       formView.classList.add("hidden");
+      thankYou.classList.add("hidden");
       landing.classList.remove("hidden");
       window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function resetToHome(){
+      leadForm.reset();
+      companyBox.classList.add("hidden");
+      companyName.required = false;
+      companyTitle.required = false;
+      goHome();
     }
 
     clientRole.addEventListener("change", ()=>{
@@ -500,8 +504,32 @@
       }
     });
 
+    // ✅ Submit to Netlify, then show Thank You inside the same page
+    leadForm.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+
+      const formData = new FormData(leadForm);
+
+      try{
+        const res = await fetch("/", {
+          method: "POST",
+          body: formData
+        });
+
+        // Even if Netlify responds without a body, we show thanks
+        formView.classList.add("hidden");
+        landing.classList.add("hidden");
+        thankYou.classList.remove("hidden");
+        window.scrollTo({top:0, behavior:"smooth"});
+
+      }catch(err){
+        alert("Submission error. Please try again.");
+      }
+    });
+
     window.openForm = openForm;
     window.goHome = goHome;
+    window.resetToHome = resetToHome;
   </script>
 </body>
-</html>
+</html>The 
