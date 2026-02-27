@@ -7,54 +7,94 @@
 
   <style>
     :root{
-      --bg:#000000;
+      --bg:#000;
       --title:#e11d2e;      /* RED */
       --text:#16a34a;       /* GREEN */
       --btn:#facc15;        /* YELLOW */
       --panel:#070707;
       --border:rgba(22,163,74,.35);
+      --noticeBorder:rgba(250,204,21,.45);
+      --noticeBg:rgba(250,204,21,.06);
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    .wrap{max-width:920px;margin:0 auto;padding:20px 14px 50px}
+    .wrap{max-width:980px;margin:0 auto;padding:22px 14px 54px}
 
+    /* LANDING CARD */
     .card{
       border:1px solid var(--border);
       border-radius:18px;
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      padding:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
+      padding:22px;
     }
+
+    /* TITLE */
     h1{
       margin:0;
       color:var(--title);
       font-weight:1000;
-      font-size:36px;
+      font-size:44px;
       line-height:1.05;
       letter-spacing:.2px;
     }
-    .desc{margin:14px 0 0;font-size:16px;line-height:1.75;color:var(--text)}
+
+    /* BIG DEFINITION */
+    .desc{
+      margin:16px 0 0;
+      font-size:18px;
+      line-height:1.8;
+      color:var(--text);
+      max-width:920px;
+    }
+    .desc strong{color:var(--btn)}
+
+    /* NOTICE (SMALLER + LOWER PRIORITY) */
     .notice{
-      margin-top:14px;padding:14px;border-radius:16px;
-      border:1px solid rgba(250,204,21,.45);
-      background:rgba(250,204,21,.06);
-      color:var(--text);line-height:1.6;
+      margin-top:18px;           /* pushes it down */
+      padding:10px 12px;         /* smaller box */
+      border-radius:14px;
+      border:1px solid var(--noticeBorder);
+      background:var(--noticeBg);
+      color:rgba(22,163,74,.92);
+      line-height:1.55;
+      font-size:13px;            /* ✅ smaller than definition */
+      max-width:880px;
     }
     .notice b{color:var(--btn)}
+    .notice .muted{opacity:.9}
 
-    .btnRow{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    /* BUTTONS */
+    .btnRow{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      max-width:920px;
+    }
     .btn{
-      appearance:none;border:0;padding:14px 12px;border-radius:16px;
-      background:var(--btn);color:#000;font-weight:1000;cursor:pointer;
-      transition:transform .12s ease;text-align:center;
+      appearance:none;border:0;
+      padding:16px 14px;
+      border-radius:18px;
+      background:var(--btn);
+      color:#000;
+      font-weight:1000;
+      cursor:pointer;
+      transition:transform .12s ease, filter .12s ease;
+      text-align:center;
     }
-    .btn:hover{transform:translateY(-2px)}
-    .btn small{display:block;font-weight:800;opacity:.9;margin-top:4px}
+    .btn:hover{transform:translateY(-2px);filter:brightness(1.03)}
+    .btn small{display:block;font-weight:850;opacity:.9;margin-top:5px}
 
+    /* CONTACT */
     .contact{
-      margin-top:14px;padding:14px;border-radius:16px;
+      margin-top:18px;
+      padding:14px 14px;
+      border-radius:16px;
       border:1px solid var(--border);
-      background:rgba(22,163,74,.06);
+      background:rgba(22,163,74,.05);
+      max-width:920px;
     }
+    .contact b{color:var(--btn)}
     .contact a{
       color:var(--text);
       text-decoration:underline;
@@ -63,6 +103,7 @@
       word-break:break-word;
     }
 
+    /* FORM VIEW */
     .hidden{display:none !important}
 
     .formWrap{
@@ -70,11 +111,28 @@
       border-radius:18px;
       background:var(--panel);
       padding:18px;
+      max-width:980px;
+      margin:0 auto;
     }
-    .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px}
-    .formTitle{margin:0;color:var(--title);font-weight:1000;font-size:24px;line-height:1.1}
+    .topbar{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:12px;
+    }
+    .formTitle{
+      margin:0;
+      color:var(--title);
+      font-weight:1000;
+      font-size:26px;
+      line-height:1.1;
+    }
     .stripe{
-      margin-top:10px;height:10px;width:140px;border-radius:999px;
+      margin-top:10px;
+      height:10px;
+      width:160px;
+      border-radius:999px;
       background:linear-gradient(90deg,#ff0000,#ff9900,#ffee00,#00ff00,#00ccff,#0033ff,#aa00ff);
       opacity:.95;
     }
@@ -101,23 +159,48 @@
       color:var(--text);
       outline:none;
     }
-    textarea{min-height:96px;resize:vertical}
-    .submit{border:0;padding:12px 14px;border-radius:14px;background:var(--btn);color:#000;font-weight:1000;cursor:pointer}
+    textarea{min-height:98px;resize:vertical}
+    .submit{
+      border:0;
+      padding:12px 14px;
+      border-radius:14px;
+      background:var(--btn);
+      color:#000;
+      font-weight:1000;
+      cursor:pointer;
+    }
 
+    /* THANK YOU */
     .thanks{
       border:1px solid rgba(22,163,74,.45);
       border-radius:18px;
       background:rgba(22,163,74,.06);
-      padding:28px 18px;
+      padding:30px 18px;
       text-align:center;
+      max-width:980px;
+      margin:0 auto;
     }
-    .thanks h2{margin:0;color:var(--title);font-weight:1000;font-size:30px}
-    .thanks p{margin:10px 0 0;line-height:1.7}
+    .thanks h2{margin:0;color:var(--title);font-weight:1000;font-size:34px}
+    .thanks p{margin:10px auto 0;line-height:1.75;max-width:860px}
+    .thanks .miniNotice{
+      margin:16px auto 0;
+      max-width:860px;
+      text-align:left;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--noticeBorder);
+      background:var(--noticeBg);
+      font-size:13px;
+      line-height:1.55;
+      color:rgba(22,163,74,.92);
+    }
+    .thanks .miniNotice b{color:var(--btn)}
 
-    @media (max-width:820px){
+    @media (max-width:920px){
+      h1{font-size:34px}
+      .desc{font-size:16px}
       .btnRow{grid-template-columns:1fr}
       .row{grid-template-columns:1fr}
-      h1{font-size:30px}
     }
   </style>
 </head>
@@ -130,21 +213,35 @@
       <h1>Family First Equity Group</h1>
 
       <p class="desc">
-        Family First Equity Group is a real estate investment company focused on connecting sellers, buyers,
-        and investors with strong residential and commercial opportunities—including land, multifamily, and
-        select commercial real estate.
+        <strong>Family First Equity Group</strong> is a real estate investment company built to help
+        <strong>sellers</strong>, <strong>buyers</strong>, and <strong>investors</strong> move faster and make smarter decisions
+        across <strong>residential</strong> and <strong>commercial</strong> real estate.
+        <br><br>
+        We focus on high-value opportunities like <strong>multifamily</strong>, <strong>land</strong>, and select commercial assets,
+        while still supporting any strong deal that fits your goal. Whether you want to sell a property, buy for yourself,
+        buy for investment, or request management support, we collect your details, evaluate the opportunity, and respond with
+        the next steps as quickly as possible.
+        <br><br>
+        Choose the correct application below to start. After you click, you will go straight to the form.
       </p>
 
+      <!-- Notice is intentionally smaller + lower priority -->
       <div class="notice">
         <b>Notice:</b> Submitting an application does <b>not</b> create a contract.
-        We are <b>not</b> a law firm and do <b>not</b> provide legal advice. If you need legal advice, consult a licensed attorney.
-        We review your request and contact you by email as soon as possible.
+        We are <b>not</b> a law firm and do <b>not</b> provide legal advice.
+        <span class="muted">If you need legal advice, consult a licensed attorney.</span>
       </div>
 
       <div class="btnRow">
-        <button class="btn" type="button" onclick="openForm('seller')">Seller <small>Sell a property</small></button>
-        <button class="btn" type="button" onclick="openForm('buyer')">Buyer <small>Buy / invest</small></button>
-        <button class="btn" type="button" onclick="openForm('management')">Management <small>Manage my property</small></button>
+        <button class="btn" type="button" onclick="openForm('seller')">
+          Seller <small>Sell a property</small>
+        </button>
+        <button class="btn" type="button" onclick="openForm('buyer')">
+          Buyer <small>Buy / invest</small>
+        </button>
+        <button class="btn" type="button" onclick="openForm('management')">
+          Management <small>Manage my property</small>
+        </button>
       </div>
 
       <div class="contact">
@@ -171,16 +268,14 @@
             netlify-honeypot="bot-field"
             action="/thank-you/">
 
-        <!-- required hidden input for Netlify -->
         <input type="hidden" name="form-name" value="FamilyFirstLead">
-
-        <!-- honeypot anti-spam -->
         <p class="hidden">
           <label>Don’t fill this out: <input name="bot-field" /></label>
         </p>
 
         <input type="hidden" id="applicationType" name="application_type" value="">
 
+        <!-- HIGH VALUE LEAD QUESTIONS -->
         <div class="row">
           <label>
             Are you an Investor, Personal, or Company? *
@@ -323,7 +418,9 @@
           </div>
         </div>
 
-        <label>Details / Notes (most important) *
+        <!-- MOST VALUABLE LEAD FIELD -->
+        <label>
+          Details / Notes (most important) *
           <textarea name="notes" required placeholder="Add numbers, condition, timeline, and your goal."></textarea>
         </label>
 
@@ -336,7 +433,6 @@
   <script>
     const landing = document.getElementById("landing");
     const formView = document.getElementById("formView");
-
     const formTitle = document.getElementById("formTitle");
     const appType = document.getElementById("applicationType");
 
@@ -380,6 +476,7 @@
         managementFields.classList.remove("hidden");
         setReq(managementFields,true); setReq(sellerFields,false); setReq(buyerFields,false);
       }
+
       window.scrollTo({top:0, behavior:"smooth"});
     }
 
@@ -403,7 +500,6 @@
       }
     });
 
-    // expose to buttons
     window.openForm = openForm;
     window.goHome = goHome;
   </script>
