@@ -18,9 +18,14 @@
         <a class="back" href="index.html">← Back</a>
       </div>
 
-      <form name="seller" method="POST" action="thank-you.html">
-        <input type="hidden" name="form_type" value="seller"/>
-
+      <form
+  name="seller"
+  method="POST"
+  action="/thank-you.html"
+  data-netlify="true"
+>
+  <input type="hidden" name="form-name" value="seller" />
+  <input type="hidden" name="form_type" value="seller_application" />
         <div class="row">
           <label>You are applying as… <span class="req">*</span>
             <select name="client_role" required>
