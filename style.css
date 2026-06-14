@@ -38,3 +38,29 @@
 .home-resource-card .button{margin-top:auto}
 @media(max-width:1000px){.home-resources-heading{grid-template-columns:1fr;gap:20px}.home-resources-heading .eyebrow{grid-column:auto;margin-bottom:0}.home-resource-grid{grid-template-columns:1fr}.home-resource-card{min-height:300px}}
 @media(max-width:620px){.home .site-header{height:auto;min-height:76px;padding:10px 16px}.home .site-header .brand{min-width:0;gap:10px}.home .site-header .brand-mark{width:46px;min-width:46px;height:46px;font-size:12px}.home .site-header .brand-name{display:block;min-width:0}.home .site-header .brand-name strong{font-size:clamp(16px,5vw,21px);line-height:1.08;white-space:normal}.home-company-title{font-size:clamp(48px,15vw,70px)!important}.home-hero-tagline{font-size:25px}.home-resources{padding:70px 20px}.home-resource-grid{grid-template-columns:1fr}.home-resource-card{min-height:0;padding:30px 24px}.home-resource-card .button{width:100%}}
+
+/* Consistent Family First Equity Group global identity */
+.site-header{height:auto;min-height:88px;padding:12px clamp(18px,4vw,64px)}
+.site-header .brand,.site-footer .brand{min-width:0;gap:14px}
+.site-header .brand-mark,.site-footer .brand-mark{width:54px;min-width:54px;max-width:none;height:54px;padding:0;border:2px solid var(--gold);font-size:13px;line-height:1}
+.site-header .brand-name,.site-footer .brand-name{display:block;min-width:0}
+.site-header .brand-name strong,.site-footer .brand-name strong{font-size:clamp(18px,2vw,25px);line-height:1.1;white-space:normal}
+.menu-toggle{display:grid;gap:5px;margin-left:auto;padding:12px;background:transparent;border:1px solid rgba(212,168,79,.55);cursor:pointer}
+.menu-toggle span:not(.sr-only){display:block;width:26px;height:2px;background:#fff}
+.site-nav{display:none;position:absolute;top:100%;right:clamp(18px,4vw,64px);width:min(360px,calc(100% - 36px));max-height:calc(100vh - 100px);margin:0;padding:18px;overflow-y:auto;background:var(--black);border:1px solid rgba(212,168,79,.45);box-shadow:var(--shadow);flex-direction:column;align-items:stretch;gap:0}
+.site-nav.open{display:flex}
+.site-nav a{padding:11px 10px;border-bottom:1px solid #292c28;font-size:13px}
+.site-nav a:last-child{border-bottom:0}
+.site-footer{border-top:7px solid var(--gold)}
+.footer-grid{grid-template-columns:minmax(260px,1.4fr) repeat(3,minmax(150px,1fr));gap:45px}
+.footer-grid>div:not(:first-child),.footer-links{display:flex;flex-direction:column;gap:9px;font-size:12px}
+.footer-brand p{margin:20px 0;max-width:390px}
+.footer-contact{display:flex;flex-direction:column;align-items:flex-start;gap:7px;font-size:13px}
+.footer-contact a,.footer-links a{transition:color .2s}
+.footer-contact a:hover,.footer-links a:hover{color:var(--gold2)}
+.footer-social h2{max-width:220px;line-height:1.4}
+.social-links{display:flex;flex-direction:row;gap:12px;margin-top:5px}
+.social-links a{display:grid;width:48px;height:48px;place-items:center;border:1px solid var(--gold);background:#151815;color:var(--gold2);font-size:16px;font-weight:900;text-transform:none;transition:.2s}
+.social-links a:hover,.social-links a:focus-visible{background:var(--gold);color:var(--black);transform:translateY(-2px)}
+@media(max-width:900px){.site-header{min-height:76px}.site-nav{top:100%}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.site-header,.home .site-header{min-height:76px;padding:10px 14px}.site-header .brand,.home .site-header .brand{gap:9px}.site-header .brand-mark,.home .site-header .brand-mark{width:44px;min-width:44px;height:44px;padding:0;font-size:11px}.site-header .brand-name,.home .site-header .brand-name{display:block}.site-header .brand-name strong,.home .site-header .brand-name strong{font-size:clamp(15px,4.8vw,20px);line-height:1.08}.menu-toggle{padding:9px}.menu-toggle span:not(.sr-only){width:23px}.site-nav{right:14px;width:calc(100% - 28px)}.footer-grid{grid-template-columns:1fr;gap:38px}.site-footer .brand-name strong{font-size:21px}.footer-bottom{margin-top:5px}.social-links a{width:52px;height:52px}}
