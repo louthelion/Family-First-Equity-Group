@@ -64,3 +64,29 @@
 .social-links a:hover,.social-links a:focus-visible{background:var(--gold);color:var(--black);transform:translateY(-2px)}
 @media(max-width:900px){.site-header{min-height:76px}.site-nav{top:100%}.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.site-header,.home .site-header{min-height:76px;padding:10px 14px}.site-header .brand,.home .site-header .brand{gap:9px}.site-header .brand-mark,.home .site-header .brand-mark{width:44px;min-width:44px;height:44px;padding:0;font-size:11px}.site-header .brand-name,.home .site-header .brand-name{display:block}.site-header .brand-name strong,.home .site-header .brand-name strong{font-size:clamp(15px,4.8vw,20px);line-height:1.08}.menu-toggle{padding:9px}.menu-toggle span:not(.sr-only){width:23px}.site-nav{right:14px;width:calc(100% - 28px)}.footer-grid{grid-template-columns:1fr;gap:38px}.site-footer .brand-name strong{font-size:21px}.footer-bottom{margin-top:5px}.social-links a{width:52px;height:52px}}
+
+/* Family First Equity Group service paths */
+.service-paths{padding:100px clamp(24px,6vw,90px);background:var(--cream);border-top:8px solid var(--red)}
+.service-paths-page{border-top-color:var(--gold)}
+.service-paths-inner{max-width:1344px;margin:auto}
+.service-paths-heading{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:18px 60px;align-items:end;margin-bottom:48px}
+.service-paths-heading .eyebrow{grid-column:1/-1;margin:0}
+.service-paths-heading h2{margin:0;color:var(--black);font-size:clamp(38px,5vw,64px);font-weight:500}
+.service-paths-heading>p:last-child{margin:0;color:#4d554d;font-size:17px}
+.service-path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.service-path-card{display:flex;min-height:385px;flex-direction:column;align-items:flex-start;padding:34px;background:var(--white);border:1px solid var(--line);border-top:6px solid var(--red);box-shadow:0 16px 38px rgba(9,10,9,.09)}
+.service-path-card:nth-child(3n+2){border-top-color:var(--green)}
+.service-path-card:nth-child(3n){border-top-color:var(--gold)}
+.service-number{color:var(--red);font-size:11px;font-weight:900;letter-spacing:.15em}
+.service-path-card:nth-child(3n+2) .service-number{color:var(--green)}
+.service-path-card h3{margin:17px 0 13px;color:var(--black);font-size:29px}
+.service-path-card p{margin:0 0 28px;color:var(--muted);font-size:14px}
+.service-path-card .button{margin-top:auto}
+.service-fee-note{margin-top:28px;padding:32px 36px;background:var(--green2);color:var(--white);border-left:6px solid var(--gold)}
+.service-fee-note h3{margin:0 0 10px;color:var(--gold2);font-size:25px}
+.service-fee-note p{margin:0;color:var(--cream)}
+.service-disclaimer{margin-top:18px;padding:26px 30px;background:var(--black);color:var(--cream);border-top:4px solid var(--red);font-size:13px}
+.service-disclaimer strong{color:var(--gold2);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.service-disclaimer p{margin:8px 0 0}
+@media(max-width:1000px){.service-paths-heading{grid-template-columns:1fr}.service-paths-heading .eyebrow{grid-column:auto}.service-path-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.service-paths{padding:70px 20px}.service-path-grid{grid-template-columns:1fr}.service-path-card{min-height:0;padding:30px 24px}.service-path-card .button{width:100%}.service-fee-note{padding:28px 24px}}
