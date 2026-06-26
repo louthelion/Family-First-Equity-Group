@@ -5,7 +5,7 @@ document.querySelectorAll('[data-property-coming-soon]').forEach((button)=>butto
 document.querySelectorAll('[data-credit-help-select]').forEach((select)=>{const form=select.closest('form');const message=form?form.querySelector('[data-credit-help-message]'):null;if(!message)return;const update=()=>{message.hidden=select.value!=='Yes'};select.addEventListener('change',update);update()});
 
 const FFEG_DB_URL='https://jgpvrblzyznyprtffirw.supabase.co';
-const FFEG_PUBLIC_DB_KEY='ADD_PUBLIC_SUPABASE_KEY_HERE';
+const FFEG_PUBLIC_DB_KEY='sb_publishable_4MZbcaMuJ-_GfaZh1jb4yA_tyyj7EfP';
 
 function getField(form,name){const item=form.elements[name];if(!item)return'';if(item instanceof RadioNodeList){return Array.from(item).filter(el=>el.checked).map(el=>el.value).join(', ')}if(item.type==='file'){return item.files&&item.files.length?item.files.length+' uploaded file(s) saved by the website form record':''}return item.value||''}
 function formSummary(form){const lines=[];new FormData(form).forEach((value,key)=>{if(key==='bot-field'||key==='form-name')return;if(value instanceof File){if(value.name)lines.push(key+': '+value.name)}else{lines.push(key+': '+value)}});return lines.join('\n')}
