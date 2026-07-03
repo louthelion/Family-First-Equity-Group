@@ -176,14 +176,40 @@ function trustCaseRow(form) {
 function detectFormType(form) {
   const name = (form.getAttribute('name') || '').toLowerCase();
   const path = window.location.pathname.toLowerCase();
-  const text = (name + ' ' + path).toLowerCase();
+  const reviewPath = (getField(form, 'review_path') || '').toLowerCase();
+  const propertyType = (getField(form, 'property_type') || '').toLowerCase();
+  const buyerSignals = [getField(form, 'cash_buyer'), getField(form, 'purchase_plan'), getField(form, 'credit_score_range'), getField(form, 'vaultara_referral')].filter(Boolean).join(' ').toLowerCase();
+  const text = (name + ' ' + path + ' ' + reviewPath + ' ' + propertyType + ' ' + buyerSignals).toLowerCase();
 
-  if (text.includes('seller') || text.includes('sell-property') || text.includes('disposition')) return 'seller';
-  if (text.includes('buyer') || text.includes('buy') || text.includes('properties') || text.includes('acquisition')) return 'buyer';
+  if (text.includes('seller') || text.includes('sell-property') || text.includes('sell your property') || text.includes('disposition')) return 'seller';
+  if (text.includes('buyer') || text.includes('buy') || text.includes('view properties') || text.includes('properties') || text.includes('acquisition') || text.includes('cash buyer') || text.includes('financing')) return 'buyer';
   if (text.includes('trust') || text.includes('structure') || text.includes('insurance') || text.includes('legacy') || text.includes('estate')) return 'trust';
   if (text.includes('property-management') || text.includes('management')) return 'management';
   if (text.includes('contact') || text.includes('feedback')) return 'contact';
   return 'contact';
+}
+
+function leadQualitySummary(form, type) {
+  const pieces = [];
+  if (type === 'seller') {
+    pieces.push('timeline=' + (getField(form, 'selling_timeline') || 'not provided'));
+    pieces.push('price=' + (getField(form, 'desired_fixed_price') || 'not provided'));
+    pieces.push('property=' + (getField(form, 'property_type') || 'not provided'));
+    pieces.push('address=' + (propertyAddress(form) || 'not provided'));
+  }
+  if (type === 'buyer') {
+    pieces.push('review_path=' + (getField(form, 'review_path') || 'not provided'));
+    pieces.push('cash_buyer=' + (getField(form, 'cash_buyer') || 'not provided'));
+    pieces.push('purchase_plan=' + (getField(form, 'purchase_plan') || 'not provided'));
+    pieces.push('credit_score_range=' + (getField(form, 'credit_score_range') || 'not provided'));
+    pieces.push('property_type=' + (getField(form, 'property_type') || 'not provided'));
+  }
+  if (type === 'management') {
+    pieces.push('units=' + (getField(form, 'units') || 'not provided'));
+    pieces.push('occupancy=' + (getField(form, 'occupancy') || 'not provided'));
+    pieces.push('monthly_revenue=' + (getField(form, 'monthly_revenue') || 'not provided'));
+  }
+  return pieces.join(' | ');
 }
 
 async function saveLeadToDashboard(form) {
@@ -224,7 +250,7 @@ document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
 
     const button = form.querySelector('button[type="submit"]');
     const originalText = button ? button.textContent : '';
-    let type = 'contact';
+    let type = detectFormType(form);
 
     try {
       if (button) {
@@ -232,10 +258,10 @@ document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
         button.textContent = 'Saving request...';
       }
       type = await saveLeadToDashboard(form);
-      trackFamilyFirstReport('Lead Submitted', 'Lead type: ' + type + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname);
+      trackFamilyFirstReport('Lead Submitted', 'Lead type: ' + type + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname + ' | ' + leadQualitySummary(form, type));
     } catch (err) {
       console.warn('Dashboard lead save issue:', err);
-      trackFamilyFirstReport('Lead Save Needs Review', 'Form still submitted through Netlify. Lead type: ' + type + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname);
+      trackFamilyFirstReport('Lead Save Needs Review', 'Form still submitted through Netlify. Lead type: ' + type + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname + ' | ' + leadQualitySummary(form, type));
     } finally {
       form.dataset.dashboardSaved = 'yes';
       if (button) button.textContent = 'Submitting...';
