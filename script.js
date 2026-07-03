@@ -249,3 +249,11 @@ document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
     }
   });
 });
+
+document.querySelectorAll('a.button, button.button, .site-nav a, .listing-card button').forEach((item) => {
+  item.addEventListener('click', () => {
+    const label = (item.textContent || item.getAttribute('aria-label') || 'unknown click').trim().replace(/\s+/g, ' ');
+    const target = item.getAttribute('href') || item.dataset.target || 'button-only';
+    trackFamilyFirstReport('Website Button Click', 'Clicked: ' + label + ' | Target: ' + target + ' | Page: ' + window.location.pathname);
+  });
+});
