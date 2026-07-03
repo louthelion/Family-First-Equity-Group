@@ -58,10 +58,11 @@ let ffeDbClient = null;
 function getField(form, name) {
   const item = form.elements[name];
   if (!item) return '';
-  if (item instanceof RadioNodeList) {
+  if (item instanceof RadioNodeList || (typeof item.length === 'number' && !item.type)) {
     return Array.from(item)
-      .filter((el) => el.checked)
+      .filter((el) => el.checked || el.selected)
       .map((el) => el.value)
+      .filter(Boolean)
       .join(', ');
   }
   if (item.type === 'file') {
@@ -109,9 +110,9 @@ function propertyAddress(form) {
   return [
     getField(form, 'property_address'),
     getField(form, 'address'),
-    getField(form, 'city'),
-    getField(form, 'state'),
-    getField(form, 'zip_code') || getField(form, 'zip')
+    getField(form, 'city') || getField(form, 'preferred_city'),
+    getField(form, 'state') || getField(form, 'preferred_state'),
+    getField(form, 'zip_code') || getField(form, 'zip') || getField(form, 'preferred_zip_area')
   ]
     .filter(Boolean)
     .join(', ');
@@ -138,7 +139,7 @@ function buyerRow(form) {
     phone: getField(form, 'phone'),
     email: getField(form, 'email'),
     budget: getField(form, 'budget') || getField(form, 'purchase_budget') || getField(form, 'price_range'),
-    location_interest: getField(form, 'location_interest') || getField(form, 'city') || getField(form, 'state'),
+    location_interest: getField(form, 'location_interest') || getField(form, 'preferred_city') || getField(form, 'city') || getField(form, 'state'),
     property_type: getField(form, 'property_type') || getField(form, 'investment_type'),
     notes: formSummary(form),
     status: 'new'
@@ -200,6 +201,22 @@ async function saveLeadToDashboard(form) {
   return type;
 }
 
+function trackFamilyFirstReport(reportType, summary) {
+  loadDb()
+    .then((db) =>
+      db.from('reports').insert({
+        company: 'Family First Equity Group',
+        report_type: reportType,
+        report_summary: summary,
+        sent_to_titancore: true,
+        status: 'active_live'
+      })
+    )
+    .catch((err) => console.warn('Family First report tracking issue:', err));
+}
+
+trackFamilyFirstReport('Website Page View', 'Page: ' + window.location.pathname + ' | Title: ' + document.title + ' | Referrer: ' + (document.referrer || 'direct'));
+
 document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
   form.addEventListener('submit', async (e) => {
     if (form.dataset.dashboardSaved === 'yes') return;
@@ -207,22 +224,27 @@ document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
 
     const button = form.querySelector('button[type="submit"]');
     const originalText = button ? button.textContent : '';
+    let type = 'contact';
 
     try {
       if (button) {
         button.disabled = true;
-        button.textContent = 'Saving to dashboard...';
+        button.textContent = 'Saving request...';
       }
-      await saveLeadToDashboard(form);
+      type = await saveLeadToDashboard(form);
+      trackFamilyFirstReport('Lead Submitted', 'Lead type: ' + type + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname);
+    } catch (err) {
+      console.warn('Dashboard lead save issue:', err);
+      trackFamilyFirstReport('Lead Save Needs Review', 'Form still submitted through Netlify. Lead type: ' + type + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname);
+    } finally {
       form.dataset.dashboardSaved = 'yes';
       if (button) button.textContent = 'Submitting...';
       HTMLFormElement.prototype.submit.call(form);
-    } catch (err) {
-      console.error('Dashboard lead save issue:', err);
-      alert('The website could not send this lead to the dashboard yet. Please check Supabase table access/RLS. Error: ' + (err.message || err));
       if (button) {
-        button.disabled = false;
-        button.textContent = originalText;
+        setTimeout(() => {
+          button.disabled = false;
+          button.textContent = originalText;
+        }, 3000);
       }
     }
   });
