@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Live Lead Intake | Family First Equity Group</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <script src="ffeg-live-form-fix.js" defer></script>
+</head>
+<body class="form-page">
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark">FFEG</span><span class="brand-name"><strong>Family First Equity Group</strong></span></a>
+  <nav class="site-nav"><a href="index.html">Home</a><a href="seller-intake.html">Full Seller Intake</a><a href="property-management.html">Property Management</a><a href="contact.html">Contact</a></nav>
+</header>
+<main id="main">
+  <section class="page-hero image-contract"><div class="hero-inner"><p class="eyebrow">Live lead test</p><h1>Quick Lead Intake</h1><p>This quick page is for testing live dashboard lead flow. It still sends the Netlify email backup, but it also tries to save to Supabase for the dashboard.</p></div></section>
+  <section class="section form-layout">
+    <div class="form-card">
+      <form name="Family-First-Live-Lead-Intake" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+        <input type="hidden" name="form-name" value="Family-First-Live-Lead-Intake">
+        <p class="hidden"><label>Do not fill this out: <input name="bot-field"></label></p>
+        <fieldset><legend>Lead Contact</legend><div class="field-grid">
+          <label>First name<input type="text" name="first_name" required></label>
+          <label>Last name<input type="text" name="last_name" required></label>
+          <label>Email<input type="email" name="email" required></label>
+          <label>Phone<input type="tel" name="phone" required></label>
+        </div></fieldset>
+        <fieldset><legend>Property / Opportunity</legend><div class="field-grid">
+          <label class="full">Property address<input type="text" name="property_address" required></label>
+          <label>City<input type="text" name="city" required></label>
+          <label>State<input type="text" name="state" value="FL" required></label>
+          <label>ZIP code<input type="text" name="zip_code"></label>
+          <label>Property type<select name="property_type"><option>Single family</option><option>Land</option><option>Apartment building</option><option>Commercial building</option><option>Short-term rental opportunity</option><option>Other</option></select></label>
+          <label>Timeline<select name="selling_timeline"><option>Immediately</option><option>7-14 days</option><option>30 days</option><option>60+ days</option><option>Not sure</option></select></label>
+          <label>Asking price<input type="number" name="desired_fixed_price" min="0" step="0.01"></label>
+          <label class="full">Reason / notes<textarea name="selling_reason" required></textarea></label>
+        </div></fieldset>
+        <button class="button red" type="submit">Send Lead to Family First Equity Group</button>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><div class="footer-bottom"><span>© <span data-year></span> Family First Equity Group</span><span>Live lead intake test</span></div></footer>
+</body>
+</html>
