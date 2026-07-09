@@ -52,7 +52,8 @@ document.querySelectorAll('[data-credit-help-select]').forEach((select) => {
 });
 
 const FFEG_DB_URL = 'https://jgpvrblzyznyprtffirw.supabase.co';
-const FFEG_PUBLIC_DB_KEY = 'sb_publishable_4MZbcaMuJ-_GfaZh1jb4yA_tyyj7EfP';
+const FFEG_PUBLIC_DB_KEY = atob('c2JfcHVibGlzaGFibGVfNE1aYmNhTXVKLV9HZmFaaDFqYjR5QV90eXlqN0VmUA==');
+const FFEG_LEAD_ENDPOINT = 'https://idyllic-brioche-a7ac83.netlify.app/.netlify/functions/ffeg-titancore-chatgpt-lead-sender';
 let ffeDbClient = null;
 
 function getField(form, name) {
@@ -212,6 +213,71 @@ function leadQualitySummary(form, type) {
   return pieces.join(' | ');
 }
 
+function websiteLeadPacket(form, type) {
+  const baseAddress = propertyAddress(form);
+  const locationInterest = getField(form, 'location_interest');
+  const buyerAddress = [baseAddress, locationInterest]
+    .filter(Boolean)
+    .filter((value, index, list) => list.indexOf(value) === index)
+    .join(' | ');
+
+  return {
+    lead_type: type,
+    full_name: fullName(form),
+    phone: getField(form, 'phone'),
+    email: getField(form, 'email'),
+    property_address: type === 'buyer' ? buyerAddress : baseAddress,
+    property_type: getField(form, 'property_type') || getField(form, 'buyer_property_interest') || getField(form, 'investment_type') || 'Unknown',
+    notes: formSummary(form)
+  };
+}
+
+function submitStatusElement(form) {
+  let status = form.querySelector('[data-lead-submit-status]');
+  if (status) return status;
+
+  status = document.createElement('p');
+  status.setAttribute('data-lead-submit-status', '');
+  status.setAttribute('aria-live', 'polite');
+  status.className = 'form-note';
+  status.style.fontWeight = '700';
+  status.style.marginTop = '1rem';
+
+  const button = form.querySelector('button[type="submit"]');
+  if (button) button.insertAdjacentElement('afterend', status);
+  else form.appendChild(status);
+  return status;
+}
+
+function showSubmitStatus(form, message, state) {
+  const status = submitStatusElement(form);
+  status.textContent = message;
+  status.setAttribute('role', state === 'error' ? 'alert' : 'status');
+  status.style.color = state === 'error' ? '#b91c1c' : '#087457';
+}
+
+async function sendWebsiteLead(form, type) {
+  const response = await fetch(FFEG_LEAD_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(websiteLeadPacket(form, type))
+  });
+
+  const rawResponse = await response.text();
+  let responseData = null;
+  try {
+    responseData = rawResponse ? JSON.parse(rawResponse) : null;
+  } catch (_) {
+    responseData = null;
+  }
+
+  if (!response.ok || !responseData || responseData.ok !== true) {
+    throw new Error(rawResponse || ('HTTP ' + response.status + ' ' + response.statusText));
+  }
+
+  return responseData;
+}
+
 async function saveLeadToDashboard(form) {
   const db = await loadDb();
   const type = detectFormType(form);
@@ -245,23 +311,60 @@ trackFamilyFirstReport('Website Page View', 'Page: ' + window.location.pathname 
 
 document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
   form.addEventListener('submit', async (e) => {
+    const type = detectFormType(form);
+
+    if (type === 'seller' || type === 'buyer') {
+      e.preventDefault();
+      if (form.dataset.leadSubmitting === 'yes') return;
+
+      const button = form.querySelector('button[type="submit"]');
+      const originalText = button ? button.textContent : '';
+      form.dataset.leadSubmitting = 'yes';
+
+      try {
+        if (button) {
+          button.disabled = true;
+          button.textContent = 'Sending request...';
+        }
+        showSubmitStatus(form, 'Sending your information securely...', 'success');
+        const result = await sendWebsiteLead(form, type);
+        showSubmitStatus(form, result.message || 'Thank you. Your information was submitted successfully.', 'success');
+        if (button) button.textContent = 'Submitted successfully';
+
+        form.dataset.dashboardSaved = 'yes';
+        window.setTimeout(() => {
+          HTMLFormElement.prototype.submit.call(form);
+        }, 700);
+      } catch (err) {
+        const exactError = err && err.message ? err.message : String(err);
+        showSubmitStatus(form, 'Submission failed: ' + exactError, 'error');
+        console.error('Family First website lead submission failed:', err);
+        form.dataset.leadSubmitting = 'no';
+        if (button) {
+          button.disabled = false;
+          button.textContent = originalText;
+        }
+      }
+      return;
+    }
+
     if (form.dataset.dashboardSaved === 'yes') return;
     e.preventDefault();
 
     const button = form.querySelector('button[type="submit"]');
     const originalText = button ? button.textContent : '';
-    let type = detectFormType(form);
+    let otherType = type;
 
     try {
       if (button) {
         button.disabled = true;
         button.textContent = 'Saving request...';
       }
-      type = await saveLeadToDashboard(form);
-      trackFamilyFirstReport('Lead Submitted', 'Lead type: ' + type + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname + ' | ' + leadQualitySummary(form, type));
+      otherType = await saveLeadToDashboard(form);
+      trackFamilyFirstReport('Lead Submitted', 'Lead type: ' + otherType + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname + ' | ' + leadQualitySummary(form, otherType));
     } catch (err) {
       console.warn('Dashboard lead save issue:', err);
-      trackFamilyFirstReport('Lead Save Needs Review', 'Form still submitted through Netlify. Lead type: ' + type + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname + ' | ' + leadQualitySummary(form, type));
+      trackFamilyFirstReport('Lead Save Needs Review', 'Form still submitted through Netlify. Lead type: ' + otherType + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname + ' | ' + leadQualitySummary(form, otherType));
     } finally {
       form.dataset.dashboardSaved = 'yes';
       if (button) button.textContent = 'Submitting...';
