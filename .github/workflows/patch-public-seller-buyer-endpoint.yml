@@ -1,0 +1,184 @@
+name: Patch public Seller and Buyer endpoint
+
+on:
+  push:
+    paths:
+      - .github/workflows/patch-public-seller-buyer-endpoint.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch shared website script
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('script.js')
+          text = path.read_text()
+
+          endpoint_line = "const FFEG_LEAD_ENDPOINT = 'https://idyllic-brioche-a7ac83.netlify.app/.netlify/functions/ffeg-titancore-chatgpt-lead-sender';"
+          if endpoint_line not in text:
+              marker = "const FFEG_PUBLIC_DB_KEY = 'sb_publishable_4MZbcaMuJ-_GfaZh1jb4yA_tyyj7EfP';"
+              text = text.replace(marker, marker + "\n" + endpoint_line)
+
+          helper_marker = "async function saveLeadToDashboard(form) {"
+          if 'async function sendWebsiteLead(form, type)' not in text:
+              helpers = r'''
+function websiteLeadPacket(form, type) {
+  const baseAddress = propertyAddress(form);
+  const locationInterest = getField(form, 'location_interest');
+  const buyerAddress = [baseAddress, locationInterest]
+    .filter(Boolean)
+    .filter((value, index, list) => list.indexOf(value) === index)
+    .join(' | ');
+
+  return {
+    lead_type: type,
+    full_name: fullName(form),
+    phone: getField(form, 'phone'),
+    email: getField(form, 'email'),
+    property_address: type === 'buyer' ? buyerAddress : baseAddress,
+    property_type: getField(form, 'property_type') || getField(form, 'buyer_property_interest') || getField(form, 'investment_type') || 'Unknown',
+    notes: formSummary(form)
+  };
+}
+
+function submitStatusElement(form) {
+  let status = form.querySelector('[data-lead-submit-status]');
+  if (status) return status;
+
+  status = document.createElement('p');
+  status.setAttribute('data-lead-submit-status', '');
+  status.setAttribute('aria-live', 'polite');
+  status.className = 'form-note';
+  status.style.fontWeight = '700';
+  status.style.marginTop = '1rem';
+
+  const button = form.querySelector('button[type="submit"]');
+  if (button) button.insertAdjacentElement('afterend', status);
+  else form.appendChild(status);
+  return status;
+}
+
+function showSubmitStatus(form, message, state) {
+  const status = submitStatusElement(form);
+  status.textContent = message;
+  status.setAttribute('role', state === 'error' ? 'alert' : 'status');
+  status.style.color = state === 'error' ? '#b91c1c' : '#087457';
+}
+
+async function sendWebsiteLead(form, type) {
+  const response = await fetch(FFEG_LEAD_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(websiteLeadPacket(form, type))
+  });
+
+  const rawResponse = await response.text();
+  let responseData = null;
+  try {
+    responseData = rawResponse ? JSON.parse(rawResponse) : null;
+  } catch (_) {
+    responseData = null;
+  }
+
+  if (!response.ok || !responseData || responseData.ok !== true) {
+    throw new Error(rawResponse || ('HTTP ' + response.status + ' ' + response.statusText));
+  }
+
+  return responseData;
+}
+
+'''
+              text = text.replace(helper_marker, helpers + helper_marker)
+
+          start = text.index("document.querySelectorAll('form[data-netlify=\"true\"]').forEach((form) => {")
+          end = text.index("document.querySelectorAll('a.button, button.button, .site-nav a, .listing-card button')", start)
+
+          new_handler = r'''document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
+  form.addEventListener('submit', async (e) => {
+    const type = detectFormType(form);
+
+    if (type === 'seller' || type === 'buyer') {
+      e.preventDefault();
+      if (form.dataset.leadSubmitting === 'yes') return;
+
+      const button = form.querySelector('button[type="submit"]');
+      const originalText = button ? button.textContent : '';
+      form.dataset.leadSubmitting = 'yes';
+
+      try {
+        if (button) {
+          button.disabled = true;
+          button.textContent = 'Sending request...';
+        }
+        showSubmitStatus(form, 'Sending your information securely...', 'success');
+        const result = await sendWebsiteLead(form, type);
+        showSubmitStatus(form, result.message || 'Thank you. Your information was submitted successfully.', 'success');
+        if (button) button.textContent = 'Submitted successfully';
+
+        form.dataset.dashboardSaved = 'yes';
+        window.setTimeout(() => {
+          HTMLFormElement.prototype.submit.call(form);
+        }, 700);
+      } catch (err) {
+        const exactError = err && err.message ? err.message : String(err);
+        showSubmitStatus(form, 'Submission failed: ' + exactError, 'error');
+        console.error('Family First website lead submission failed:', err);
+        form.dataset.leadSubmitting = 'no';
+        if (button) {
+          button.disabled = false;
+          button.textContent = originalText;
+        }
+      }
+      return;
+    }
+
+    if (form.dataset.dashboardSaved === 'yes') return;
+    e.preventDefault();
+
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button ? button.textContent : '';
+    let otherType = type;
+
+    try {
+      if (button) {
+        button.disabled = true;
+        button.textContent = 'Saving request...';
+      }
+      otherType = await saveLeadToDashboard(form);
+      trackFamilyFirstReport('Lead Submitted', 'Lead type: ' + otherType + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname + ' | ' + leadQualitySummary(form, otherType));
+    } catch (err) {
+      console.warn('Dashboard lead save issue:', err);
+      trackFamilyFirstReport('Lead Save Needs Review', 'Form still submitted through Netlify. Lead type: ' + otherType + ' | Form: ' + (form.getAttribute('name') || 'unknown') + ' | Page: ' + window.location.pathname + ' | ' + leadQualitySummary(form, otherType));
+    } finally {
+      form.dataset.dashboardSaved = 'yes';
+      if (button) button.textContent = 'Submitting...';
+      HTMLFormElement.prototype.submit.call(form);
+      if (button) {
+        setTimeout(() => {
+          button.disabled = false;
+          button.textContent = originalText;
+        }, 3000);
+      }
+    }
+  });
+});
+
+'''
+
+          text = text[:start] + new_handler + text[end:]
+          path.write_text(text)
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add script.js
+          git diff --cached --quiet || git commit -m "Connect public Seller and Buyer forms to Netlify endpoint"
+          git push
