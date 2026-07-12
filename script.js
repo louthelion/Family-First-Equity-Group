@@ -8,14 +8,14 @@ document.querySelectorAll('[data-property-coming-soon]').forEach(button=>button.
 document.querySelectorAll('[data-credit-help-select]').forEach(select=>{const message=select.closest('form')?.querySelector('[data-credit-help-message]');if(!message)return;const update=()=>message.hidden=select.value!=='Yes';select.addEventListener('change',update);update()});
 
 const FFEG_UNIFIED_INTAKE_ENDPOINT='https://idyllic-brioche-a7ac83.netlify.app/.netlify/functions/ffeg-unified-lead-intake';
-const FFEG_APPROVED_INTAKE_SOURCES=new Set(['family_first_website','titancore_referral','incoming_phone_call','direct_manual_contact','referral','ai_discovered_public_source','partner_provider','facebook','instagram','google','email_campaign']);
+const FFEG_APPROVED_WEBSITE_SOURCES=new Set(['family_first_website','titancore_referral','referral','facebook','instagram','linkedin','google','email_campaign']);
 const params=new URLSearchParams(location.search);
 const requestedSource=(params.get('source')||'').trim().toLowerCase();
-if(FFEG_APPROVED_INTAKE_SOURCES.has(requestedSource))sessionStorage.setItem('ffegLeadSource',requestedSource);
+if(FFEG_APPROVED_WEBSITE_SOURCES.has(requestedSource))sessionStorage.setItem('ffegLeadSource',requestedSource);
 else if(/titancoreholdings\.com/i.test(document.referrer||''))sessionStorage.setItem('ffegLeadSource','titancore_referral');
 const savedSource=sessionStorage.getItem('ffegLeadSource');
-const intakeSource=FFEG_APPROVED_INTAKE_SOURCES.has(savedSource)?savedSource:'family_first_website';
-const originalSource=intakeSource==='titancore_referral'?'TitanCore Holdings company directory referral':'Family First website form';
+const intakeSource=FFEG_APPROVED_WEBSITE_SOURCES.has(savedSource)?savedSource:'family_first_website';
+const originalSource=intakeSource==='titancore_referral'?'TitanCore Holdings company directory referral':intakeSource==='family_first_website'?'Family First website form':'Marketing or referral source: '+intakeSource;
 
 function field(form,name){const item=form.elements[name];if(!item)return'';if(item instanceof RadioNodeList||(typeof item.length==='number'&&!item.type))return Array.from(item).filter(el=>el.checked||el.selected).map(el=>el.value).filter(Boolean).join(', ');if(item.type==='file')return item.files&&item.files.length?item.files.length+' file(s) selected for the Netlify form':'';return item.value||''}
 function summary(form){const lines=[];new FormData(form).forEach((value,key)=>{if(key==='bot-field'||key==='form-name')return;if(value instanceof File){if(value.name)lines.push(key+': '+value.name)}else lines.push(key+': '+value)});lines.push('source: '+intakeSource);lines.push('original_source: '+originalSource);return lines.join('\n')}
