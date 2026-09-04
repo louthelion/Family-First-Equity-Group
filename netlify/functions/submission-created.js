@@ -91,6 +91,24 @@ exports.handler = async function(event) {
       });
     }
 
+    if (formName.includes('field-representative')) {
+      await insert('phone_leads', {
+        company: 'Family First',
+        caller_name: `${first(data, ['first_name', 'First Name'])} ${first(data, ['last_name', 'Last Name'])}`.trim(),
+        phone: first(data, ['phone', 'Phone']),
+        email: first(data, ['email', 'Email']),
+        reason_for_call: 'Field Property Representative Interest',
+        property_address: [
+          first(data, ['service_area', 'Primary service area']),
+          first(data, ['home_city', 'Home city']),
+          first(data, ['home_state', 'Home state'])
+        ].filter(Boolean).join(', '),
+        assigned_department: 'Acquisitions / Field Operations',
+        ai_receptionist_notes: summary(data),
+        status: 'new'
+      });
+    }
+
     return { statusCode: 200, body: 'Form saved to Supabase.' };
   } catch (error) {
     console.error(error);
