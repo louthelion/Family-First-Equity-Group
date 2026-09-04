@@ -1,11 +1,112 @@
+const FFEG_PUBLIC_PHONE_DISPLAY='(407) 537-0101';
+const FFEG_PUBLIC_PHONE_TEL='+14075370101';
+const FFEG_OLD_PHONE_TEL='+18008279016';
+const FFEG_OLD_PHONE_PATTERNS=[
+  /\(800\)\s*827-9016/g,
+  /800[-.\s]*827[-.\s]*9016/g,
+  /1[-.\s]*800[-.\s]*827[-.\s]*9016/g,
+  /\+1\s*800\s*827\s*9016/g
+];
+
+function normalizeFamilyFirstPublicPhone(){
+  document.querySelectorAll('a[href^="tel:"]').forEach(link=>{
+    const href=(link.getAttribute('href')||'').replace(/[^+\d]/g,'');
+    const text=(link.textContent||'').trim();
+    if(href===FFEG_OLD_PHONE_TEL||/800\D*827\D*9016/.test(text)){
+      link.setAttribute('href',`tel:${FFEG_PUBLIC_PHONE_TEL}`);
+      link.textContent=FFEG_PUBLIC_PHONE_DISPLAY;
+    }
+  });
+  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  const nodes=[];
+  while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(node=>{
+    let next=node.nodeValue||'';
+    FFEG_OLD_PHONE_PATTERNS.forEach(pattern=>{next=next.replace(pattern,FFEG_PUBLIC_PHONE_DISPLAY)});
+    if(next!==node.nodeValue)node.nodeValue=next;
+  });
+}
+
+function addFieldInterestNavigation(){
+  const nav=document.querySelector('.site-nav');
+  if(nav&&!nav.querySelector('a[href="field-representative-interest.html"]')){
+    const link=document.createElement('a');
+    link.href='field-representative-interest.html';
+    link.textContent='Field Opportunities';
+    const contact=Array.from(nav.querySelectorAll('a')).find(item=>/contact/i.test(item.textContent||''));
+    if(contact)nav.insertBefore(link,contact);else nav.appendChild(link);
+  }
+  document.querySelectorAll('.footer-links').forEach(group=>{
+    if(/resources|explore/i.test(group.querySelector('h2')?.textContent||'')&&!group.querySelector('a[href="field-representative-interest.html"]')){
+      const link=document.createElement('a');
+      link.href='field-representative-interest.html';
+      link.textContent='Field Opportunities';
+      group.appendChild(link);
+    }
+  });
+}
+
+function addHomeFieldInterestCard(){
+  if(!document.body.classList.contains('home'))return;
+  const grid=document.querySelector('.service-path-grid');
+  if(grid&&!grid.querySelector('[data-field-interest-card]')){
+    const card=document.createElement('article');
+    card.className='service-path-card';
+    card.setAttribute('data-field-interest-card','');
+    card.innerHTML='<span class="service-number">07</span><h3>On-Demand Field Property Representatives</h3><p>Interested in occasional property visits for Family First? Join the field-interest pool for possible property photo, video, visible-condition, access, and basic site-review assignments when opportunities need an in-person visit.</p><a class="button green" href="field-representative-interest.html">Join Field Interest Pool</a>';
+    grid.appendChild(card);
+  }
+  const heroButtons=document.querySelector('.hero .button-row');
+  if(heroButtons&&!heroButtons.querySelector('[data-family-first-call]')){
+    const call=document.createElement('a');
+    call.className='button gold';
+    call.href=`tel:${FFEG_PUBLIC_PHONE_TEL}`;
+    call.setAttribute('data-family-first-call','');
+    call.textContent=`Call ${FFEG_PUBLIC_PHONE_DISPLAY}`;
+    heroButtons.appendChild(call);
+  }
+}
+
 const toggle=document.querySelector('.menu-toggle');
 const nav=document.querySelector('.site-nav');
 const footerSocial=document.querySelector('.footer-social .social-links');
-if(nav&&footerSocial){const mobile=document.createElement('div');mobile.className='mobile-social';mobile.innerHTML='<p class="mobile-social-title">Follow Family First Equity Group</p>';const links=footerSocial.cloneNode(true);links.setAttribute('aria-label','Family First Equity Group social media');mobile.appendChild(links);nav.appendChild(mobile)}
-if(toggle&&nav){toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close menu':'Open menu');document.body.classList.toggle('nav-open',open)});nav.querySelectorAll('a:not([href="#"])').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open menu');document.body.classList.remove('nav-open')}))}
+if(nav&&footerSocial){
+  const mobile=document.createElement('div');
+  mobile.className='mobile-social';
+  mobile.innerHTML='<p class="mobile-social-title">Follow Family First Equity Group</p>';
+  const links=footerSocial.cloneNode(true);
+  links.setAttribute('aria-label','Family First Equity Group social media');
+  mobile.appendChild(links);
+  nav.appendChild(mobile);
+}
+if(toggle&&nav){
+  toggle.addEventListener('click',()=>{
+    const open=nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',String(open));
+    toggle.setAttribute('aria-label',open?'Close menu':'Open menu');
+    document.body.classList.toggle('nav-open',open);
+  });
+  nav.querySelectorAll('a:not([href="#"])').forEach(a=>a.addEventListener('click',()=>{
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label','Open menu');
+    document.body.classList.remove('nav-open');
+  }));
+}
+
 document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
 document.querySelectorAll('[data-property-coming-soon]').forEach(button=>button.addEventListener('click',()=>alert('Property details are coming soon. No active property listing is available at this time.')));
-document.querySelectorAll('[data-credit-help-select]').forEach(select=>{const message=select.closest('form')?.querySelector('[data-credit-help-message]');if(!message)return;const update=()=>message.hidden=select.value!=='Yes';select.addEventListener('change',update);update()});
+document.querySelectorAll('[data-credit-help-select]').forEach(select=>{
+  const message=select.closest('form')?.querySelector('[data-credit-help-message]');
+  if(!message)return;
+  const update=()=>message.hidden=select.value!=='Yes';
+  select.addEventListener('change',update);
+  update();
+});
+
+normalizeFamilyFirstPublicPhone();
+addFieldInterestNavigation();
+addHomeFieldInterestCard();
 
 const FFEG_UNIFIED_INTAKE_ENDPOINT='https://idyllic-brioche-a7ac83.netlify.app/.netlify/functions/ffeg-unified-lead-intake';
 const FFEG_APPROVED_WEBSITE_SOURCES=new Set(['family_first_website','titancore_referral','referral','facebook','instagram','linkedin','google','email_campaign']);
@@ -17,15 +118,115 @@ const savedSource=sessionStorage.getItem('ffegLeadSource');
 const intakeSource=FFEG_APPROVED_WEBSITE_SOURCES.has(savedSource)?savedSource:'family_first_website';
 const originalSource=intakeSource==='titancore_referral'?'TitanCore Holdings company directory referral':intakeSource==='family_first_website'?'Family First website form':'Marketing or referral source: '+intakeSource;
 
-function field(form,name){const item=form.elements[name];if(!item)return'';if(item instanceof RadioNodeList||(typeof item.length==='number'&&!item.type))return Array.from(item).filter(el=>el.checked||el.selected).map(el=>el.value).filter(Boolean).join(', ');if(item.type==='file')return item.files&&item.files.length?item.files.length+' file(s) selected for the Netlify form':'';return item.value||''}
-function summary(form){const lines=[];new FormData(form).forEach((value,key)=>{if(key==='bot-field'||key==='form-name')return;if(value instanceof File){if(value.name)lines.push(key+': '+value.name)}else lines.push(key+': '+value)});lines.push('source: '+intakeSource);lines.push('original_source: '+originalSource);return lines.join('\n')}
+function field(form,name){
+  const item=form.elements[name];
+  if(!item)return'';
+  if(item instanceof RadioNodeList||(typeof item.length==='number'&&!item.type))return Array.from(item).filter(el=>el.checked||el.selected).map(el=>el.value).filter(Boolean).join(', ');
+  if(item.type==='file')return item.files&&item.files.length?item.files.length+' file(s) selected for the Netlify form':'';
+  return item.value||'';
+}
+function summary(form){
+  const lines=[];
+  new FormData(form).forEach((value,key)=>{
+    if(key==='bot-field'||key==='form-name')return;
+    if(value instanceof File){if(value.name)lines.push(key+': '+value.name)}else lines.push(key+': '+value);
+  });
+  lines.push('source: '+intakeSource);
+  lines.push('original_source: '+originalSource);
+  return lines.join('\n');
+}
 function fullName(form){return(field(form,'first_name')+' '+field(form,'last_name')).trim()||field(form,'full_name')||field(form,'name')}
 function address(form){return[field(form,'property_address'),field(form,'address'),field(form,'city')||field(form,'preferred_city'),field(form,'state')||field(form,'preferred_state'),field(form,'zip_code')||field(form,'zip')||field(form,'preferred_zip_area')].filter(Boolean).join(', ')}
-function detect(form){const name=(form.getAttribute('name')||'').toLowerCase(),path=location.pathname.toLowerCase(),review=(field(form,'review_path')||'').toLowerCase(),property=(field(form,'property_type')||'').toLowerCase(),signals=[field(form,'cash_buyer'),field(form,'purchase_plan'),field(form,'vaultara_referral')].filter(Boolean).join(' ').toLowerCase(),text=[name,path,review,property,signals].join(' ');if(/seller|sell-property|sell your property|disposition/.test(text))return'seller';if(/buyer|buy|view properties|properties|acquisition|cash buyer|financing/.test(text))return'buyer';if(/property-management|management/.test(text))return'property_management';if(/vendor|contractor|service provider/.test(text))return'vendor';return'contact'}
-function reason(form,type){if(type==='seller')return field(form,'selling_reason')||field(form,'seller_owner_notes')||field(form,'desired_outcome')||field(form,'reason_for_selling')||field(form,'message');if(type==='property_management')return field(form,'management_goals')||field(form,'maintenance_concerns')||field(form,'message')||'Property management website request';if(type==='buyer')return field(form,'strong_deal_notes')||field(form,'message')||field(form,'purchase_plan')||'Buyer or acquisition request';return field(form,'message')||field(form,'reason_for_call')||field(form,'purpose')||'Family First website inquiry'}
-function packet(form){const type=detect(form);return{intake_type:'website_form',source:intakeSource,original_source:originalSource,operating_company:'Family First Equity Group',lead_type:type,full_name:fullName(form),phone:field(form,'phone'),email:field(form,'email'),property_address:address(form)||field(form,'location_interest'),property_type:field(form,'property_type')||field(form,'buyer_property_interest')||field(form,'investment_type'),budget:field(form,'budget')||field(form,'purchase_budget')||field(form,'price_range'),reason_for_call:reason(form,type),reason_for_selling:reason(form,type),review_path:field(form,'review_path'),follow_up_request:field(form,'preferred_response')||field(form,'best_time_available')||field(form,'meeting_availability'),notes:summary(form),'bot-field':field(form,'bot-field')}}
-function statusElement(form){let status=form.querySelector('[data-lead-submit-status]');if(status)return status;status=document.createElement('p');status.setAttribute('data-lead-submit-status','');status.setAttribute('aria-live','polite');status.className='form-note';status.style.fontWeight='700';status.style.marginTop='1rem';const button=form.querySelector('button[type="submit"]');if(button)button.insertAdjacentElement('afterend',status);else form.appendChild(status);return status}
-function show(form,message,state){const status=statusElement(form);status.textContent=message;status.setAttribute('role',state==='error'?'alert':'status');status.style.color=state==='error'?'#b91c1c':'#087457'}
-async function send(form){const response=await fetch(FFEG_UNIFIED_INTAKE_ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(packet(form))});const raw=await response.text();let data={};try{data=raw?JSON.parse(raw):{}}catch{}if(!response.ok||data.ok!==true)throw new Error(data.message||raw||('HTTP '+response.status));if(data.accepted===false)throw new Error(data.message||'This request belongs to another company and was not added to Family First.');return data}
+function detect(form){
+  const name=(form.getAttribute('name')||'').toLowerCase();
+  const path=location.pathname.toLowerCase();
+  const review=(field(form,'review_path')||'').toLowerCase();
+  const property=(field(form,'property_type')||'').toLowerCase();
+  const signals=[field(form,'cash_buyer'),field(form,'purchase_plan'),field(form,'vaultara_referral'),field(form,'purpose')].filter(Boolean).join(' ').toLowerCase();
+  const text=[name,path,review,property,signals].join(' ');
+  if(/field representative|field inspector|property inspector|field-representative|field assignment/.test(text))return'vendor';
+  if(/seller|sell-property|sell your property|disposition/.test(text))return'seller';
+  if(/buyer|buy|view properties|properties|acquisition|cash buyer|financing/.test(text))return'buyer';
+  if(/property-management|management/.test(text))return'property_management';
+  if(/vendor|contractor|service provider/.test(text))return'vendor';
+  return'contact';
+}
+function reason(form,type){
+  if(type==='seller')return field(form,'selling_reason')||field(form,'seller_owner_notes')||field(form,'desired_outcome')||field(form,'reason_for_selling')||field(form,'message');
+  if(type==='property_management')return field(form,'management_goals')||field(form,'maintenance_concerns')||field(form,'message')||'Property management website request';
+  if(type==='buyer')return field(form,'strong_deal_notes')||field(form,'message')||field(form,'purchase_plan')||'Buyer or acquisition request';
+  if(type==='vendor')return field(form,'purpose')||field(form,'message')||'Field/service-provider interest submission';
+  return field(form,'message')||field(form,'reason_for_call')||field(form,'purpose')||'Family First website inquiry';
+}
+function packet(form){
+  const type=detect(form);
+  return{
+    intake_type:'website_form',
+    source:intakeSource,
+    original_source:originalSource,
+    operating_company:'Family First Equity Group',
+    lead_type:type,
+    full_name:fullName(form),
+    phone:field(form,'phone'),
+    email:field(form,'email'),
+    property_address:address(form)||field(form,'location_interest'),
+    property_type:field(form,'property_type')||field(form,'buyer_property_interest')||field(form,'investment_type'),
+    budget:field(form,'budget')||field(form,'purchase_budget')||field(form,'price_range'),
+    reason_for_call:reason(form,type),
+    reason_for_selling:reason(form,type),
+    review_path:field(form,'review_path'),
+    follow_up_request:field(form,'preferred_response')||field(form,'best_time_available')||field(form,'meeting_availability')||field(form,'availability'),
+    notes:summary(form),
+    'bot-field':field(form,'bot-field')
+  };
+}
+function statusElement(form){
+  let status=form.querySelector('[data-lead-submit-status]');
+  if(status)return status;
+  status=document.createElement('p');
+  status.setAttribute('data-lead-submit-status','');
+  status.setAttribute('aria-live','polite');
+  status.className='form-note';
+  status.style.fontWeight='700';
+  status.style.marginTop='1rem';
+  const button=form.querySelector('button[type="submit"]');
+  if(button)button.insertAdjacentElement('afterend',status);else form.appendChild(status);
+  return status;
+}
+function show(form,message,state){
+  const status=statusElement(form);
+  status.textContent=message;
+  status.setAttribute('role',state==='error'?'alert':'status');
+  status.style.color=state==='error'?'#b91c1c':'#087457';
+}
+async function send(form){
+  const response=await fetch(FFEG_UNIFIED_INTAKE_ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(packet(form))});
+  const raw=await response.text();
+  let data={};
+  try{data=raw?JSON.parse(raw):{}}catch{}
+  if(!response.ok||data.ok!==true)throw new Error(data.message||raw||('HTTP '+response.status));
+  if(data.accepted===false)throw new Error(data.message||'This request belongs to another company and was not added to Family First.');
+  return data;
+}
 
-document.querySelectorAll('form[data-netlify="true"]').forEach(form=>form.addEventListener('submit',async event=>{event.preventDefault();if(form.dataset.leadSubmitting==='yes')return;const button=form.querySelector('button[type="submit"]'),original=button?.textContent||'';form.dataset.leadSubmitting='yes';try{if(button){button.disabled=true;button.textContent='Sending request...'}show(form,'Sending your information securely...','success');const result=await send(form);show(form,(result.message||'Thank you. Your information was submitted successfully.')+(result.duplicate_status&&result.duplicate_status!=='No duplicate signal'?' '+result.duplicate_status+'.':''),'success');if(button)button.textContent='Submitted successfully';form.dataset.dashboardSaved='yes';setTimeout(()=>HTMLFormElement.prototype.submit.call(form),700)}catch(error){show(form,'Submission failed: '+(error.message||error),'error');console.error('Family First unified lead submission failed:',error);form.dataset.leadSubmitting='no';if(button){button.disabled=false;button.textContent=original}}}));
+document.querySelectorAll('form[data-netlify="true"]').forEach(form=>form.addEventListener('submit',async event=>{
+  event.preventDefault();
+  if(form.dataset.leadSubmitting==='yes')return;
+  const button=form.querySelector('button[type="submit"]');
+  const original=button?.textContent||'';
+  form.dataset.leadSubmitting='yes';
+  try{
+    if(button){button.disabled=true;button.textContent='Sending request...'}
+    show(form,'Sending your information securely...','success');
+    const result=await send(form);
+    show(form,(result.message||'Thank you. Your information was submitted successfully.')+(result.duplicate_status&&result.duplicate_status!=='No duplicate signal'?' '+result.duplicate_status+'.':''),'success');
+    if(button)button.textContent='Submitted successfully';
+    form.dataset.dashboardSaved='yes';
+    setTimeout(()=>HTMLFormElement.prototype.submit.call(form),700);
+  }catch(error){
+    show(form,'Submission failed: '+(error.message||error),'error');
+    console.error('Family First unified lead submission failed:',error);
+    form.dataset.leadSubmitting='no';
+    if(button){button.disabled=false;button.textContent=original}
+  }
+}));
