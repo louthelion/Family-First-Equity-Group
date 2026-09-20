@@ -1,3 +1,4 @@
+// Draft preview mirror; public-site production remains unchanged.
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://jgpvrblzyznyprtffirw.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'sb_publishable_4MZbcaMuJ-_GfaZh1jb4yA_tyyj7EfP';
 
