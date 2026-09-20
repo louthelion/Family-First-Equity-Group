@@ -78,6 +78,9 @@ exports.handler = async function(event) {
       return { statusCode: 200, body: 'No form data found.' };
     }
 
+    try { await mirrorToV3(payload, data, clean(payload.form_name || data['form-name'] || data.form_name)); }
+    catch (error) { console.error('V3 website bridge delivery failed:', error); }
+
     if (formName.includes('seller')) {
       await insert('seller_leads', {
         source: 'family_first_website_netlify_form',
@@ -133,9 +136,6 @@ exports.handler = async function(event) {
         status: 'new'
       });
     }
-
-    try { await mirrorToV3(payload, data, clean(payload.form_name || data['form-name'] || data.form_name)); }
-    catch (error) { console.error('V3 website bridge delivery failed:', error); }
 
     return { statusCode: 200, body: 'Form saved to Supabase.' };
   } catch (error) {
