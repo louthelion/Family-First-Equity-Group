@@ -53,7 +53,7 @@ async function mirrorToV3(payload, data, formName) {
     console.error('V3 website bridge configuration rejected.');
     return;
   }
-  if (!['Family-First-Equity-Group-Seller-Intake', 'Family-First-Contact'].includes(formName) && !/property-management/i.test(formName)) return;
+  if (!/^Family-First-/i.test(formName)) return;
   const submissionId = String(payload.id || payload.submission_id || '');
   if (!/^[a-zA-Z0-9_-]{8,160}$/.test(submissionId)) {
     console.error('V3 website bridge skipped form without Netlify submission ID.');
