@@ -1,3 +1,4 @@
+// Draft preview mirror; public-site production remains unchanged.
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://jgpvrblzyznyprtffirw.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'sb_publishable_4MZbcaMuJ-_GfaZh1jb4yA_tyyj7EfP';
 
@@ -42,6 +43,31 @@ async function insert(table, row) {
   }
 }
 
+
+// The V3 bridge is opt-in. No production submission route changes without both
+// server-only settings; failures leave the existing Netlify submission intact.
+async function mirrorToV3(payload, data, formName) {
+  const url = process.env.FFEG_V3_WEBSITE_BRIDGE_URL;
+  const secret = process.env.FFEG_V3_WEBSITE_BRIDGE_SECRET;
+  if (!url || !secret) return;
+  if (secret.length < 32 || !/^https:\/\/[a-z0-9-]+\.netlify\.app\/api\/ffeg\/v3\/website-bridge$/.test(url)) {
+    console.error('V3 website bridge configuration rejected.');
+    return;
+  }
+  if (!/^Family-First-/i.test(formName)) return;
+  const submissionId = String(payload.id || payload.submission_id || '');
+  if (!/^[a-zA-Z0-9_-]{8,160}$/.test(submissionId)) {
+    console.error('V3 website bridge skipped form without Netlify submission ID.');
+    return;
+  }
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'x-ffeg-intake-secret': secret },
+    body: JSON.stringify({ submission_id: submissionId, form_name: formName, data })
+  });
+  if (!response.ok) console.error('V3 website bridge delivery failed:', response.status);
+}
+
 exports.handler = async function(event) {
   try {
     const body = event.body ? JSON.parse(event.body) : {};
@@ -52,6 +78,9 @@ exports.handler = async function(event) {
     if (!data || Object.keys(data).length === 0) {
       return { statusCode: 200, body: 'No form data found.' };
     }
+
+    try { await mirrorToV3(payload, data, clean(payload.form_name || data['form-name'] || data.form_name)); }
+    catch (error) { console.error('V3 website bridge delivery failed:', error); }
 
     if (formName.includes('seller')) {
       await insert('seller_leads', {
