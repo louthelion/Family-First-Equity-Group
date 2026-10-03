@@ -108,7 +108,7 @@ normalizeFamilyFirstPublicPhone();
 addFieldInterestNavigation();
 addHomeFieldInterestCard();
 
-const FFEG_UNIFIED_INTAKE_ENDPOINT='https://idyllic-brioche-a7ac83.netlify.app/.netlify/functions/ffeg-unified-lead-intake';
+
 const FFEG_APPROVED_WEBSITE_SOURCES=new Set(['family_first_website','titancore_referral','referral','facebook','instagram','linkedin','google','email_campaign']);
 const params=new URLSearchParams(location.search);
 const requestedSource=(params.get('source')||'').trim().toLowerCase();
@@ -199,34 +199,25 @@ function show(form,message,state){
   status.setAttribute('role',state==='error'?'alert':'status');
   status.style.color=state==='error'?'#b91c1c':'#087457';
 }
-async function send(form){
-  const response=await fetch(FFEG_UNIFIED_INTAKE_ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(packet(form))});
-  const raw=await response.text();
-  let data={};
-  try{data=raw?JSON.parse(raw):{}}catch{}
-  if(!response.ok||data.ok!==true)throw new Error(data.message||raw||('HTTP '+response.status));
-  if(data.accepted===false)throw new Error(data.message||'This request belongs to another company and was not added to Family First.');
-  return data;
-}
-
-document.querySelectorAll('form[data-netlify="true"]').forEach(form=>form.addEventListener('submit',async event=>{
-  event.preventDefault();
-  if(form.dataset.leadSubmitting==='yes')return;
-  const button=form.querySelector('button[type="submit"]');
-  const original=button?.textContent||'';
-  form.dataset.leadSubmitting='yes';
-  try{
-    if(button){button.disabled=true;button.textContent='Sending request...'}
-    show(form,'Sending your information securely...','success');
-    const result=await send(form);
-    show(form,(result.message||'Thank you. Your information was submitted successfully.')+(result.duplicate_status&&result.duplicate_status!=='No duplicate signal'?' '+result.duplicate_status+'.':''),'success');
-    if(button)button.textContent='Submitted successfully';
-    form.dataset.dashboardSaved='yes';
-    setTimeout(()=>HTMLFormElement.prototype.submit.call(form),700);
-  }catch(error){
-    show(form,'Submission failed: '+(error.message||error),'error');
-    console.error('Family First unified lead submission failed:',error);
-    form.dataset.leadSubmitting='no';
-    if(button){button.disabled=false;button.textContent=original}
+// Netlify Forms is the durable public intake authority. The verified submission
+// event creates the matching database record; never claim database success here.
+document.querySelectorAll('form[data-netlify="true"]').forEach(form => {
+  let requestId = form.querySelector('[name="submission_uuid"]');
+  if (!requestId) {
+    requestId = document.createElement('input');
+    requestId.type = 'hidden'; requestId.name = 'submission_uuid';
+    form.appendChild(requestId);
   }
-}));
+  if (!requestId.value) requestId.value = crypto.randomUUID();
+  let source = form.querySelector('[name="source"]');
+  if (!source) { source = document.createElement('input'); source.type = 'hidden'; source.name = 'source'; form.appendChild(source); }
+  source.value = intakeSource;
+  form.addEventListener('submit', event => {
+    if (form.dataset.leadSubmitting === 'yes') { event.preventDefault(); return; }
+    if (!form.reportValidity()) { event.preventDefault(); return; }
+    form.dataset.leadSubmitting = 'yes';
+    show(form, 'Sending your request securely...', 'success');
+    // Keep the submit control enabled until the native browser has serialized it.
+    // Native multipart submission preserves documents and photos.
+  });
+});
