@@ -24,10 +24,10 @@ test('combined buyer/investor form honors the selected interest',()=>{
  assert.equal(classify(name,{review_path:'Investor'}),'investor');
 });
 test('every static inquiry form has supported identity, confirmation and stable tracking fields',()=>{
- const fs=require('node:fs'),path=require('node:path');const root=path.join(__dirname,'..');let count=0;
+ const fs=require('node:fs'),path=require('node:path');const root=path.join(__dirname,'..');let count=0;const names=new Set();
  for(const file of fs.readdirSync(root).filter(f=>f.endsWith('.html'))){
   for(const [,attrs,body] of fs.readFileSync(path.join(root,file),'utf8').matchAll(/<form\b([^>]*)>([\s\S]*?)<\/form>/g)){
-   count++;assert.match(attrs,/name="Family-First-/);assert.match(attrs,/action="\/thank-you"/);
+   count++;const name=/name="([^"]+)"/.exec(attrs)[1];assert.ok(!names.has(name),'duplicate form name '+name);names.add(name);assert.match(attrs,/name="Family-First-/);assert.match(attrs,/action="\/thank-you"/);
    for(const field of ['form-name','submission_uuid','source','bot-field'])assert.ok(body.includes('name="'+field+'"'),file+' missing '+field);
   }
  }assert.equal(count,14);
