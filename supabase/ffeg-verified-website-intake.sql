@@ -25,7 +25,7 @@ begin
  then raise exception 'Invalid verified inquiry envelope'; end if;
  if jsonb_typeof(p_data)<>'object' or octet_length(p_data::text)>250000 then raise exception 'Invalid inquiry payload'; end if;
  if coalesce(p_data->>'bot-field','')<>'' then raise exception 'Honeypot rejected'; end if;
- name_value:=trim(coalesce(nullif(p_data->>'full_name',''),nullif(p_data->>'name',''),concat_ws(' ',p_data->>'first_name',p_data->>'last_name')));
+ name_value:=trim(coalesce(nullif(p_data->>'full_name',''),nullif(p_data->>'name',''),nullif(p_data->>'contact_name',''),concat_ws(' ',p_data->>'first_name',p_data->>'last_name')));
  email_value:=lower(trim(coalesce(p_data->>'email',''))); phone_value:=trim(coalesce(p_data->>'phone',''));
  address_value:=concat_ws(', ',nullif(trim(coalesce(p_data->>'property_address',p_data->>'address',p_data->>'property_location',p_data->>'property_locations','')),''),nullif(p_data->>'city',''),nullif(p_data->>'state',''),nullif(coalesce(p_data->>'zip_code',p_data->>'zip'),''));
  if name_value='' or (email_value='' and phone_value='') then raise exception 'Name and callback channel required'; end if;

@@ -37,3 +37,13 @@ test('old deployed form identities remain deliverable during the cutover',async(
  const original=global.fetch;const types=[];global.fetch=async(url,opts)=>{types.push(JSON.parse(opts.body).p_type);return {ok:true,json:async()=>({ok:true})}};
  try{for(const name of ['short-term-rental-review','legacy-property-review'])assert.equal((await handler({body:JSON.stringify({payload:{id:'synthetic_legacy_1',form_name:name,data:{}}})})).statusCode,200);assert.deepEqual(types,['short_term_review','trust']);}finally{global.fetch=original;delete process.env.SUPABASE_SERVICE_ROLE_KEY;}
 });
+test('deployed forms retain native submission, campaign identity, repeat protection and back-navigation recovery',()=>{
+ const fs=require('node:fs'),vm=require('node:vm');const source=fs.readFileSync(require('node:path').join(__dirname,'../script.js'),'utf8').split('// Netlify Forms is the durable public intake authority.')[1];
+ const fields={},events={},pageEvents={};let valid=true;const form={dataset:{},querySelector(selector){return fields[/name="([^"]+)"/.exec(selector)?.[1]]||null;},appendChild(input){fields[input.name]=input;},reportValidity(){return valid;},addEventListener(name,fn){events[name]=fn;}};
+ const context={document:{querySelectorAll(selector){assert.ok(selector.includes('form[name^="Family-First-"]'),'Netlify strips the detection attribute');return [form];},createElement(){return {value:''};}},window:{addEventListener(name,fn){pageEvents[name]=fn;}},crypto:{randomUUID(){return 'stable-qa-uuid';}},intakeSource:'linkedin',show(){},fetch(){throw Error('native form must not fetch the old endpoint');}};
+ vm.runInNewContext('//'+source,context);assert.equal(fields.submission_uuid.value,'stable-qa-uuid');assert.equal(fields.source.value,'linkedin');
+ let prevented=0;const event={preventDefault(){prevented++;}};
+ valid=false;events.submit(event);assert.equal(prevented,1);assert.equal(form.dataset.leadSubmitting,undefined);
+ valid=true;events.submit(event);assert.equal(prevented,1);events.submit(event);assert.equal(prevented,2);
+ pageEvents.pageshow();events.submit(event);assert.equal(prevented,2);assert.equal(fields.submission_uuid.value,'stable-qa-uuid');
+});

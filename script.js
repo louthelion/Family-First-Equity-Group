@@ -201,7 +201,7 @@ function show(form,message,state){
 }
 // Netlify Forms is the durable public intake authority. The verified submission
 // event creates the matching database record; never claim database success here.
-document.querySelectorAll('form[data-netlify="true"]').forEach(form => {
+document.querySelectorAll('form[name^="Family-First-"],form[data-netlify="true"]').forEach(form => {
   let requestId = form.querySelector('[name="submission_uuid"]');
   if (!requestId) {
     requestId = document.createElement('input');
@@ -212,6 +212,9 @@ document.querySelectorAll('form[data-netlify="true"]').forEach(form => {
   let source = form.querySelector('[name="source"]');
   if (!source) { source = document.createElement('input'); source.type = 'hidden'; source.name = 'source'; form.appendChild(source); }
   source.value = intakeSource;
+  window.addEventListener('pageshow', () => {
+    if (form.dataset.leadSubmitting === 'yes') { delete form.dataset.leadSubmitting; show(form, '', 'success'); }
+  });
   form.addEventListener('submit', event => {
     if (form.dataset.leadSubmitting === 'yes') { event.preventDefault(); return; }
     if (!form.reportValidity()) { event.preventDefault(); return; }
