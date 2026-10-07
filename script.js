@@ -108,45 +108,116 @@ normalizeFamilyFirstPublicPhone();
 addFieldInterestNavigation();
 addHomeFieldInterestCard();
 
-// A single submission handler: first store the complete form, including files,
-// with this website's Netlify Forms. The server event performs the private bridge.
-const FFEG_APPROVED_WEBSITE_SOURCES=new Set(['family_first_website','referral','facebook','instagram','linkedin','google','email_campaign']);
-let intakeSource='family_first_website';
-try {
- const requested=new URLSearchParams(location.search).get('source');
- if(FFEG_APPROVED_WEBSITE_SOURCES.has(requested))sessionStorage.setItem('ffegLeadSource',requested);
- const saved=sessionStorage.getItem('ffegLeadSource');
- if(FFEG_APPROVED_WEBSITE_SOURCES.has(saved))intakeSource=saved;
-} catch {}
-document.querySelectorAll('form[data-netlify="true"]').forEach(form=>{
- form.addEventListener('submit',async event=>{
-  event.preventDefault();
-  if(form.dataset.leadSubmitting==='yes'||!form.reportValidity())return;
-  const button=form.querySelector('button[type="submit"]');
-  const original=button?.textContent||'Submit';
+
+const FFEG_APPROVED_WEBSITE_SOURCES=new Set(['family_first_website','titancore_referral','referral','facebook','instagram','linkedin','google','email_campaign']);
+const params=new URLSearchParams(location.search);
+const requestedSource=(params.get('source')||'').trim().toLowerCase();
+if(FFEG_APPROVED_WEBSITE_SOURCES.has(requestedSource))sessionStorage.setItem('ffegLeadSource',requestedSource);
+else if(/titancoreholdings\.com/i.test(document.referrer||''))sessionStorage.setItem('ffegLeadSource','titancore_referral');
+const savedSource=sessionStorage.getItem('ffegLeadSource');
+const intakeSource=FFEG_APPROVED_WEBSITE_SOURCES.has(savedSource)?savedSource:'family_first_website';
+const originalSource=intakeSource==='titancore_referral'?'TitanCore Holdings company directory referral':intakeSource==='family_first_website'?'Family First website form':'Marketing or referral source: '+intakeSource;
+
+function field(form,name){
+  const item=form.elements[name];
+  if(!item)return'';
+  if(item instanceof RadioNodeList||(typeof item.length==='number'&&!item.type))return Array.from(item).filter(el=>el.checked||el.selected).map(el=>el.value).filter(Boolean).join(', ');
+  if(item.type==='file')return item.files&&item.files.length?item.files.length+' file(s) selected for the Netlify form':'';
+  return item.value||'';
+}
+function summary(form){
+  const lines=[];
+  new FormData(form).forEach((value,key)=>{
+    if(key==='bot-field'||key==='form-name')return;
+    if(value instanceof File){if(value.name)lines.push(key+': '+value.name)}else lines.push(key+': '+value);
+  });
+  lines.push('source: '+intakeSource);
+  lines.push('original_source: '+originalSource);
+  return lines.join('\n');
+}
+function fullName(form){return(field(form,'first_name')+' '+field(form,'last_name')).trim()||field(form,'full_name')||field(form,'name')}
+function address(form){return[field(form,'property_address'),field(form,'address'),field(form,'city')||field(form,'preferred_city'),field(form,'state')||field(form,'preferred_state'),field(form,'zip_code')||field(form,'zip')||field(form,'preferred_zip_area')].filter(Boolean).join(', ')}
+function detect(form){
+  const name=(form.getAttribute('name')||'').toLowerCase();
+  const path=location.pathname.toLowerCase();
+  const review=(field(form,'review_path')||'').toLowerCase();
+  const property=(field(form,'property_type')||'').toLowerCase();
+  const signals=[field(form,'cash_buyer'),field(form,'purchase_plan'),field(form,'vaultara_referral'),field(form,'purpose')].filter(Boolean).join(' ').toLowerCase();
+  const text=[name,path,review,property,signals].join(' ');
+  if(/field representative|field inspector|property inspector|field-representative|field assignment/.test(text))return'vendor';
+  if(/seller|sell-property|sell your property|disposition/.test(text))return'seller';
+  if(/buyer|buy|view properties|properties|acquisition|cash buyer|financing/.test(text))return'buyer';
+  if(/property-management|management/.test(text))return'property_management';
+  if(/vendor|contractor|service provider/.test(text))return'vendor';
+  return'contact';
+}
+function reason(form,type){
+  if(type==='seller')return field(form,'selling_reason')||field(form,'seller_owner_notes')||field(form,'desired_outcome')||field(form,'reason_for_selling')||field(form,'message');
+  if(type==='property_management')return field(form,'management_goals')||field(form,'maintenance_concerns')||field(form,'message')||'Property management website request';
+  if(type==='buyer')return field(form,'strong_deal_notes')||field(form,'message')||field(form,'purchase_plan')||'Buyer or acquisition request';
+  if(type==='vendor')return field(form,'purpose')||field(form,'message')||'Field/service-provider interest submission';
+  return field(form,'message')||field(form,'reason_for_call')||field(form,'purpose')||'Family First website inquiry';
+}
+function packet(form){
+  const type=detect(form);
+  return{
+    intake_type:'website_form',
+    source:intakeSource,
+    original_source:originalSource,
+    operating_company:'Family First Equity Group',
+    lead_type:type,
+    full_name:fullName(form),
+    phone:field(form,'phone'),
+    email:field(form,'email'),
+    property_address:address(form)||field(form,'location_interest'),
+    property_type:field(form,'property_type')||field(form,'buyer_property_interest')||field(form,'investment_type'),
+    budget:field(form,'budget')||field(form,'purchase_budget')||field(form,'price_range'),
+    reason_for_call:reason(form,type),
+    reason_for_selling:reason(form,type),
+    review_path:field(form,'review_path'),
+    follow_up_request:field(form,'preferred_response')||field(form,'best_time_available')||field(form,'meeting_availability')||field(form,'availability'),
+    notes:summary(form),
+    'bot-field':field(form,'bot-field')
+  };
+}
+function statusElement(form){
   let status=form.querySelector('[data-lead-submit-status]');
-  if(!status){status=document.createElement('p');status.dataset.leadSubmitStatus='';status.setAttribute('aria-live','polite');form.append(status)}
-  const show=(message,error=false)=>{status.textContent=message;status.setAttribute('role',error?'alert':'status')};
-  form.dataset.leadSubmitting='yes';
-  try{
-   const uuid=form.elements.submission_uuid;
-   if(uuid&&!uuid.value)uuid.value=crypto.randomUUID();
-   if(form.elements.source)form.elements.source.value=intakeSource;
-   const payload=new FormData(form);
-   payload.set('form-name',form.getAttribute('name'));
-   const uploadBytes=Array.from(payload.values()).reduce((n,v)=>n+(v instanceof File?v.size:0),0);
-   if(uploadBytes>7*1024*1024)throw new Error('Attachments must total less than 7 MB. Please send a link for larger videos.');
-   if(button){button.disabled=true;button.textContent='Sending…'}
-   show('Sending your inquiry…');
-   const response=await fetch('/',{method:'POST',body:payload});
-   if(!response.ok)throw new Error('Your inquiry could not be saved. Please try again.');
-   show('Thank you. Your inquiry has been received for review. An appointment or transaction is not confirmed.');
-   form.dataset.dashboardSaved='pending';
-   if(button)button.textContent='Inquiry received';
-  }catch(error){
-   show(error.message||'Submission failed. Please try again.',true);
-   form.dataset.leadSubmitting='no';
-   if(button){button.disabled=false;button.textContent=original}
+  if(status)return status;
+  status=document.createElement('p');
+  status.setAttribute('data-lead-submit-status','');
+  status.setAttribute('aria-live','polite');
+  status.className='form-note';
+  status.style.fontWeight='700';
+  status.style.marginTop='1rem';
+  const button=form.querySelector('button[type="submit"]');
+  if(button)button.insertAdjacentElement('afterend',status);else form.appendChild(status);
+  return status;
+}
+function show(form,message,state){
+  const status=statusElement(form);
+  status.textContent=message;
+  status.setAttribute('role',state==='error'?'alert':'status');
+  status.style.color=state==='error'?'#b91c1c':'#087457';
+}
+// Netlify Forms is the durable public intake authority. The verified submission
+// event creates the matching database record; never claim database success here.
+document.querySelectorAll('form[data-netlify="true"]').forEach(form => {
+  let requestId = form.querySelector('[name="submission_uuid"]');
+  if (!requestId) {
+    requestId = document.createElement('input');
+    requestId.type = 'hidden'; requestId.name = 'submission_uuid';
+    form.appendChild(requestId);
   }
- });
+  if (!requestId.value) requestId.value = crypto.randomUUID();
+  let source = form.querySelector('[name="source"]');
+  if (!source) { source = document.createElement('input'); source.type = 'hidden'; source.name = 'source'; form.appendChild(source); }
+  source.value = intakeSource;
+  form.addEventListener('submit', event => {
+    if (form.dataset.leadSubmitting === 'yes') { event.preventDefault(); return; }
+    if (!form.reportValidity()) { event.preventDefault(); return; }
+    form.dataset.leadSubmitting = 'yes';
+    show(form, 'Sending your request securely...', 'success');
+    // Keep the submit control enabled until the native browser has serialized it.
+    // Native multipart submission preserves documents and photos.
+  });
 });
