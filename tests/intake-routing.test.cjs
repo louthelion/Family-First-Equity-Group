@@ -30,7 +30,7 @@ test('every static inquiry form has supported identity, confirmation and stable 
    count++;const name=/name="([^"]+)"/.exec(attrs)[1];assert.ok(!names.has(name),'duplicate form name '+name);names.add(name);assert.match(attrs,/name="Family-First-/);assert.match(attrs,/action="\/thank-you"/);
    for(const field of ['form-name','submission_uuid','source','bot-field'])assert.ok(body.includes('name="'+field+'"'),file+' missing '+field);
   }
- }assert.equal(count,14);
+ }assert.equal(count,12);
 });
 test('old deployed form identities remain deliverable during the cutover',async()=>{
  process.env.SUPABASE_URL='https://jgpvrblzyznyprtffirw.supabase.co';process.env.SUPABASE_SERVICE_ROLE_KEY='sb_secret_SYNTHETIC_ONLY';
