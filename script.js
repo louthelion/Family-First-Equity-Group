@@ -224,9 +224,19 @@ document.querySelectorAll('form[data-netlify="true"]').forEach(form=>form.addEve
     form.dataset.dashboardSaved='yes';
     setTimeout(()=>HTMLFormElement.prototype.submit.call(form),700);
   }catch(error){
-    show(form,'Submission failed: '+(error.message||error),'error');
-    console.error('Family First unified lead submission failed:',error);
-    form.dataset.leadSubmitting='no';
-    if(button){button.disabled=false;button.textContent=original}
+    // Always preserve the customer's valid inquiry in native Netlify Forms.
+    // The direct dashboard endpoint may be unreachable; the signed server-side
+    // submission event can retry CRM delivery later without losing the request.
+    console.warn('Unified lead intake unavailable; attempting native Netlify submission.');
+    show(form,'Submitting your request through our website form instead...','success');
+    if(button){button.disabled=true;button.textContent='Submitting securely...'}
+    try{
+      HTMLFormElement.prototype.submit.call(form);
+    }catch(nativeError){
+      console.error('Native website form submission could not be initiated.');
+      show(form,'Your request was not sent. Please try again or call our office.','error');
+      form.dataset.leadSubmitting='no';
+      if(button){button.disabled=false;button.textContent=original}
+    }
   }
 }));
