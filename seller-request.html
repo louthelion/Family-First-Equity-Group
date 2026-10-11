@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tell Family First Equity Group about a property you own or are authorized to discuss. Request an initial acquisition review without a lengthy questionnaire.">
+  <title>Share Your Property | Family First Equity Group</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="investor.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="form-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark">FFEG</span><span class="brand-name"><strong>Family First Equity Group</strong></span></a>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="seller-request.html" aria-current="page">Sell Your Property</a>
+    <a href="articles.html">Resources</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+<main id="main">
+  <section class="page-hero image-contract"><div class="hero-inner">
+    <p class="eyebrow">First-step acquisition inquiry</p>
+    <h1>Tell us about your property</h1>
+    <p>Start with a few details. Our team can review whether your property may fit Family First Equity Group's investment criteria. A purchase or offer is not guaranteed.</p>
+  </div></section>
+  <section class="section form-layout">
+    <aside class="form-intro">
+      <h2>Share the basics, not a stack of paperwork.</h2>
+      <p>We review residential, multifamily, commercial, and land opportunities. You'll only be asked for detailed property records if further review is appropriate.</p>
+      <p><strong>Prefer to speak with our receptionist?</strong><br><a href="tel:+14075370535">(407) 537-0535</a></p>
+      <p>Need to send additional details? <a href="seller-intake.html">Open the full property questionnaire</a>.</p>
+      <div class="notice"><strong>Initial inquiry only.</strong><p>Submitting information does not create an agency, brokerage, or purchase agreement. We are real estate investors, not a brokerage.</p></div>
+    </aside>
+    <div class="form-card">
+      <h2>Request a property review</h2>
+      <form name="Family-First-Quick-Seller-Request" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+        <input type="hidden" name="form-name" value="Family-First-Quick-Seller-Request">
+        <input type="hidden" name="source" value="website_seller_quick">
+        <p class="hidden"><label>Leave empty: <input name="bot-field"></label></p>
+        <div class="field-grid">
+          <label class="full">Your name<input type="text" name="name" autocomplete="name" maxlength="160" required></label>
+          <label>Phone number<input type="tel" name="phone" autocomplete="tel" maxlength="40" required></label>
+          <label>Email (optional)<input type="email" name="email" autocomplete="email" maxlength="254"></label>
+          <label class="full">Property street address<input type="text" name="property_address" autocomplete="street-address" maxlength="250" required></label>
+          <label>City<input type="text" name="city" maxlength="100" required></label>
+          <label>State<input type="text" name="state" value="FL" maxlength="30" required></label>
+          <label class="full">Your relationship to the property
+            <select name="property_relationship" required>
+              <option value="">Choose an option</option>
+              <option value="Owner">I am an owner</option>
+              <option value="Authorized contact">I am authorized to discuss the property</option>
+              <option value="Other">Other or not sure</option>
+            </select>
+          </label>
+          <label>When are you considering selling?
+            <select name="selling_timeline">
+              <option value="">Not sure yet</option>
+              <option value="Immediately">Immediately</option>
+              <option value="Within 30 days">Within 30 days</option>
+              <option value="Within 90 days">Within 90 days</option>
+              <option value="Later">Later</option>
+            </select>
+          </label>
+          <label>Desired price (optional)<input type="number" min="0" step="1" name="desired_fixed_price"></label>
+          <label class="full">Anything else you want us to know? (optional)<textarea name="selling_reason" maxlength="2000"></textarea></label>
+          <label class="checkbox full"><input type="checkbox" name="consent" required><span>I agree that Family First Equity Group may contact me about this property inquiry. I understand there is no guarantee of an offer or purchase.</span></label>
+        </div>
+        <button class="button red" type="submit">Send Property Inquiry</button>
+        <p class="form-note">We will use your details only to review and respond to this inquiry. Please do not include bank account numbers, Social Security numbers, or sensitive documents here.</p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div><strong>Family First Equity Group</strong><p>Property acquisitions and investment review.</p></div>
+    <div><strong>Contact</strong><p><a href="tel:+14075370535">(407) 537-0535</a></p><p><a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a></p></div>
+    <div><strong>Explore</strong><p><a href="index.html">Home</a></p><p><a href="seller-intake.html">Detailed seller form</a></p></div>
+  </div>
+  <p class="footer-disclaimer">Family First Equity Group is not a real estate broker, agent, lender, attorney, tax adviser, or financial adviser. All potential transactions require independent review and appropriate documentation.</p>
+</footer>
+</body>
+</html>
