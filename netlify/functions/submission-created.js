@@ -71,7 +71,8 @@ async function mirrorToV3(payload, data, formName) {
 
 // Route real contact submissions through the existing verified and idempotent
 // database RPC. Netlify Forms retains the original submission if delivery fails.
-async function deliverContactToCrm(payload, data, formName) {
+async function deliverContactToCrm(payload, data, formName, inquiryType = 'contact') {
+  if (!['contact', 'seller'].includes(inquiryType)) return { statusCode: 400, body: 'Unsupported inquiry.' };
   if (clean(data['bot-field'])) return { statusCode: 200, body: 'Ignored.' };
   const submissionId = clean(payload.id || payload.submission_id || data.submission_uuid);
   if (!/^[A-Za-z0-9_-]{8,160}$/.test(submissionId)) {
@@ -82,6 +83,9 @@ async function deliverContactToCrm(payload, data, formName) {
   const phone = first(data, ['phone']);
   if (!name || (!email && !phone)) {
     return { statusCode: 400, body: 'Contact details are required.' };
+  }
+  if (inquiryType === 'seller' && !first(data, ['property_address'])) {
+    return { statusCode: 400, body: 'Property address is required.' };
   }
   const consent = first(data, ['consent']).toLowerCase();
   if (!['on', 'true', 'yes', '1'].includes(consent)) {
@@ -100,14 +104,14 @@ async function deliverContactToCrm(payload, data, formName) {
     if (!key.startsWith('sb_secret_')) headers.Authorization = 'Bearer ' + key;
     const res = await fetch(url + '/rest/v1/rpc/ffeg_ingest_verified_website_inquiry', {
       method: 'POST', headers, signal: AbortSignal.timeout(15000),
-      body: JSON.stringify({ p_submission_id: submissionId, p_form_name: formName, p_type: 'contact', p_data: data })
+      body: JSON.stringify({ p_submission_id: submissionId, p_form_name: formName, p_type: inquiryType, p_data: data })
     });
     const confirmation = await res.json().catch(() => null);
-    if (!res.ok || confirmation?.ok !== true || confirmation.target_table !== 'phone_leads') {
+    if (!res.ok || confirmation?.ok !== true || confirmation.target_table !== (inquiryType === 'seller' ? 'seller_leads' : 'phone_leads')) {
       console.error('ffeg_contact_crm_delivery_failed', res.status);
       return { statusCode: 502, body: 'Submission saved by website; internal routing is pending.' };
     }
-    return { statusCode: 200, body: 'Contact inquiry recorded in business dashboard.' };
+    return { statusCode: 200, body: 'Inquiry recorded in business dashboard.' };
   } catch {
     console.error('ffeg_contact_crm_delivery_unavailable');
     return { statusCode: 502, body: 'Submission saved by website; internal routing is pending.' };
@@ -130,6 +134,9 @@ exports.handler = async function(event) {
 
     if (formName === 'family-first-contact') {
       return await deliverContactToCrm(payload, data, 'Family-First-Contact');
+    }
+    if (formName === 'family-first-quick-seller-request') {
+      return await deliverContactToCrm(payload, data, 'Family-First-Quick-Seller-Request', 'seller');
     }
 
     if (formName.includes('seller')) {
