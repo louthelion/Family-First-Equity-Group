@@ -68,6 +68,52 @@ async function mirrorToV3(payload, data, formName) {
   if (!response.ok) console.error('V3 website bridge delivery failed:', response.status);
 }
 
+
+// Route real contact submissions through the existing verified and idempotent
+// database RPC. Netlify Forms retains the original submission if delivery fails.
+async function deliverContactToCrm(payload, data, formName) {
+  if (clean(data['bot-field'])) return { statusCode: 200, body: 'Ignored.' };
+  const submissionId = clean(payload.id || payload.submission_id || data.submission_uuid);
+  if (!/^[A-Za-z0-9_-]{8,160}$/.test(submissionId)) {
+    return { statusCode: 400, body: 'A valid submission reference is required.' };
+  }
+  const name = first(data, ['name', 'full_name', 'contact_name']);
+  const email = first(data, ['email']);
+  const phone = first(data, ['phone']);
+  if (!name || (!email && !phone)) {
+    return { statusCode: 400, body: 'Contact details are required.' };
+  }
+  const consent = first(data, ['consent']).toLowerCase();
+  if (!['on', 'true', 'yes', '1'].includes(consent)) {
+    return { statusCode: 400, body: 'Consent is required.' };
+  }
+
+  const url = String(process.env.SUPABASE_URL || '').replace(/\/$/, '');
+  const key = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '');
+  if (url !== 'https://jgpvrblzyznyprtffirw.supabase.co' || key.length < 32) {
+    console.error('ffeg_contact_crm_configuration_unavailable');
+    return { statusCode: 503, body: 'Submission saved by website; internal routing is temporarily unavailable.' };
+  }
+
+  try {
+    const headers = { apikey: key, 'content-type': 'application/json' };
+    if (!key.startsWith('sb_secret_')) headers.Authorization = 'Bearer ' + key;
+    const res = await fetch(url + '/rest/v1/rpc/ffeg_ingest_verified_website_inquiry', {
+      method: 'POST', headers, signal: AbortSignal.timeout(15000),
+      body: JSON.stringify({ p_submission_id: submissionId, p_form_name: formName, p_type: 'contact', p_data: data })
+    });
+    const confirmation = await res.json().catch(() => null);
+    if (!res.ok || confirmation?.ok !== true || confirmation.target_table !== 'phone_leads') {
+      console.error('ffeg_contact_crm_delivery_failed', res.status);
+      return { statusCode: 502, body: 'Submission saved by website; internal routing is pending.' };
+    }
+    return { statusCode: 200, body: 'Contact inquiry recorded in business dashboard.' };
+  } catch {
+    console.error('ffeg_contact_crm_delivery_unavailable');
+    return { statusCode: 502, body: 'Submission saved by website; internal routing is pending.' };
+  }
+}
+
 exports.handler = async function(event) {
   try {
     const body = event.body ? JSON.parse(event.body) : {};
@@ -81,6 +127,10 @@ exports.handler = async function(event) {
 
     try { await mirrorToV3(payload, data, clean(payload.form_name || data['form-name'] || data.form_name)); }
     catch (error) { console.error('V3 website bridge delivery failed:', error); }
+
+    if (formName === 'family-first-contact') {
+      return await deliverContactToCrm(payload, data, 'Family-First-Contact');
+    }
 
     if (formName.includes('seller')) {
       await insert('seller_leads', {
