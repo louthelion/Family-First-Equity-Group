@@ -222,7 +222,7 @@ document.querySelectorAll('form[data-netlify="true"]').forEach(form=>form.addEve
     show(form,(result.message||'Thank you. Your information was submitted successfully.')+(result.duplicate_status&&result.duplicate_status!=='No duplicate signal'?' '+result.duplicate_status+'.':''),'success');
     if(button)button.textContent='Submitted successfully';
     form.dataset.dashboardSaved='yes';
-    setTimeout(()=>HTMLFormElement.prototype.submit.call(form),700);
+    const thanks=document.createElement('section');thanks.className='form-card';thanks.setAttribute('role','status');thanks.innerHTML='<h2>Thank you. We received your application.</h2><p>Our team will contact you as soon as possible by email.</p><p><strong>Notice:</strong> Information is for internal review only. No purchase, approval or offer is guaranteed.</p><p>Email: <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a></p>';form.replaceWith(thanks);thanks.scrollIntoView({behavior:'smooth'});
   }catch(error){
     // Always preserve the customer's valid inquiry in native Netlify Forms.
     // The direct dashboard endpoint may be unreachable; the signed server-side
@@ -231,7 +231,7 @@ document.querySelectorAll('form[data-netlify="true"]').forEach(form=>form.addEve
     show(form,'Submitting your request through our website form instead...','success');
     if(button){button.disabled=true;button.textContent='Submitting securely...'}
     try{
-      HTMLFormElement.prototype.submit.call(form);
+      const data=new FormData(form);data.set('form-name',form.getAttribute('name'));const backup=await fetch(location.pathname,{method:'POST',body:data});if(!backup.ok)throw new Error('Backup submission failed');const thanks=document.createElement('section');thanks.className='form-card';thanks.setAttribute('role','status');thanks.innerHTML='<h2>Thank you. We received your application.</h2><p>Our team will contact you as soon as possible by email.</p><p><strong>Notice:</strong> Submission is for internal review only. No offer is guaranteed.</p><p>Email: <a href="mailto:contact@familyfirstequitygroup.com">contact@familyfirstequitygroup.com</a></p>';form.replaceWith(thanks);thanks.scrollIntoView({behavior:'smooth'});
     }catch(nativeError){
       console.error('Native website form submission could not be initiated.');
       show(form,'Your request was not sent. Please try again or call our office.','error');
