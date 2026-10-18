@@ -1,0 +1,30 @@
+name: Family First intake regression tests
+
+on:
+  push:
+    branches:
+      - repair/intake-integrity-20261003
+    paths:
+      - 'netlify/functions/submission-created.js'
+      - 'tests/intake-routing.test.cjs'
+      - 'script.js'
+      - '*.html'
+      - '.github/workflows/intake-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  intake-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run intake regression suite
+        run: node --test tests/intake-routing.test.cjs
