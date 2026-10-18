@@ -36,7 +36,8 @@ exports.handler = async event => {
    method:'POST',headers,body:JSON.stringify({p_submission_id:id,p_form_name:formName,p_type:type,p_data:data}),signal:AbortSignal.timeout(15000)
   });
   const result=await response.json().catch(()=>({}));
-  if(!response.ok||result.ok!==true){console.error('FFEG_INTAKE_DELIVERY_FAILED',id,response.status);return {statusCode:502,body:'Database delivery failed; inquiry retained in Netlify Forms'};}
+  const expectedTarget = type === 'seller' ? 'seller_leads' : ['buyer','investor'].includes(type) ? 'buyer_leads' : type === 'trust' ? 'trust_cases' : 'phone_leads';
+  if(!response.ok||result.ok!==true||result.target_table!==expectedTarget||!result.record_id){console.error('FFEG_INTAKE_DELIVERY_FAILED',id,response.status);return {statusCode:502,body:'Database delivery failed verification; inquiry retained in Netlify Forms'};}
   console.info('FFEG_INTAKE_DELIVERED',id,result.target_table,result.duplicate_reused);
   return {statusCode:200,body:'Verified inquiry and matching lead saved'};
  } catch {console.error('FFEG_INTAKE_EVENT_FAILED');return {statusCode:500,body:'Intake delivery failed; review retained Netlify submission'};}
