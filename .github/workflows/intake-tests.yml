@@ -10,6 +10,15 @@ on:
       - 'script.js'
       - '*.html'
       - '.github/workflows/intake-tests.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'netlify/functions/submission-created.js'
+      - 'tests/intake-routing.test.cjs'
+      - 'script.js'
+      - '*.html'
+      - '.github/workflows/intake-tests.yml'
   workflow_dispatch:
 
 permissions:
