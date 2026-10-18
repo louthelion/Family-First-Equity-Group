@@ -11,7 +11,7 @@ test('missing server credentials fail closed without customer data in error',asy
 test('verified event uses modern key correctly and requires confirmed database result',async()=>{
  process.env.SUPABASE_URL='https://jgpvrblzyznyprtffirw.supabase.co';process.env.SUPABASE_SERVICE_ROLE_KEY='sb_secret_SYNTHETIC_ONLY';
  const original=global.fetch;let packet;
- global.fetch=async(url,opts)=>{packet=opts;assert.ok(url.endsWith('/rpc/ffeg_ingest_verified_website_inquiry'));return {ok:true,json:async()=>({ok:true,target_table:'phone_leads',duplicate_reused:false})}};
+ global.fetch=async(url,opts)=>{packet=opts;assert.ok(url.endsWith('/rpc/ffeg_ingest_verified_website_inquiry'));return {ok:true,json:async()=>({ok:true,target_table:'phone_leads',record_id:'synthetic-record-id',duplicate_reused:false})}};
  try{const r=await handler({body:JSON.stringify({payload:{id:'synthetic_test_2',form_name:'Family-First-Contact',data:{name:'TEST',email:'test@example.invalid'}}})});assert.equal(r.statusCode,200);assert.equal(packet.headers.Authorization,undefined);assert.equal(JSON.parse(packet.body).p_type,'contact');}finally{global.fetch=original;delete process.env.SUPABASE_SERVICE_ROLE_KEY;}
 });
 test('honeypot and unrelated company forms make no database request',async()=>{
@@ -34,7 +34,7 @@ test('every static inquiry form has supported identity, confirmation and stable 
 });
 test('old deployed form identities remain deliverable during the cutover',async()=>{
  process.env.SUPABASE_URL='https://jgpvrblzyznyprtffirw.supabase.co';process.env.SUPABASE_SERVICE_ROLE_KEY='sb_secret_SYNTHETIC_ONLY';
- const original=global.fetch;const types=[];global.fetch=async(url,opts)=>{types.push(JSON.parse(opts.body).p_type);return {ok:true,json:async()=>({ok:true})}};
+ const original=global.fetch;const types=[];global.fetch=async(url,opts)=>{types.push(JSON.parse(opts.body).p_type);return {ok:true,json:async()=>({ok:true,target_table:types.at(-1)==='seller'?'seller_leads':types.at(-1)==='trust'?'trust_cases':'phone_leads',record_id:'synthetic-record-id'})}};
  try{for(const name of ['short-term-rental-review','legacy-property-review'])assert.equal((await handler({body:JSON.stringify({payload:{id:'synthetic_legacy_1',form_name:name,data:{}}})})).statusCode,200);assert.deepEqual(types,['short_term_review','trust']);}finally{global.fetch=original;delete process.env.SUPABASE_SERVICE_ROLE_KEY;}
 });
 test('deployed forms retain native submission, campaign identity, repeat protection and back-navigation recovery',()=>{
@@ -46,4 +46,16 @@ test('deployed forms retain native submission, campaign identity, repeat protect
  valid=false;events.submit(event);assert.equal(prevented,1);assert.equal(form.dataset.leadSubmitting,undefined);
  valid=true;events.submit(event);assert.equal(prevented,1);events.submit(event);assert.equal(prevented,2);
  pageEvents.pageshow();events.submit(event);assert.equal(prevented,2);assert.equal(fields.submission_uuid.value,'stable-qa-uuid');
+});
+
+test('CRM receipt must name expected table and saved record',async()=>{
+ process.env.SUPABASE_URL='https://jgpvrblzyznyprtffirw.supabase.co';process.env.SUPABASE_SERVICE_ROLE_KEY='sb_secret_SYNTHETIC_ONLY';
+ const original=global.fetch;
+ try {
+  for(const receipt of [{ok:true,target_table:'phone_leads'}, {ok:true,target_table:'seller_leads',record_id:'synthetic-record-id'}, {ok:false,target_table:'phone_leads',record_id:'synthetic-record-id'}]) {
+   global.fetch=async()=>({ok:true,status:200,json:async()=>receipt});
+   const response=await handler({body:JSON.stringify({payload:{id:'synthetic_bad_receipt',form_name:'Family-First-Contact',data:{name:'TEST',email:'test@example.invalid'}}})});
+   assert.equal(response.statusCode,502);
+  }
+ } finally {global.fetch=original;delete process.env.SUPABASE_SERVICE_ROLE_KEY;}
 });
