@@ -25,6 +25,10 @@ exports.handler = async event => {
   const type=classify(formName,data); if(!type) return {statusCode:200,body:'Unavailable service: no management engagement created'};
   const id=clean(payload.id||payload.submission_id||data.submission_uuid);
   if (!/^[A-Za-z0-9_-]{8,160}$/.test(id)) return {statusCode:400,body:'Submission reference required'};
+  // Match the verified database RPC contract before attempting a remote write.
+  if (!data || typeof data !== 'object' || Array.isArray(data) || Buffer.byteLength(JSON.stringify(data)) > 250000) return {statusCode:422,body:'Invalid inquiry data; review retained Netlify submission'};
+  const customerName=clean(data.full_name||data.name||data.contact_name||[data.first_name,data.last_name].filter(Boolean).join(' '));
+  if (!customerName || (!clean(data.email) && !clean(data.phone))) return {statusCode:422,body:'Contact details required; review retained Netlify submission'};
   const url=process.env.SUPABASE_URL; const key=process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url||!/^https:\/\/jgpvrblzyznyprtffirw\.supabase\.co\/?$/.test(url)||!key) {
    console.error('FFEG_INTAKE_CONFIGURATION_REQUIRED',id);
