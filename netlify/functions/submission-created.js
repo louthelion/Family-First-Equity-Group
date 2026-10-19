@@ -20,7 +20,10 @@ exports.classify = classify;
 exports.handler = async event => {
  try {
   const parsed=JSON.parse(event.body||'{}'); const payload=parsed.payload||parsed;
-  const data=payload.data||{}; const formName=clean(payload.form_name||data['form-name']);
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return {statusCode:400,body:'Invalid submission event'};
+  const data=payload.data;
+  if (!data || typeof data !== 'object' || Array.isArray(data)) return {statusCode:422,body:'Invalid inquiry data; review retained Netlify submission'};
+  const formName=clean(payload.form_name||data['form-name']);
   if ((!/^Family-First-/.test(formName)&&!['short-term-rental-review','legacy-property-review'].includes(formName))||clean(data['bot-field'])) return {statusCode:200,body:'Ignored'};
   const type=classify(formName,data); if(!type) return {statusCode:200,body:'Unavailable service: no management engagement created'};
   const id=clean(payload.id||payload.submission_id||data.submission_uuid);
