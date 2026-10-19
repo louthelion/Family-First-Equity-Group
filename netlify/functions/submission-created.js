@@ -19,7 +19,9 @@ function classify(formName, data = {}) {
 exports.classify = classify;
 exports.handler = async event => {
  try {
-  const parsed=JSON.parse(event.body||'{}'); const payload=parsed.payload||parsed;
+  const parsed=JSON.parse(event.body||'{}');
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {statusCode:400,body:'Invalid submission event'};
+  const payload=Object.prototype.hasOwnProperty.call(parsed,'payload') ? parsed.payload : parsed;
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return {statusCode:400,body:'Invalid submission event'};
   const data=payload.data;
   if (!data || typeof data !== 'object' || Array.isArray(data)) return {statusCode:422,body:'Invalid inquiry data; review retained Netlify submission'};
