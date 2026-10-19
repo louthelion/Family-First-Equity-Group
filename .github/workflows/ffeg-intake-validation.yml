@@ -1,0 +1,28 @@
+name: FFEG intake validation (no deployment)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ffeg-intake-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repair-intake-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out pinned intake repair commit
+        uses: actions/checkout@v4
+        with:
+          ref: d85d1c05ea5d25c438b669c6aff9c180b511928b
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run 11 intake regressions
+        run: node --test tests/intake-routing.test.cjs
