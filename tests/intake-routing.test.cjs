@@ -35,7 +35,7 @@ test('every static inquiry form has supported identity, confirmation and stable 
 test('old deployed form identities remain deliverable during the cutover',async()=>{
  process.env.SUPABASE_URL='https://jgpvrblzyznyprtffirw.supabase.co';process.env.SUPABASE_SERVICE_ROLE_KEY='sb_secret_SYNTHETIC_ONLY';
  const original=global.fetch;const types=[];global.fetch=async(url,opts)=>{types.push(JSON.parse(opts.body).p_type);return {ok:true,json:async()=>({ok:true,target_table:types.at(-1)==='seller'?'seller_leads':types.at(-1)==='trust'?'trust_cases':'phone_leads',record_id:'synthetic-record-id'})}};
- try{for(const name of ['short-term-rental-review','legacy-property-review'])assert.equal((await handler({body:JSON.stringify({payload:{id:'synthetic_legacy_1',form_name:name,data:{}}})})).statusCode,200);assert.deepEqual(types,['short_term_review','trust']);}finally{global.fetch=original;delete process.env.SUPABASE_SERVICE_ROLE_KEY;}
+ try{for(const name of ['short-term-rental-review','legacy-property-review'])assert.equal((await handler({body:JSON.stringify({payload:{id:'synthetic_legacy_1',form_name:name,data:{name:'TEST',email:'test@example.invalid'}}})})).statusCode,200);assert.deepEqual(types,['short_term_review','trust']);}finally{global.fetch=original;delete process.env.SUPABASE_SERVICE_ROLE_KEY;}
 });
 test('deployed forms retain native submission, campaign identity, repeat protection and back-navigation recovery',()=>{
  const fs=require('node:fs'),vm=require('node:vm');const source=fs.readFileSync(require('node:path').join(__dirname,'../script.js'),'utf8').split('// Netlify Forms is the durable public intake authority.')[1];
