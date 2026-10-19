@@ -59,3 +59,22 @@ test('CRM receipt must name expected table and saved record',async()=>{
   }
  } finally {global.fetch=original;delete process.env.SUPABASE_SERVICE_ROLE_KEY;}
 });
+
+test('incomplete and oversized inquiries are rejected before any database request',async()=>{
+ const original=global.fetch;let calls=0;global.fetch=async()=>{calls++;throw Error('unexpected remote request')};
+ const base={id:'synthetic_validation_01',form_name:'Family-First-Contact'};
+ try {
+  for(const data of [
+   {email:'test@example.invalid'},
+   {name:'TEST'},
+   {name:'TEST',email:'',phone:''},
+   {name:'TEST',email:'test@example.invalid',notes:'x'.repeat(250001)},
+   ['not','an','object']
+  ]) {
+   const result=await handler({body:JSON.stringify({payload:{...base,data}})});
+   assert.equal(result.statusCode,422);
+   assert.ok(!result.body.includes('test@example.invalid'));
+  }
+  assert.equal(calls,0);
+ } finally {global.fetch=original;}
+});
