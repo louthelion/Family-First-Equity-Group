@@ -78,3 +78,18 @@ test('incomplete and oversized inquiries are rejected before any database reques
   assert.equal(calls,0);
  } finally {global.fetch=original;}
 });
+
+test('malformed events fail without attempting database delivery',async()=>{
+ const original=global.fetch;let calls=0;global.fetch=async()=>{calls++;throw Error('unexpected network request')};
+ try {
+  for (const malformed of ['null','[]','"text"']) {
+   const response=await handler({body:malformed});
+   assert.equal(response.statusCode,400);
+  }
+  for (const data of [null,[],false,'string']) {
+   const response=await handler({body:JSON.stringify({payload:{id:'synthetic_malformed_1',form_name:'Family-First-Contact',data}})});
+   assert.equal(response.statusCode,422);
+  }
+  assert.equal(calls,0);
+ } finally {global.fetch=original;}
+});
