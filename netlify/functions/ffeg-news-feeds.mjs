@@ -23,7 +23,9 @@ function decodeEntities(value) {
  });
 }
 function cleanText(value) {
- return decodeEntities(value).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+ // Some feeds double-encode &nbsp; as &amp;nbsp; — decode leaves a literal
+ // "&nbsp;" behind, so strip that residue explicitly after decoding.
+ return decodeEntities(value).replace(/&nbsp;/gi,' ').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 }
 function makeTeaser(value) {
  const text=cleanText(value||'');
