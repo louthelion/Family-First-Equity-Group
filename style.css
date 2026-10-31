@@ -146,3 +146,24 @@
 .archive-month-link[aria-current=true]{color:var(--red);text-decoration:underline}
 .keep-learning .button-row{margin-top:0}
 @media(max-width:900px){.news-front{grid-template-columns:1fr}}
+
+/* Learn page (Step 2): audience paths, all-lessons archive, books shelf */
+.learn-path-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.path-card h3{font-family:Georgia,serif;font-weight:500;font-size:30px;margin:6px 0 4px}
+.path-audience{margin:0;color:var(--gold2);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.path-steps{margin:16px 0;padding-left:20px}
+.path-steps li{margin:11px 0}
+.path-steps a{color:#f8f3e6;font-weight:700}
+.path-steps a:hover{color:var(--gold2)}
+.path-kind{display:block;color:var(--gold2);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
+.path-start{margin:18px 0 0;font-size:13px;font-style:italic;opacity:.85}
+.lesson-card .lesson-related{margin:0 0 18px;font-size:13px}
+.lesson-related a{font-weight:700}
+.archive-view-toggle{margin-bottom:26px}
+.lesson-added{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.books-shelf-title{font-family:Georgia,serif;font-weight:500;font-size:28px;margin:34px 0 6px}
+.book-cover{background:var(--charcoal);color:#f8f3e6;border-top:4px solid var(--gold);padding:26px;margin-bottom:16px}
+.book-cover-title{display:block;font-family:Georgia,serif;font-size:24px}
+.book-cover-author{display:block;margin-top:6px;color:var(--gold2);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.book-links a{font-weight:700}
+@media(max-width:700px){.learn-path-grid{grid-template-columns:1fr}}
