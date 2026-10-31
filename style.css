@@ -167,3 +167,22 @@
 .book-cover-author{display:block;margin-top:6px;color:var(--gold2);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
 .book-links a{font-weight:700}
 @media(max-width:700px){.learn-path-grid{grid-template-columns:1fr}}
+
+/* Archives + Search (Step 3): archive time-filter bar and site search */
+.archive-filter{margin:0 0 30px}
+.archive-filter-buttons{margin-top:14px}
+.archive-filter-status{margin:12px 0 0;font-size:13px}
+.site-search-section{padding-top:0;padding-bottom:0}
+.site-search{margin:25px 0}
+.site-search-form{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.site-search-form input{flex:1 1 260px;min-height:48px;padding:12px 14px;border:1px solid var(--gold);background:#fffdf4;color:var(--ink);font:400 15px Arial,Helvetica,sans-serif}
+.site-search-limit{margin:12px 0 0;font-size:13px}
+.search-status{margin:18px 0 0;font-size:14px}
+.search-results{margin-top:8px}
+.search-result{padding:16px 0;border-top:1px solid var(--line)}
+.search-result-meta{display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:12px}
+.search-result-meta time{font-weight:700}
+.search-book-section{font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.search-result-title{font-family:Georgia,serif;font-weight:500;font-size:22px;margin:0 0 6px}
+.search-result-summary{margin:0;font-size:14px}
+.search-result-note{margin:6px 0 0;font-size:12px;font-style:italic}
