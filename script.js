@@ -108,7 +108,7 @@ normalizeFamilyFirstPublicPhone();
 addFieldInterestNavigation();
 addHomeFieldInterestCard();
 
-const FFEG_UNIFIED_INTAKE_ENDPOINT='https://idyllic-brioche-a7ac83.netlify.app/.netlify/functions/ffeg-unified-lead-intake';
+const FFEG_UNIFIED_INTAKE_ENDPOINT='/.netlify/functions/ffeg-unified-lead-intake';
 const FFEG_APPROVED_WEBSITE_SOURCES=new Set(['family_first_website','titancore_referral','referral','facebook','instagram','linkedin','google','email_campaign']);
 const params=new URLSearchParams(location.search);
 const requestedSource=(params.get('source')||'').trim().toLowerCase();
