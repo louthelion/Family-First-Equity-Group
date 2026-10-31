@@ -158,9 +158,29 @@ function reason(form,type){
   if(type==='vendor')return field(form,'purpose')||field(form,'message')||'Field/service-provider interest submission';
   return field(form,'message')||field(form,'reason_for_call')||field(form,'purpose')||'Family First website inquiry';
 }
+const FFEG_DEAL_TYPES=new Set(['residential_asis','cash_purchase','flip_candidate','beautiful_home','commercial','tax_delinquent','mortgage_note','business_acquisition','short_term_rental','partner']);
+function dealInfo(form){
+  const name=(form.getAttribute('name')||'').toLowerCase();
+  const path=location.pathname.toLowerCase();
+  const review=(field(form,'review_path')||'').toLowerCase();
+  const property=(field(form,'property_type')||'').toLowerCase();
+  const signals=[field(form,'cash_buyer'),field(form,'purchase_plan'),field(form,'vaultara_referral'),field(form,'purpose')].filter(Boolean).join(' ').toLowerCase();
+  const text=[name,path,review,property,signals].join(' ');
+  const out={};
+  const explicit=(field(form,'deal_type')||'').trim().toLowerCase();
+  if(FFEG_DEAL_TYPES.has(explicit))out.deal_type=explicit;
+  else if(FFEG_DEAL_TYPES.has(review.trim()))out.deal_type=review.trim();
+  else if(/field representative|field inspector|property inspector|field-representative|field assignment/.test(text))out.deal_type='partner';
+  else if(/note/.test(name+' '+path))out.deal_type='mortgage_note';
+  else if(/business/.test(name+' '+path))out.deal_type='business_acquisition';
+  if(/field representative|field inspector|property inspector|field-representative|field assignment/.test(text))out.partner_role='field_runner';
+  else if(/family-first-deal-submission/.test(name))out.partner_role='deal_bringer';
+  return out;
+}
 function packet(form){
   const type=detect(form);
-  return{
+  const deal=dealInfo(form);
+  const p={
     intake_type:'website_form',
     source:intakeSource,
     original_source:originalSource,
@@ -179,6 +199,9 @@ function packet(form){
     notes:summary(form),
     'bot-field':field(form,'bot-field')
   };
+  if(deal.deal_type)p.deal_type=deal.deal_type;
+  if(deal.partner_role)p.partner_role=deal.partner_role;
+  return p;
 }
 function statusElement(form){
   let status=form.querySelector('[data-lead-submit-status]');
