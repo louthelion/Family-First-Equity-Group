@@ -1,0 +1,14 @@
+# Duplicate legacy Learn lessons -> canonical lessons (SEO plan §5a-3).
+# The variant files still exist in the repo, so the "!" force flag is
+# required: without it Netlify serves the existing static file and the
+# redirect never fires.
+/learn-cash-sale.html /learn-cash-sale-as-is-sale.html 301!
+/learn-title-taxes-liens.html /learn-title-taxes-liens-ownership.html 301!
+/learn-property-photos-documents.html /learn-property-photos-videos-documents.html 301!
+/learn-commercial-real-estate.html /learn-commercial-property-review.html 301!
+/learn-fix-and-flip.html /learn-fix-and-flip-basics.html 301!
+# Variants with no canonical lesson counterpart -> the Learning Center.
+/learn-insurance-coordination.html /learning-center.html 301!
+/learn-property-management.html /learning-center.html 301!
+/learn-structure-coordination.html /learning-center.html 301!
+/learn-structure-trust-insurance.html /learning-center.html 301!
