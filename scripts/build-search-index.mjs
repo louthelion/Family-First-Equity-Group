@@ -49,13 +49,14 @@ function metaDescription(file) {
 }
 
 // --- Blog posts, from blog-archive.html -------------------------------------
-// Archive card shape: <article class="education-card blog-card"> containing
+// Archive card shape: <article class="education-card blog-card" ...> containing
+// (cards also carry a data-date attribute; the matcher tolerates attributes.)
 // <p class="content-type">category</p>, <time datetime>, <h3>title</h3>,
 // a summary <p>, and a read link.
 function parseBlogArchive() {
   const html = read('blog-archive.html');
   const entries = [];
-  const cardRe = /<article class="education-card blog-card">([\s\S]*?)<\/article>/g;
+  const cardRe = /<article class="education-card blog-card"[^>]*>([\s\S]*?)<\/article>/g;
   let m;
   while ((m = cardRe.exec(html)) !== null) {
     const card = m[1];
@@ -73,14 +74,15 @@ function parseBlogArchive() {
 }
 
 // --- Articles, from article-archive.html ------------------------------------
-// Archive entry shape: <a class="archive-entry" href="..."> containing
+// Archive entry shape: <a class="archive-entry" ... href="..."> containing
+// (rows also carry a data-date attribute before href; the matcher tolerates it.)
 // <small>category</small>, <strong>title</strong>, and <time datetime>.
 // Article archive rows carry no summary, so the summary falls back to the
 // article page's own meta description (the page is its own source of truth).
 function parseArticleArchive() {
   const html = read('article-archive.html');
   const entries = [];
-  const rowRe = /<a class="archive-entry" href="([^"]+\.html)">([\s\S]*?)<\/a>/g;
+  const rowRe = /<a class="archive-entry"[^>]*?href="([^"]+\.html)"[^>]*>([\s\S]*?)<\/a>/g;
   let m;
   while ((m = rowRe.exec(html)) !== null) {
     const url = m[1];
