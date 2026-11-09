@@ -186,3 +186,22 @@
 .search-result-title{font-family:Georgia,serif;font-weight:500;font-size:22px;margin:0 0 6px}
 .search-result-summary{margin:0;font-size:14px}
 .search-result-note{margin:6px 0 0;font-size:12px;font-style:italic}
+
+/* Readability fix (2026-11-09, owner-reported): light-on-light and dark-on-dark text.
+   (1) The article/blog summary box sits on deep green and was designed for ivory
+   text, but the generic longform/blog paragraph color (#050505) overrode it,
+   leaving black text on green (2.46:1). Force ivory inside the box (7.47:1).
+   The same gold-on-green small-label pairing (3.93:1) in the summary box, the
+   lesson overview box and the learning disclaimer becomes ivory too.
+   (2) The archive time-filter bar (blog/article archives) and the Learn "All
+   lessons" view toggle sit on the ivory page; their unselected .outline buttons
+   (ivory text, near-white border, designed for dark hero bands) were invisible
+   (1.00:1). On these light-page bars only: ivory background, black text, black
+   border (18.40:1); hover turns gold with black text (9.69:1). The selected
+   .gold state and the global .outline style (correct on dark bands) are unchanged. */
+.article-summary p,.article-summary li,.longform .article-summary p,.longform .article-summary li,.blog-content .article-summary p,.blog-content .article-summary li{color:#f8f3e6}
+.article-summary strong{color:#f8f3e6}
+.lesson-overview span{color:#f8f3e6}
+.learning-disclaimer strong{color:#f8f3e6}
+.archive-filter .button.outline,.archive-view-toggle .button.outline{background:var(--cream);color:var(--black);border-color:var(--black)}
+.archive-filter .button.outline:hover,.archive-view-toggle .button.outline:hover{background:var(--gold);color:var(--black);border-color:var(--black)}
