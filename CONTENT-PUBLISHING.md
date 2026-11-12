@@ -70,10 +70,69 @@ signature, and only then publish — **nothing publishes unsigned.**
       squash-merge → verify the piece, its archive entry, and its search
       result live on https://familyfirstequitygroup.com.
 
-**News is the standing exception:** news items are other publishers'
-headlines, linked with source and date from the CEO-approved feed set.
-They are not individually signed, and they are archived automatically by
-the news-archive capture function — no checklist step applies to them.
+**News is the standing exception — the sharpened standard (owner,
+2026-11-11):** news items are FULL BRIEFINGS read on the News page
+itself, from the CEO-approved source set. Every item ships with all
+of the following, or it does not ship:
+
+- **A full briefing, never a stub** — headline, date, and scope tag
+  (LOCAL / UNITED STATES / WORLDWIDE), plus a body of **at least
+  three paragraphs (at least ~120 words)** written in our own words:
+  what happened, the key numbers, and what it means in plain words
+  for a Central Florida homeowner or investor. No truncated summary,
+  no ellipsis leading off the page. Facts stay strictly to what the
+  credited source reported; no number is ever invented.
+- **One real picture per item** — a free-license library photo
+  (Unsplash CDN), set inside the article card, with descriptive alt
+  text (checklist item 7 applies) and a plain-text photo credit line
+  under the picture. Never a source article's own photograph and
+  never a hotlinked news photo.
+- **Referral by name only, never a link** — the source is credited as
+  a plain-text line with its date (`Source: …` style). A news item
+  carries **no URL, no anchor, and no outbound door of any kind**;
+  a reader who wants to go further is told, by name, which way to
+  go — and everything we publish stays readable on this site.
+- **The stock-market morning line** keeps the latest verified index
+  closes only; a new close is never fabricated to fill the line.
+
+They are not individually signed. The archive renders the same
+items, in the same full on-page form (picture and full body
+included), from `news-data.js`. **Morning-cadence refresh rule:**
+every refresh pass edits `news-data.js` and mirrors the same items
+as static articles in `news.html`, in the same pull request, and
+every refreshed or new item must meet this same standard — full
+briefing, picture, name-only credit — so the standard survives the
+refresh, not just the launch. No other checklist step applies.
+
+## Books — the bookshop (news.html referral shelf)
+
+The bookshop sits on `news.html` below the news feed, structurally and
+visually separate from it, labelled as a separate shelf, not news.
+News items still carry no links; the bookshop's buy doors are the only
+doors on that page that will ever leave the site, and only for a book.
+
+- **Book-card structure** — every book card carries the same slots: a
+  **cover slot**, a **title slot**, an **on-page summary slot** (a full
+  summary in our own words, read on the page), and a **price slot**,
+  plus **two buy doors** for Books by Luders: **"Buy here"** (sold on
+  Luders' own page) and **"Buy on Amazon"** (his Amazon KDP listing,
+  where he is the seller). Recommended books carry one buy referral
+  door each. Until a real link exists, every door stays a placeholder
+  (`#buy-books-by-luders`, `#buy-amazon-books-by-luders`,
+  `#buy-<slug>` for recommendations), clearly marked in an HTML
+  comment as awaiting the owner's sitting.
+- **No-invention rule** — no book title, cover, or price is published
+  until the owner supplies it. No book by Luders exists yet: the
+  My Books area ships as structure only, marked as his publishing
+  home with the first books in preparation, both doors inactive and
+  honestly labelled, and no price shown. Never fabricate a catalog,
+  a cover, or a price to fill the shelf.
+- **Recommended books** — a recommended book must be a **real title
+  by a real, named author**, listed with a summary written **in our
+  own words** (never publisher copy) and a free-value note saying
+  what a reader learns for free from the summary alone. The real
+  store link for a recommendation drops in only at the owner's
+  sitting — never invent a store URL or an affiliate code.
 
 ## Post / article HTML template pattern
 
