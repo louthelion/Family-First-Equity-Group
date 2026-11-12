@@ -28,7 +28,7 @@
  var line = window.FFEG_MORNING_LINE;
  status.textContent = items.length + ' ' + (items.length === 1 ? 'story' : 'stories') +
   ' (local, U.S. & worldwide), each a full briefing in full on this page' +
-  (line && line.dateLabel ? ', plus the stock-market morning line for ' + line.dateLabel : '') +
+  (line && line.dateLabel ? ', plus the real-estate morning line for ' + line.dateLabel : '') +
   '. Sources are credited under every story \u2014 reading never leaves this site.';
 
  // Pictures: one per item, from the data file, inside the article
