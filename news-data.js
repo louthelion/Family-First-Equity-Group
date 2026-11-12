@@ -20,7 +20,7 @@
 //
 // Items are scope-tagged (LOCAL / UNITED STATES / WORLDWIDE) and
 // dated, newest first. MORNING-CADENCE REFRESH: this file is the feed.
-// Each morning pass replaces FFEG_MORNING_LINE with the latest close
+// Each morning pass replaces FFEG_MORNING_LINE with the latest real-estate reading
 // and refreshes the dated items (add new, retire stale), then mirrors
 // the same items as static articles in news.html — data file and page
 // ship together in one pull request, and every refreshed item must
@@ -30,12 +30,19 @@
 //
 // Keep facts to what the credited source reported; never copy article
 // text and never invent a number.
+// SCOPE (owner, 2026-11-12): Family First Equity Group news is the
+// REAL ESTATE MARKET ONLY — housing, prices, inventory, mortgage
+// rates, and the real-estate economy. Mortgage rates ARE real-estate
+// news. The morning line below is a REAL-ESTATE morning line: the
+// latest mortgage-rate reading plus the day’s housing numbers,
+// credited by name in plain text. Nothing outside that scope
+// belongs in this file.
 window.FFEG_MORNING_LINE = {
  dateISO: "2026-11-11",
  dateLabel: "Wednesday, November 11, 2026",
- text: "S&P 500 +1.31% to 7,619.38 \u00b7 Nasdaq Composite +1.60% to 25,466.19 \u00b7 Dow +0.49% to 52,486.49. AI and chip stocks led the day \u2014 CoreWeave up about 25% after earnings \u2014 and the bond market was closed for Veterans Day.",
- note: "In plain words: all three big U.S. indexes finished higher, technology and chip names did the heavy lifting, and with the bond market closed for the holiday there was no new bond-market reading to pull mortgage-rate expectations around that day. We keep this line short on purpose \u2014 it is the morning glance before the full stories below.",
- credit: "Index closes as reported by CNBC \u2014 November 11, 2026"
+ text: "Average 30-year fixed mortgage rate 7.18% (latest November 2026 reading) · Greater Orlando typical home value $383,302, 1.4% lower year over year · 16,482 homes for sale · about 41 days to go under contract · 4.8 months of supply, near a balanced market · median sold price $397,000 · sellers closing at about 96% of asking.",
+ note: "In plain words: at 7.18%, interest takes a large share of every monthly payment, so judge any price by the payment math at today’s rate — the same income supports a smaller loan than it did when rates were lower. For a homeowner thinking of selling: 4.8 months of supply is near balance, so neither side owns this market — a fairly priced home still moves, at about 41 days to contract, while a hopeful price competes against 16,482 other homes for sale, and sellers are closing at about 96% of asking. For a buyer or an investor: near-balance means room to negotiate and time to do the homework — a purchase has to work at today’s 7.18% rate on the day it closes, not at a lower rate someone hopes arrives later. We keep this line short on purpose — it is the morning glance before the full stories below.",
+ credit: "Mortgage rate: Freddie Mac via FRED — November 2026; typical home value, homes for sale and days to contract: Zillow — November 2026; months of supply, median sold price and share of asking: Stellar MLS — November 2026"
 };
 window.FFEG_NEWS_ITEMS = [
  {

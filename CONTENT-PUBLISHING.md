@@ -92,8 +92,19 @@ of the following, or it does not ship:
   carries **no URL, no anchor, and no outbound door of any kind**;
   a reader who wants to go further is told, by name, which way to
   go — and everything we publish stays readable on this site.
-- **The stock-market morning line** keeps the latest verified index
-  closes only; a new close is never fabricated to fill the line.
+- **Scope — real-estate market only (owner, 2026-11-12):** Family
+  First Equity Group news covers the real-estate market only —
+  housing, prices, inventory, mortgage rates, and the real-estate
+  economy. Mortgage rates ARE real-estate news. Nothing outside
+  that scope ships as Family First Equity Group news.
+- **The morning line is a REAL-ESTATE morning line** — the latest
+  verified mortgage-rate reading plus the day’s housing numbers
+  (typical home value, homes for sale, days to contract, months
+  of supply, median sold price, share of asking), each credited
+  by name in plain text. There is NO general stock-market line:
+  no index closes and no share-price moves, and a figure is never
+  fabricated — or carried over as if it were fresh — to fill
+  the line.
 
 They are not individually signed. The archive renders the same
 items, in the same full on-page form (picture and full body
